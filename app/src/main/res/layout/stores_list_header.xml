@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) Rockspin 2014.
+  ~
+  ~ All Rights Reserved
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    android:paddingBottom="14dp"
+    >
+
+  <android.support.v7.widget.SwitchCompat
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:id="@+id/useAllStoresSwitch"
+      android:gravity="center"
+      android:layout_gravity="center"
+      android:text="@string/use_all_stores"
+      android:textStyle="bold"
+      android:textColor="@color/primary_color_dark"
+      android:checked="true"
+      android:textAppearance="@android:style/TextAppearance.Holo.Large"
+      />
+
+</LinearLayout>

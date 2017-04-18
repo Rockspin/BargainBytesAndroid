@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) Rockspin 2015.
+  ~
+  ~ All Rights Reserved
+  -->
+
+<paths>
+  <files-path
+      name="shared_images"
+      path="imageSaveDir/"
+      />
+</paths>

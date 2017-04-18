@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) Rockspin 2014.
+  ~
+  ~ All Rights Reserved
+  -->
+
+<resources>
+  <color name="primary_color">#03A9F4</color>
+  <color name="primary_color_dark">#0288D1</color>
+  <color name="primary_color_light">#B3E5FC</color>
+  <color name="primary_color_light_alpha">#CBECFB</color>
+  <color name="accent_color">#651FFF</color>
+  <color name="destructive_color">#EF5350</color>
+  <color name="primary_text_color">#212121</color>
+  <color name="secondary_text_color">#727272</color>
+  <color name="text_icon_color">#FFFFFF</color>
+  <color name="divider_color">#B6B6B6</color>
+  <color name="price_box_color">#D1D2D4</color>
+  <color name="search_hint_color">#DDDDDD</color>
+  <color name="share_background_color">#EEEEEE</color>
+  <color name="store_list_background_color">#FFFFFF</color>
+  <color name="action_bar_menu_color">#000000</color>
+  <color name="action_bar_dropdown_menu_color">#FFFFFF</color>
+  <color name="banner_container_background">#D1D2D4</color>
+</resources>

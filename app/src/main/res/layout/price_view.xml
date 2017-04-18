@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) Rockspin 2014.
+  ~
+  ~ All Rights Reserved
+  -->
+
+<LinearLayout
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/price_box_width"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingTop="4dp"
+    android:paddingLeft="4dp"
+    android:paddingRight="4dp"
+    android:background="@color/price_box_color"
+    tools:showIn="@layout/deal_view"
+    >
+
+  <TextView
+      android:id="@+id/retailPrice"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="8dp"
+      android:gravity="center"
+      android:layout_gravity="center"
+      android:textColor="@color/primary_text_color"
+      android:text="$ 1.99"
+      android:textSize="15sp"
+      tools:ignore="HardcodedText"
+      />
+
+  <TextView
+      android:id="@+id/salePrice"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="8dp"
+      android:gravity="center"
+      android:layout_gravity="center"
+      android:textColor="@color/primary_text_color"
+      android:text="$ 0.19"
+      android:textSize="15sp"
+      android:textStyle="bold"
+      tools:ignore="HardcodedText"
+      />
+
+</LinearLayout>

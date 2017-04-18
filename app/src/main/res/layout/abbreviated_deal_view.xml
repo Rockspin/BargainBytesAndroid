@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) Rockspin 2014.
+  ~
+  ~ All Rights Reserved
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="@dimen/min_list_item_height"
+    android:padding="@dimen/list_item_padding"
+    android:orientation="horizontal"
+    android:weightSum="1.0"
+    >
+
+  <ImageView
+      android:id="@+id/storeImage"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight="0.15"
+      android:layout_gravity="center_vertical"
+      android:layout_marginStart="8dp"
+      android:layout_marginLeft="8dp"
+      android:layout_marginEnd="16dp"
+      android:layout_marginRight="16dp"
+      android:src="@drawable/ic_store_steam"
+      />
+
+  <RelativeLayout
+      android:layout_gravity="center_vertical"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight="0.85"
+      >
+
+    <TextView
+        android:id="@+id/storeName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_toLeftOf="@+id/savingPercentage"
+        android:layout_toStartOf="@+id/savingPercentage"
+        android:layout_centerVertical="true"
+        android:scrollHorizontally="true"
+        android:singleLine="true"
+        android:ellipsize="marquee"
+        android:gravity="start"
+        android:text="Direct2Drive"
+        android:textColor="@color/primary_text_color"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        />
+
+    <TextView
+        android:id="@+id/savingPercentage"
+        android:background="@drawable/ic_deal_sticker"
+        android:text="100% \n Savings"
+        android:textColor="@color/store_list_background_color"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:layout_toLeftOf="@+id/priceHolder"
+        android:layout_toStartOf="@+id/priceHolder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+
+    <com.rockspin.bargainbits.ui.views.PriceView
+        android:id="@+id/priceHolder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        />
+
+  </RelativeLayout>
+</LinearLayout>

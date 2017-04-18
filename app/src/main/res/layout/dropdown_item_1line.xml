@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) Rockspin 2015.
+  ~
+  ~ All Rights Reserved
+  -->
+
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@android:id/text1"
+    style="?android:attr/dropDownItemStyle"
+    android:textAppearance="?android:attr/textAppearanceLargePopupMenu"
+    android:singleLine="true"
+    android:layout_width="match_parent"
+    android:background="@color/action_bar_dropdown_menu_color"
+    android:layout_height="?android:attr/listPreferredItemHeight"
+    android:ellipsize="marquee"
+    />

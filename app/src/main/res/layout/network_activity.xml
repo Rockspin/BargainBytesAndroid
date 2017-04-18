@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+  <TextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:textAppearance="?android:attr/textAppearanceMedium"
+      android:text="@string/no_internet_connection"
+      android:id="@+id/noInternetTV"
+      android:gravity="center_horizontal"
+      android:background="#53575f"
+      android:textColor="@android:color/white"
+      android:visibility="visible"
+      android:padding="5dp"
+      android:textSize="17sp"
+      />
+
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_below="@+id/noInternetTV"
+      android:id="@+id/mainContainer"
+      >
+
+  </RelativeLayout>
+
+</RelativeLayout>

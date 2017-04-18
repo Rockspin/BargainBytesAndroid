@@ -1,0 +1,61 @@
+<!--
+  ~ Copyright (c) Rockspin 2014.
+  ~
+  ~ All Rights Reserved
+  -->
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+  <item
+      android:id="@+id/action_search_games"
+      android:icon="@drawable/ic_search_white_24dp"
+      app:showAsAction="collapseActionView|ifRoom"
+      app:actionViewClass="android.support.v7.widget.SearchView"
+      android:title="@string/action_search_games"
+      />
+
+  <item
+      android:id="@+id/action_watch_list"
+      android:icon="@drawable/ic_watch_list_24dp"
+      app:showAsAction="collapseActionView|ifRoom"
+      android:title="@string/watch_list"
+      />
+
+  <item
+      android:id="@+id/action_store_filter"
+      android:orderInCategory="0001"
+      app:showAsAction="never"
+      android:title="@string/store_filter"
+      />
+
+  <item
+      android:id="@+id/action_displayed_currency"
+      android:orderInCategory="0010"
+      app:showAsAction="never"
+      android:title="@string/currency"
+      />
+
+  <item
+      android:id="@+id/rate"
+      android:orderInCategory="0100"
+      app:showAsAction="never"
+      android:title="@string/rate_bargain_bytes"
+      />
+
+  <item
+      android:id="@+id/share"
+      android:orderInCategory="1000"
+      app:showAsAction="never"
+      android:title="@string/share_bargain_bytes"
+      />
+
+  <item
+      android:id="@+id/feedback"
+      android:orderInCategory="1001"
+      app:showAsAction="never"
+      android:title="@string/feedback"
+      />
+
+</menu>

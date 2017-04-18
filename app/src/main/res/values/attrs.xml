@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) Rockspin 2014.
+  ~
+  ~ All Rights Reserved
+  -->
+
+<resources>
+
+  <declare-styleable name="PriceView">
+    <attr name="singlePrice"
+        format="boolean"/>
+  </declare-styleable>
+
+</resources>

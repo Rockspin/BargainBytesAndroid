@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.rockspin.bargainbits"
+    >
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+
+    <application
+        android:name=".BargainBytesApp"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/Theme.BargainBytes"
+        android:fullBackupContent="@xml/backup_config"
+        >
+        <meta-data
+            android:name="com.rockspin.bargainbits.GlobalGlideModule"
+            android:value="GlideModule"
+            />
+        <meta-data
+            android:name="android.app.default_searchable"
+            android:value=".ui.activities.search.GamesSearchActivity"
+            />
+        <meta-data
+            android:name="com.crashlytics.ApiKey"
+            android:value="aedad908e444ea91c914dfdcd02c28807827030b"
+            />
+
+        <activity
+            android:name=".ui.activities.main.MainActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".ui.activities.WatchListActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/watch_list"
+            >
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.activities.main.MainActivity"
+                />
+        </activity>
+
+        <activity
+            android:name=".ui.activities.search.GamesSearchActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_games_search"
+            android:launchMode="singleTop"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH"/>
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable"
+                />
+        </activity>
+
+        <!-- This provider is necessary so we can shareDeal data stored internally -->
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.rockspin.bargainbits.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true"
+            >
+
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths"
+                />
+        </provider>
+
+    </application>
+
+</manifest>

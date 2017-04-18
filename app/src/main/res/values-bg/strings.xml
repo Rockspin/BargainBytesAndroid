@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <string name="app_name">Bargain Bytes</string>
+
+  <!-- Activity Titles -->
+  <string name="title_activity_games_search">Search Games</string>
+  <string name="title_activity_all_deals">Всички Промоции</string>
+
+  <string-array name="deal_list_type">
+    <item>Рейтинг</item>
+    <item>Дата</item>
+    <item>Отстъпка</item>
+    <item>Цена</item>
+  </string-array>
+
+  <string name="action_settings">Настройки</string>
+  <string name="action_refresh_deals">Презареди Промоции</string>
+  <string name="action_search_games">Търси Игри</string>
+  <string name="search_results">резултати от търсене</string>
+  <string name="cheapest_price">Най-Ниска Цена</string>
+  <string name="no_results_found">Няма намерени резултати</string>
+  <string name="go_back">Назад</string>
+  <string name="deal_rating">Рейтинг Промоция</string>
+  <string name="last_updated">Последно актуализирана</string>
+  <string name="use_all_stores">Всички Магазини</string>
+  <string name="new_deals">Нови Промоции</string>
+  <string name="releases">Излиза на</string>
+  <string name="released">Излязла на</string>
+  <string name="store_filter">Филтър на Магазините</string>
+  <string name="choose_store_dialog_title">Изберете Магазин</string>
+
+  <string name="currency">Валута</string>
+  <string name="choose_currency_dialog_title">Изберете Валута</string>
+  <string name="currency_disclaimer">Моля имайте предвид, че за валути различни от USD $, цените се смятат спрямо сегашния курс.</string>
+  <string name="loading_deal">Зареждане на Промоция</string>
+  <string name="game_at_store">&lt;b>%1$s&lt;/b> от %2$s</string>
+  <string name="saving_short">Намал.</string>
+  <string name="no_internet_connection">Няма Интернет Връзка</string>
+  <string name="feedback">Обратна Връзка</string>
+  <string name="ok">OK</string>
+  <string name="rate_bargain_bytes">Оценете Bargain Bytes</string>
+
+  <string name="error">Грешка</string>
+  <string name="error_no_connection">Не може да се зареди информация. Моля проверете вашата интернет връзка и опитайте пак.</string>
+  <string name="error_no_results">Няма намерени резултати, моля пробвайте пак по-късно.</string>
+  <string name="error_no_deals">Няма заредени промоции \n \n Кликнете за да пробвате пак</string>
+  <string name="error_no_stores">Не може да се заредят гейм магазините. Имате ли интернет връзка? Bargain Bytes се нуждае от интернет връзка за да функционира правилно.</string>
+  <string name="error_no_currency_exchange">Няма налични данни за валута. Моля опитайте пак по-късно.</string>
+  <string name="share_bargain_bytes">Споделете Bargain Bytes</string>
+  <string name="share_app_subject">Разгледайте това страхотно приложение за гейм промоции!</string>
+  <string name="share_app_text">Bargain Bytes ме държи в течение с най-добрите гейм промоции! %1$s</string>
+  <string name="error_cannot_load_deal_url">В момента тази промоция не може да бъде заредена.</string>
+  <string name="add">Добави</string>
+  <string name="add_to_watch_list">Добави за Следене</string>
+  <string name="any_sale">Всяка Промоция</string>
+  <string name="cancel">Отмяна</string>
+  <string name="custom_price">Точна Цена</string>
+  <string name="edit">Промени</string>
+  <string name="edit_watch_list">Промени Следене</string>
+  <string name="empty_watchlist">Вашия списък за следене е празен. Добавете към него докато преглеждате промоции или търсите игри.</string>
+  <string name="max_watchlist_item_warning">Може да имате максимум %1$d артикули в списъка за следене.</string>
+  <string name="remove">Премахни</string>
+  <string name="set_price_to_track_game_at">Ще бъдете уведомени, когато цената на този артикул падне под: %1$s</string>
+  <string name="track_game_at_any_price">Ще бъдете уведомени когато този артикул има активна промоция.</string>
+  <string name="watch_list">Списък за Следене</string>
+  <string name="watch_list_notification_item_entry">%1$s за %2$s</string>
+  <string name="watch_list_notification_more_items_available">и още %1$d </string>
+  <string name="watch_list_notification_multiple_items_description">%1$d артикула в списъка за следене са на промоция!</string>
+  <string name="watch_list_notification_title_plural">Промоции</string>
+  <string name="watch_list_notification_title_singular">Промоция</string>
+  <string name="share_deal">%2$s отстъпка за %1$s. Поредната #BargainByte сделка намерена чрез %3$s</string>
+  <string name="share_watched_item">%1$s е в моя #BargainByte списък за следене и ще знам когато е на промоция, ползвайки %2$s</string>
+  <string name="watchlist_item_added">%1$s беше добавена в Списък за Следене.</string>
+  <string name="watchlist_item_edited">Състоянието на %1$s в Списък за Следене беше променено.</string>
+  <string name="watchlist_item_removed">%1$s беше премахната от Списък за Следене.</string>
+  <string name="undo">Върни</string>
+  <string name="cant_load_stores">Cant load stores. Tap to try again</string>
+</resources>

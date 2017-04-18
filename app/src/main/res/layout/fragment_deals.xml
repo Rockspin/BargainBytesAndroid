@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <com.rockspin.bargainbits.ui.views.deallist.view.DealsListViewImpl
+        android:id="@+id/deals_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+    />
+
+    <TextView
+        android:id="@+id/emptyView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_centerInParent="true"
+        android:text="@string/error_no_deals"/>
+
+    <include layout="@layout/standard_fullscreen_progress_bar"/>
+
+</RelativeLayout>

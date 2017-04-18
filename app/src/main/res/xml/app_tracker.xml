@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) Rockspin 2014.
+  ~
+  ~ All Rights Reserved
+  -->
+
+<resources
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="TypographyDashes"
+    >
+
+  <integer name="ga_sessionTimeout">600</integer>
+
+  <bool name="ga_reportUncaughtExceptions">true</bool>
+
+  <!-- Enable automatic Activity measurement -->
+  <bool name="ga_autoActivityTracking">true</bool>
+
+  <!-- The screen names that will appear in reports -->
+  <screenName name="com.rockspin.bargainbits.ui.activities.deals.DealsActivitya">
+    BargainBytes DealsActivity
+  </screenName>
+
+  <screenName name="com.rockspin.bargainbits.ui.activities.search.GamesSearchActivity">
+    BargainBytes GamesSearchActivity
+  </screenName>
+
+  <!--  The following value should be replaced with correct property id. -->
+  <string name="ga_trackingId">UA-57234359-1</string>
+
+</resources>

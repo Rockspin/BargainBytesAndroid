@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) Rockspin 2014.
+  ~
+  ~ All Rights Reserved
+  -->
+
+<resources>
+  <integer name="banner_space_width">320</integer>
+  <integer name="banner_space_height">50</integer>
+</resources>

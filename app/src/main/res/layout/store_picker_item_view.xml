@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) Rockspin 2015.
+  ~
+  ~ All Rights Reserved
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingEnd="10dp"
+    android:paddingLeft="24dp"
+    android:paddingRight="24dp"
+    android:paddingStart="10dp"
+    android:weightSum="1.0"
+    >
+
+  <ImageView
+      android:id="@+id/storeImage"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_vertical"
+      android:layout_marginEnd="8dp"
+      android:layout_marginRight="8dp"
+      android:layout_weight="0.15"
+      android:src="@drawable/ic_store_steam"
+      />
+
+  <TextView
+      android:id="@+id/storeName"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="4dp"
+      android:layout_marginRight="4dp"
+      android:layout_gravity="center"
+      android:layout_weight="0.58"
+      android:ellipsize="marquee"
+      android:gravity="start"
+      android:scrollHorizontally="true"
+      android:singleLine="true"
+      tools:text="GreenManGaming"
+      android:textAppearance="?android:attr/textAppearanceMediumInverse"
+      android:textColor="@color/primary_text_color"
+      />
+
+  <me.grantland.widget.AutofitTextView
+      android:id="@+id/salePrice"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:layout_weight="0.27"
+      android:gravity="end"
+      tools:text="$ 100.50"
+      android:textAppearance="?android:attr/textAppearanceMediumInverse"
+      android:textColor="@color/primary_text_color"
+      />
+
+
+</LinearLayout>

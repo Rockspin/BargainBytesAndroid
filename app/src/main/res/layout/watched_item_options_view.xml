@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) Rockspin 2015.
+  ~
+  ~ All Rights Reserved
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
+    android:paddingLeft="24dp"
+    android:paddingRight="24dp"
+    >
+
+    <RadioGroup
+        android:id="@+id/watch_type_radio_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:layout_marginLeft="-6dp"
+        android:layout_marginStart="-6dp"
+        android:layout_marginBottom="8dp"
+        android:orientation="vertical"
+        >
+
+        <RadioButton
+            android:id="@+id/radio_any_sale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/any_sale"
+            />
+
+        <RadioButton
+            android:id="@+id/radio_custom_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/custom_price"
+            />
+
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/price_picker_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        tools:text="Game Name"
+        />
+
+    <TextSwitcher
+        android:id="@+id/price_picker_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/track_game_at_any_price"
+        />
+
+    <SeekBar
+        android:id="@+id/price_number_picker"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="15dp"/>
+
+</LinearLayout>

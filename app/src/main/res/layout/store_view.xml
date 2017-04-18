@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) Rockspin 2014.
+  ~
+  ~ All Rights Reserved
+  -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:paddingBottom="10dp"
+    android:paddingLeft="4dp"
+    android:paddingRight="4dp"
+    android:paddingTop="10dp"
+    android:weightSum="1"
+    >
+
+  <ImageView
+      android:id="@+id/storeImage"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentLeft="true"
+      android:layout_alignParentStart="true"
+      android:layout_marginLeft="4dp"
+      android:layout_marginStart="4dp"
+      android:scaleType="fitCenter"
+      android:layout_centerVertical="true"
+      android:src="@drawable/ic_store_steam"
+      />
+
+  <TextView
+      android:visibility="gone"
+      android:id="@+id/storeTitle"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_toRightOf="@id/storeImage"
+      android:layout_toEndOf="@id/storeImage"
+      android:layout_alignParentEnd="true"
+      android:layout_alignParentRight="true"
+      android:layout_centerVertical="true"
+      android:layout_gravity="center_vertical"
+      android:gravity="center"
+      android:text="GreenManGaming"
+      android:textSize="18sp"
+      android:lines="1"
+      android:ellipsize="marquee"
+      android:textColor="@color/primary_color"
+      android:textStyle="bold"
+      />
+
+  <android.support.v7.widget.SwitchCompat
+      android:visibility="visible"
+      android:id="@+id/storeSwitch"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginLeft="4dp"
+      android:layout_marginStart="4dp"
+      android:layout_toRightOf="@id/storeImage"
+      android:layout_toEndOf="@id/storeImage"
+      android:layout_alignParentEnd="true"
+      android:layout_alignParentRight="true"
+      android:layout_centerVertical="true"
+      android:text="GreenManGaming"
+      android:gravity="center"
+      android:lines="1"
+      android:ellipsize="marquee"
+      android:textSize="15sp"
+      android:textColor="@color/primary_color"
+      android:textStyle="bold"
+      />
+
+
+</RelativeLayout>
