@@ -22,7 +22,7 @@ import com.jakewharton.rxbinding.support.v7.widget.RxToolbar;
 import com.rockspin.apputils.di.annotations.ActivityScope;
 import com.rockspin.bargainbits.R;
 import com.rockspin.bargainbits.data.repository.WatchListRepository;
-import com.rockspin.bargainbits.ui.activities.main.BaseActivity;
+import com.rockspin.bargainbits.ui.BaseActivity;
 import com.rockspin.bargainbits.ui.activities.search.results.SearchResultsFragment;
 import com.rockspin.bargainbits.watch_list.WatchedItem;
 import javax.inject.Inject;

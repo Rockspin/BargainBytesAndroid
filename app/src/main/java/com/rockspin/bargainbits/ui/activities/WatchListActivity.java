@@ -16,7 +16,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import com.jakewharton.rxbinding.view.RxView;
 import com.rockspin.bargainbits.R;
-import com.rockspin.bargainbits.ui.activities.main.BaseActivity;
+import com.rockspin.bargainbits.ui.BaseActivity;
 import com.rockspin.bargainbits.ui.views.deallist.DealsListView;
 import com.rockspin.bargainbits.ui.views.deallist.view.DealsListPresenter;
 import com.rockspin.bargainbits.ui.views.deallist.view.DealsListViewImpl;

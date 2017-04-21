@@ -32,7 +32,6 @@ class BargainBytesApp : Application(), HasDispatchingActivityInjector {
 
         DaggerApplicationComponent.builder().applicationModule(ApplicationModule(this)).build().inject(this)
 
-        // viewWillShow services associated with app
         iServices.start(this)
 
         // Set up timber utils.

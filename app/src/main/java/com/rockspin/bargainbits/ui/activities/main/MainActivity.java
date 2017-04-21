@@ -33,6 +33,7 @@ import com.jakewharton.rxbinding.support.v4.widget.RxDrawerLayout;
 import com.jakewharton.rxbinding.widget.RxAdapterView;
 import com.rockspin.bargainbits.R;
 import com.rockspin.bargainbits.data.models.currency.CurrencyNamesAndISOCodes;
+import com.rockspin.bargainbits.ui.BaseActivity;
 import com.rockspin.bargainbits.ui.activities.WatchListActivity;
 import com.rockspin.bargainbits.ui.activities.main.deals.DealsFragmentPagerAdapter;
 import com.rockspin.bargainbits.ui.activities.main.storesdrawer.StoresDrawerFragment;
