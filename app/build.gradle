@@ -17,6 +17,7 @@ apply plugin: 'kotlin-android'
 // This does not break the build when Android Studio is missing the JRebel for Android plugin.
 apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'io.fabric'
+apply plugin: 'kotlin-kapt'
 
 repositories {
     maven { url "https://jitpack.io" }
@@ -106,8 +107,8 @@ dependencies {
     compile "com.google.dagger:dagger:$daggerVersion"
     compile "com.google.dagger:dagger-android:$daggerVersion"
     compile "com.google.dagger:dagger-android-support:$daggerVersion"
-    annotationProcessor "com.google.dagger:dagger-android-processor:$daggerVersion"
-    annotationProcessor "com.google.dagger:dagger-compiler:$daggerVersion"
+    kapt "com.google.dagger:dagger-android-processor:$daggerVersion"
+    kapt "com.google.dagger:dagger-compiler:$daggerVersion"
 
     // RX
     compile 'io.reactivex:rxjava:1.1.0'
@@ -164,10 +165,10 @@ dependencies {
 
     // icepick
     compile "frankiesardo:icepick:3.1.0"
-    annotationProcessor "frankiesardo:icepick-processor:3.1.0"
+    kapt "frankiesardo:icepick-processor:3.1.0"
 
     compile 'com.github.frankiesardo:auto-parcel:0.3.1'
-    annotationProcessor 'com.github.frankiesardo:auto-parcel-processor:0.3.1'
+    kapt 'com.github.frankiesardo:auto-parcel-processor:0.3.1'
 
     testCompile 'junit:junit:4.12'
     testCompile('com.squareup.assertj:assertj-android:1.1.1') {
