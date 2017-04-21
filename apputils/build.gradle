@@ -1,16 +1,4 @@
-buildscript {
-    repositories {
-        mavenCentral()
-    }
 
-    dependencies {
-        classpath 'me.tatarka:gradle-retrolambda:3.2.0'
-    }
-}
-// Required because retrolambda is on maven central
-repositories {
-    mavenCentral()
-}
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'me.tatarka.retrolambda'
@@ -36,19 +24,27 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
 }
 
 dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compile 'io.reactivex.rxjava2:rxkotlin:2.0.0'
+    compile 'io.reactivex.rxjava2:rxjava:2.0.9'
+
+    compile 'io.reactivex:rxjava:1.1.0'
+
     // Logging library
-    compile 'com.jakewharton.timber:timber:2.5.1'
+    compile 'com.jakewharton.timber:timber:4.1.2'
     compile 'com.jakewharton:disklrucache:2.0.2'
     compile 'org.apache.commons:commons-lang3:3.0'
     compile 'commons-io:commons-io:2.4'
     compile 'com.fernandocejas:arrow:1.0.0'
-    // RX
-    compile 'io.reactivex:rxjava:1.1.0'
 
-    compile 'com.android.support:support-annotations:25.3.1'
+    compile "com.android.support:support-annotations:$supportLibVersion"
 
     compile "com.google.dagger:dagger:$daggerVersion"
     compile "com.google.dagger:dagger-android:$daggerVersion"
@@ -59,5 +55,4 @@ dependencies {
     testCompile 'junit:junit:4.12'
     testCompile "org.mockito:mockito-core:1.9.5"
     testCompile 'org.assertj:assertj-core:1.7.1'
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
 }

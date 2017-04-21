@@ -19,7 +19,6 @@ import android.widget.TextSwitcher;
 import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import com.fernandocejas.frodo.annotation.RxLogObservable;
 import com.jakewharton.rxbinding.widget.RxRadioGroup;
 import com.jakewharton.rxbinding.widget.RxSeekBar;
 import com.rockspin.bargainbits.R;
@@ -112,7 +111,6 @@ public class EditWatchedListEntryView extends LinearLayout implements EditWatchL
         return radioGroupObservable;
     }
 
-    @RxLogObservable
     @Override public Observable<Integer> onSelectedPercentagePrice() {
         return selectedPrice;
     }
