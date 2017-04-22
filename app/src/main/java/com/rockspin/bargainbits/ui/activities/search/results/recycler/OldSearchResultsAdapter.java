@@ -19,19 +19,20 @@ import java.util.List;
 import javax.inject.Inject;
 import rx.subjects.PublishSubject;
 
-public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdapter.SearchResultsAdapterViewHolder> {
+public class OldSearchResultsAdapter extends RecyclerView.Adapter<OldSearchResultsAdapter.SearchResultsAdapterViewHolder> {
 
     private final List<SearchResultsAdapterModel> dealList = new ArrayList<>();
     private final PublishSubject<Integer> itemSelected = PublishSubject.create();
 
     private final LayoutInflater layoutInflater;
 
-    @Inject SearchResultsAdapter(@ActivityScope LayoutInflater layoutInflater) {
+    @Inject
+    OldSearchResultsAdapter(@ActivityScope LayoutInflater layoutInflater) {
         this.layoutInflater = layoutInflater;
     }
 
     @Override public SearchResultsAdapterViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View rootView = layoutInflater.inflate(R.layout.game_view, parent, false);
+        View rootView = layoutInflater.inflate(R.layout.view_search_result, parent, false);
         return new SearchResultsAdapterViewHolder(rootView);
     }
 

@@ -1,5 +1,6 @@
 package com.rockspin.bargainbits.ui.mvp
 
+import android.support.annotation.CallSuper
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 
@@ -18,12 +19,14 @@ open class BaseMvpPresenter<View : BaseMvpView> {
         lifetimeDisposable?.add(disposable)
     }
 
-    fun onViewCreated(view: View) {
+    @CallSuper
+    open fun onViewCreated(view: View) {
         this.view = view
         lifetimeDisposable = CompositeDisposable()
     }
 
-    fun onViewDestroyed() {
+    @CallSuper
+    open fun onViewDestroyed() {
         view = null
         lifetimeDisposable?.dispose()
         lifetimeDisposable = null

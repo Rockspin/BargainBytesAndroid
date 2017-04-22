@@ -10,8 +10,6 @@ import retrofit2.http.Query
  */
 interface GameApiService {
 
-//    @GET("/games") abstract fun searchGames(@Query("title") gameTitle: String): Observable<List<GameSearchResult>>
-
-    @GET("/games")
-    fun searchGames(@Query("title") gameTitle: String, @Query("limit") limit: Int = 60): Observable<Array<GameSearchResult>>
+    @GET("games")
+    fun searchGames(@Query("title") gameTitle: String): Observable<List<GameSearchResult>>
 }

@@ -31,8 +31,8 @@ import com.jakewharton.rxbinding.view.RxView;
 import com.rockspin.bargainbits.R;
 import com.rockspin.bargainbits.data.models.GameSearchResult;
 import com.rockspin.bargainbits.ui.activities.search.gameinfo.GameInfoFragment;
-import com.rockspin.bargainbits.ui.activities.search.results.recycler.SearchResultsAdapter;
-import com.rockspin.bargainbits.ui.activities.search.results.recycler.SearchResultsAdapter.SearchResultsAdapterViewHolder;
+import com.rockspin.bargainbits.ui.activities.search.results.recycler.OldSearchResultsAdapter;
+import com.rockspin.bargainbits.ui.activities.search.results.recycler.OldSearchResultsAdapter.SearchResultsAdapterViewHolder;
 import com.rockspin.bargainbits.ui.activities.search.results.recycler.SearchResultsAdapterModel;
 import com.rockspin.bargainbits.ui.views.PriceView;
 import com.rockspin.bargainbits.ui.views.WebImageView;
@@ -55,7 +55,7 @@ public final class SearchResultsFragment extends Fragment implements SearchResul
     @Bind(R.id.backButton) Button backButton;
 
     @Inject SearchResultsPresenter presenter;
-    @Inject SearchResultsAdapter searchResultsListAdapter;
+    @Inject OldSearchResultsAdapter searchResultsListAdapter;
 
     @State String searchQuery;
 

@@ -3,10 +3,12 @@ package com.rockspin.bargainbits.ui.search
 import android.app.SearchManager
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import com.jakewharton.rxbinding2.view.clicks
 import com.rockspin.bargainbits.R
 import com.rockspin.bargainbits.databinding.ActivitySearchBinding
 import com.rockspin.bargainbits.ui.BaseMvpActivity
 import com.rockspin.bargainbits.util.visible
+import io.reactivex.Observable
 import javax.inject.Inject
 
 /**
@@ -15,6 +17,7 @@ import javax.inject.Inject
 class SearchActivity : BaseMvpActivity<SearchPresenter.SearchView, SearchPresenter>(), SearchPresenter.SearchView {
 
     @Inject override lateinit var presenter: SearchPresenter
+    @Inject lateinit var adapter: SearchResultAdapter
 
     private lateinit var binding: ActivitySearchBinding
 
@@ -26,8 +29,19 @@ class SearchActivity : BaseMvpActivity<SearchPresenter.SearchView, SearchPresent
         supportActionBar?.setHomeButtonEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+        binding.searchResultsRecyclerView.adapter = adapter
+
+    }
+
+    override fun onPostCreate(savedInstanceState: Bundle?) {
+        super.onPostCreate(savedInstanceState)
         presenter.searchQuery = intent.getStringExtra(SearchManager.QUERY)
     }
+
+    //region - SearchView interface
+
+    override val backClick: Observable<*>
+        get() = binding.backButton.clicks()
 
     override fun showNoResults() {
         binding.searchResultsRecyclerView.visible = false
@@ -38,10 +52,16 @@ class SearchActivity : BaseMvpActivity<SearchPresenter.SearchView, SearchPresent
         binding.noResultsView.visible = false
         binding.searchResultsRecyclerView.visible = true
 
-
+        adapter.viewModels = viewModels
     }
 
     override fun showFetchError() {
-        
+        // TODO
     }
+
+    override fun goBack() {
+        finish()
+    }
+
+    //endregion
 }

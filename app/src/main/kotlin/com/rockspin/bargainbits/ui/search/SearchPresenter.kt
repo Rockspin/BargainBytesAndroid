@@ -5,6 +5,7 @@ import com.rockspin.bargainbits.data.models.currency.CurrencyHelper
 import com.rockspin.bargainbits.data.rest_client.GameApiService
 import com.rockspin.bargainbits.ui.mvp.BaseMvpPresenter
 import com.rockspin.bargainbits.ui.mvp.BaseMvpView
+import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import timber.log.Timber
 import javax.inject.Inject
@@ -18,6 +19,18 @@ class SearchPresenter @Inject constructor(val apiService: GameApiService) : Base
         fun updateResults(viewModels: List<ResultViewModel>)
         fun showFetchError()
         fun showNoResults()
+        fun goBack()
+
+        val backClick: Observable<*>
+    }
+
+    override fun onViewCreated(view: SearchView) {
+        super.onViewCreated(view)
+
+        addLifetimeDisposable(view.backClick
+            .subscribe {
+                view.goBack()
+            })
     }
 
     var searchQuery: String = ""
@@ -35,7 +48,7 @@ class SearchPresenter @Inject constructor(val apiService: GameApiService) : Base
                         view?.updateResults(viewModels)
                     }
                 }, { throwable ->
-                    Timber.d("Error fetching list of game search results", throwable)
+                    Timber.e("Error fetching list of game search results", throwable)
                     view?.showFetchError()
                 }))
         }

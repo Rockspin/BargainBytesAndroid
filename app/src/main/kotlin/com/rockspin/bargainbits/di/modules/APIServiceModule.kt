@@ -19,11 +19,12 @@ import dagger.Module
 import dagger.Provides
 import okhttp3.Cache
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit.RestAdapter
 import retrofit.client.OkClient
 import retrofit.converter.GsonConverter
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
 import java.util.concurrent.TimeUnit
@@ -69,22 +70,29 @@ class APIServiceModule {
     @Provides
     @Singleton
     internal fun providesOkHttpClient(cache: Cache): OkHttpClient {
+        val interceptor = HttpLoggingInterceptor()
+        interceptor.level = HttpLoggingInterceptor.Level.BODY
+
         return OkHttpClient.Builder()
             .cache(cache)
             .connectTimeout(10, TimeUnit.SECONDS)
             .readTimeout(10, TimeUnit.SECONDS)
             .writeTimeout(10, TimeUnit.SECONDS)
+            .addInterceptor(interceptor)
             .build()
     }
 
     @Provides
     @Singleton
-    internal fun providesGameApiService(@CurrencyUrl url: String, okHttpClient: OkHttpClient): GameApiService {
+    internal fun providesGameApiService(@CheapsharkUrl url: String, okHttpClient: OkHttpClient): GameApiService {
+        // TODO - add backslach to main URL once old Retrofit ICheapsharkAPIService service is gone
+        val fixedUrl = url + "/"
+
         return Retrofit.Builder()
-            .addCallAdapterFactory(RxJavaCallAdapterFactory.createAsync())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.createAsync())
             .addConverterFactory(GsonConverterFactory.create())
             .client(okHttpClient)
-            .baseUrl(url)
+            .baseUrl(fixedUrl)
             .build()
             .create(GameApiService::class.java)
     }

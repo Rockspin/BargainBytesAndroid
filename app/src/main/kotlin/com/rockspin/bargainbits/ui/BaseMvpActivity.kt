@@ -9,8 +9,8 @@ abstract class BaseMvpActivity<U : BaseMvpView, T : BaseMvpPresenter<U>> : BaseA
 
     abstract var presenter: T
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onPostCreate(savedInstanceState: Bundle?) {
+        super.onPostCreate(savedInstanceState)
         presenter.onViewCreated(this as U)
     }
 

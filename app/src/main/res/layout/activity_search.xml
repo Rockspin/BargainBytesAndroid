@@ -23,7 +23,8 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+            tools:listitem="@layout/view_search_result"/>
 
         <include layout="@layout/standard_fullscreen_progress_bar"
             android:visibility="gone"/>

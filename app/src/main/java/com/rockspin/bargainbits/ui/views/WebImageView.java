@@ -10,6 +10,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -27,7 +28,7 @@ import butterknife.ButterKnife;
  * Represents a layout holding an image view that loads
  * a web image and a progress bar to show while loading.
  */
-public final class WebImageView extends RelativeLayout {
+public final class WebImageView extends FrameLayout {
 
     @Bind(R.id.imageView) ImageView mImageView;
     @Bind(R.id.progressBar) ProgressBar mProgressBar;

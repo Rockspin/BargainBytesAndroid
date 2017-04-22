@@ -21,7 +21,7 @@
             />
         <meta-data
             android:name="android.app.default_searchable"
-            android:value=".ui.activities.search.GamesSearchActivity"
+            android:value=".ui.search.SearchActivity"
             />
         <meta-data
             android:name="com.crashlytics.ApiKey"
@@ -52,10 +52,11 @@
         </activity>
 
         <activity
-            android:name=".ui.activities.search.GamesSearchActivity"
+            android:name=".ui.search.SearchActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_games_search"
             android:launchMode="singleTop"
+            android:parentActivityName=".ui.activities.main.MainActivity"
             >
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH"/>
