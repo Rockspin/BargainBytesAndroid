@@ -3,9 +3,9 @@ package com.rockspin.bargainbits.ui.mvp
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 
-class BaseMvpPresenter<View : BaseMvpView> {
+open class BaseMvpPresenter<View : BaseMvpView> {
 
-    var view: View? = null
+    protected var view: View? = null
         private set
 
     private var lifetimeDisposable: CompositeDisposable? = null
