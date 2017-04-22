@@ -6,7 +6,6 @@ import com.rockspin.bargainbits.di.modules.APIServiceModule;
 import com.rockspin.bargainbits.di.modules.AndroidActivityModule;
 import com.rockspin.bargainbits.di.modules.CacheModule;
 import com.rockspin.bargainbits.di.modules.JsonSerialisationModule;
-import com.rockspin.bargainbits.di.modules.RestClientModule;
 import com.rockspin.bargainbits.di.modules.SchedulersModule;
 import com.rockspin.bargainbits.di.modules.UrlModule;
 
@@ -17,7 +16,6 @@ import javax.inject.Singleton;
 @Singleton
 @Component(modules = {
     ApplicationModule.class,
-    RestClientModule.class,
     APIServiceModule.class,
     JsonSerialisationModule.class,
     CacheModule.class,

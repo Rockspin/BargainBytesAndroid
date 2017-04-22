@@ -1,7 +1,5 @@
 package com.rockspin.bargainbits.data.models.currency;
 
-import android.os.Build;
-
 import java.util.Currency;
 import java.util.Locale;
 
@@ -15,12 +13,7 @@ public class CurrencyHelper {
     public CurrencyHelper(BBCurrency bbCurrency) {
         Currency javaCurrency = Currency.getInstance(bbCurrency.getIsoName());
         this.bbCurrency = bbCurrency;
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            this.countryName = javaCurrency.getDisplayName(Locale.getDefault());
-        } else {
-            this.countryName = bbCurrency.getIsoName();
-        }
+        this.countryName = javaCurrency.getDisplayName(Locale.getDefault());
     }
 
     public String getFormattedPrice(float pPrice) {

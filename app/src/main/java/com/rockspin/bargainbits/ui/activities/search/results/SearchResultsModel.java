@@ -1,6 +1,6 @@
 package com.rockspin.bargainbits.ui.activities.search.results;
 
-import com.rockspin.bargainbits.data.models.cheapshark.Game;
+import com.rockspin.bargainbits.data.models.GameSearchResult;
 import com.rockspin.bargainbits.data.repository.CurrencyRepository;
 import com.rockspin.bargainbits.data.rest_client.ICheapsharkAPIService;
 import com.rockspin.bargainbits.ui.activities.search.results.recycler.SearchResultsAdapterModel;
@@ -12,7 +12,7 @@ import rx.Observable;
 
 public class SearchResultsModel {
 
-    private final List<Game> gameList = new ArrayList<>();
+    private final List<GameSearchResult> gameList = new ArrayList<>();
     private String searchQuery;
     private final ICheapsharkAPIService iCheapsharkAPIService;
     private final CurrencyRepository currencyRepository;
@@ -24,7 +24,7 @@ public class SearchResultsModel {
         this.iAnalytics = iAnalytics;
     }
 
-    public Observable<List<Game>> searchGames(String mSearchQuery) {
+    public Observable<List<GameSearchResult>> searchGames(String mSearchQuery) {
         return iCheapsharkAPIService.searchGames(mSearchQuery);
     }
 
@@ -35,8 +35,8 @@ public class SearchResultsModel {
                 gameList.clear();
                 gameList.addAll(games);
             }).flatMap(Observable::from).map(game -> {
-                final String cheapestPrice = currencyHelper.getFormattedPrice(game.getCheapest());
-                return new SearchResultsAdapterModel(game.getThumb(), game.getExternal(), cheapestPrice);
+                final String cheapestPrice = currencyHelper.getFormattedPrice(game.getCheapestPrice());
+                return new SearchResultsAdapterModel(game.getThumbnailUrl(), game.getName(), cheapestPrice);
             }).toList());
         }
         return Observable.empty();
@@ -46,7 +46,7 @@ public class SearchResultsModel {
         iAnalytics.onGameClicked(external);
     }
 
-    public Game getGameAtIndex(Integer integer) {
+    public GameSearchResult getGameAtIndex(Integer integer) {
         return gameList.get(integer);
     }
 }

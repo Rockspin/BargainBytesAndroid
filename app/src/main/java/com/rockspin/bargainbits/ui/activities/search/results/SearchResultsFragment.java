@@ -28,9 +28,8 @@ import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import com.jakewharton.rxbinding.view.RxView;
-import com.rockspin.bargainbits.BargainBytesApp;
 import com.rockspin.bargainbits.R;
-import com.rockspin.bargainbits.data.models.cheapshark.Game;
+import com.rockspin.bargainbits.data.models.GameSearchResult;
 import com.rockspin.bargainbits.ui.activities.search.gameinfo.GameInfoFragment;
 import com.rockspin.bargainbits.ui.activities.search.results.recycler.SearchResultsAdapter;
 import com.rockspin.bargainbits.ui.activities.search.results.recycler.SearchResultsAdapter.SearchResultsAdapterViewHolder;
@@ -134,11 +133,11 @@ public final class SearchResultsFragment extends Fragment implements SearchResul
         getActivity().setTitle(searchQuery);
     }
 
-    @Override public final void displayInfoForGame(final Game game, final Integer index) {
+    @Override public final void displayInfoForGame(final GameSearchResult game, final Integer index) {
         final GameInfoFragment gameInfoFragment = GameInfoFragment.newInstance(game);
         final FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
 
-        ft.replace(R.id.fragmentHolder, gameInfoFragment).addToBackStack(null).setBreadCrumbTitle(game.getExternal());
+        ft.replace(R.id.fragmentHolder, gameInfoFragment).addToBackStack(null).setBreadCrumbTitle(game.getName());
 
         SearchResultsAdapterViewHolder vh = (SearchResultsAdapterViewHolder) gamesRecyclerView.findViewHolderForAdapterPosition(index);
 

@@ -15,7 +15,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -32,9 +31,8 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import com.google.gson.Gson;
 import com.rockspin.apputils.di.annotations.ActivityScope;
-import com.rockspin.bargainbits.BargainBytesApp;
 import com.rockspin.bargainbits.R;
-import com.rockspin.bargainbits.data.models.cheapshark.Game;
+import com.rockspin.bargainbits.data.models.GameSearchResult;
 import com.rockspin.bargainbits.ui.activities.search.gameinfo.recycler.GameInfoRecyclerAdapter;
 import com.rockspin.bargainbits.ui.activities.search.gameinfo.recycler.GamesInfoDealsViewModel;
 import com.rockspin.bargainbits.ui.dialogs.watchlist.EditWatchListEntryDialogFragment;
@@ -64,7 +62,7 @@ public final class GameInfoFragment extends Fragment implements GameInfoPresente
 
     private final EditWatchListEntryDialogFragment editWatchListEntryDialogFragment = new EditWatchListEntryDialogFragment();
 
-    public static GameInfoFragment newInstance(final Game game) {
+    public static GameInfoFragment newInstance(final GameSearchResult game) {
         final GameInfoFragment fragment = new GameInfoFragment();
         final Gson gson = new Gson();
         final Bundle bundle = new Bundle();
@@ -95,7 +93,7 @@ public final class GameInfoFragment extends Fragment implements GameInfoPresente
     @Override public void onStart() {
         super.onStart();
         final String jsonSerializedGame = getArguments().getString(GAME_KEY);
-        final Game game = new Gson().fromJson(jsonSerializedGame, Game.class);
+        final GameSearchResult game = new Gson().fromJson(jsonSerializedGame, GameSearchResult.class);
         presenter.setData(game);
         presenter.start(this);
     }
@@ -125,10 +123,10 @@ public final class GameInfoFragment extends Fragment implements GameInfoPresente
     }
 
     // GameInfoPresenter.View
-    @Override public void onGameLoaded(final Game mGame) {
-        webImageView.loadImageFromUrl(mGame.getThumb());
-        gameTitle.setText(mGame.getExternal());
-        setTitle(mGame.getExternal());
+    @Override public void onGameLoaded(final GameSearchResult mGame) {
+        webImageView.loadImageFromUrl(mGame.getThumbnailUrl());
+        gameTitle.setText(mGame.getName());
+        setTitle(mGame.getName());
     }
 
     @Override public void refreshList(List<GamesInfoDealsViewModel> gameInfo) {

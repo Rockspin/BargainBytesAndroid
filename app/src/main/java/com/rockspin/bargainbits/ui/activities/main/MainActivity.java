@@ -145,7 +145,7 @@ public class MainActivity extends BaseActivity implements DealsListViewImpl.Deal
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.deals, menu);
 
-        // Associate searchable configuration with the Game SearchView
+        // Associate searchable configuration with the GameSearchResult SearchView
         final SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         final SearchView searchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.action_search_games));
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));

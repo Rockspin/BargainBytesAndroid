@@ -9,7 +9,7 @@ package com.rockspin.bargainbits.watch_list;
 import android.os.Parcelable;
 
 import com.rockspin.bargainbits.data.models.cheapshark.CompactDeal;
-import com.rockspin.bargainbits.data.models.cheapshark.Game;
+import com.rockspin.bargainbits.data.models.GameSearchResult;
 import com.rockspin.bargainbits.data.models.cheapshark.GameInfo;
 
 import java.io.Serializable;
@@ -32,8 +32,8 @@ public abstract class WatchedItem implements Parcelable, Serializable {
         return new AutoParcel_WatchedItem(gameName, gameId, watchedPrice);
     }
 
-    public static WatchedItem from(Game game){
-        return  create(game.getExternal(), game.getGameID(), game.getCheapest());
+    public static WatchedItem from(GameSearchResult game){
+        return  create(game.getName(), game.getGameID(), game.getCheapestPrice());
     }
 
     public static WatchedItem from(CompactDeal compactDeal){

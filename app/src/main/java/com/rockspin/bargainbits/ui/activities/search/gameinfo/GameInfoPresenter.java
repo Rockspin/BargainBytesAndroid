@@ -1,6 +1,6 @@
 package com.rockspin.bargainbits.ui.activities.search.gameinfo;
 
-import com.rockspin.bargainbits.data.models.cheapshark.Game;
+import com.rockspin.bargainbits.data.models.GameSearchResult;
 import com.rockspin.bargainbits.di.modules.SchedulersModule;
 import com.rockspin.bargainbits.ui.BasePresenter;
 import com.rockspin.bargainbits.ui.activities.search.gameinfo.recycler.GamesInfoDealsViewModel;
@@ -11,9 +11,9 @@ import javax.inject.Named;
 import rx.Observable;
 import rx.Scheduler;
 
-public class GameInfoPresenter extends BasePresenter<GameInfoPresenter.IView, GameInfoModel, Game> {
+public class GameInfoPresenter extends BasePresenter<GameInfoPresenter.IView, GameInfoModel, GameSearchResult> {
 
-    private Game game;
+    private GameSearchResult game;
 
     @Inject @Named(SchedulersModule.MAIN) Scheduler mainThread;
 
@@ -21,7 +21,7 @@ public class GameInfoPresenter extends BasePresenter<GameInfoPresenter.IView, Ga
         super(gameInfoModel);
     }
 
-    @Override public void setData(Game game) {
+    @Override public void setData(GameSearchResult game) {
         this.game = game;
     }
 
@@ -48,7 +48,7 @@ public class GameInfoPresenter extends BasePresenter<GameInfoPresenter.IView, Ga
 
         Observable<Integer> onItemSelected();
 
-        void onGameLoaded(Game game);
+        void onGameLoaded(GameSearchResult game);
 
         void refreshList(List<GamesInfoDealsViewModel> abbreviatedDeals);
 

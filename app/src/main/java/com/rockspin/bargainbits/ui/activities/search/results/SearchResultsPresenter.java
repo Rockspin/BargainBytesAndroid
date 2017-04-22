@@ -1,6 +1,6 @@
 package com.rockspin.bargainbits.ui.activities.search.results;
 
-import com.rockspin.bargainbits.data.models.cheapshark.Game;
+import com.rockspin.bargainbits.data.models.GameSearchResult;
 import com.rockspin.bargainbits.di.modules.SchedulersModule;
 import com.rockspin.bargainbits.ui.BasePresenter;
 import com.rockspin.bargainbits.ui.activities.search.results.recycler.SearchResultsAdapterModel;
@@ -31,7 +31,7 @@ public class SearchResultsPresenter extends BasePresenter<SearchResultsPresenter
         }));
 
         addSubscription(iView.onItemSelected().subscribe(integer -> {
-            Game game = model.getGameAtIndex(integer);
+            GameSearchResult game = model.getGameAtIndex(integer);
             iView.displayInfoForGame(game, integer);
         }));
 
@@ -50,7 +50,7 @@ public class SearchResultsPresenter extends BasePresenter<SearchResultsPresenter
 
         void setTitle(String searchQuery);
 
-        void displayInfoForGame(Game game, Integer gameThumb);
+        void displayInfoForGame(GameSearchResult game, Integer gameThumb);
 
         Observable<Integer> onItemSelected();
 

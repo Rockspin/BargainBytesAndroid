@@ -31,6 +31,10 @@ android {
     }
 }
 
+retrolambda {
+    jvmArgs '-noverify'
+}
+
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile 'io.reactivex.rxjava2:rxkotlin:2.0.0'
