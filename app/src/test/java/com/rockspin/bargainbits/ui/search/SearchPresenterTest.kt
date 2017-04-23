@@ -115,14 +115,14 @@ class SearchPresenterTest {
     @Test
     fun whenDealSelected_showSearchDetail() {
         `when`(mockApiService.searchGames("testQuery")).thenReturn(Observable.just(listOf(
-            GameSearchResult(gameID ="testId0", cheapestPrice = 0.0, name = "", thumbnailUrl = ""),
-            GameSearchResult(gameID ="testId1", cheapestPrice = 0.0, name = "", thumbnailUrl = "")
+            GameSearchResult(gameID ="testId0", cheapestPrice = 0.0, name = "testName0", thumbnailUrl = ""),
+            GameSearchResult(gameID ="testId1", cheapestPrice = 0.0, name = "testName1", thumbnailUrl = "")
         )))
 
         presenter.searchQuery = "testQuery"
 
         mockResultClick.onNext(1)
 
-        verify(mockView).showSearchDetail("testId1")
+        verify(mockView).showSearchDetail("testId1", "testName1")
     }
 }

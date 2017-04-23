@@ -21,7 +21,7 @@ class SearchPresenter @Inject constructor(val apiService: GameApiService, val fo
         fun showFetchError()
         fun showNoResults()
         fun goBack()
-        fun showSearchDetail(gameId: String)
+        fun showSearchDetail(gameId: String, gameName: String)
 
         val backClick: Observable<*>
         val resultClick: Observable<Int>
@@ -39,7 +39,8 @@ class SearchPresenter @Inject constructor(val apiService: GameApiService, val fo
 
         addLifetimeDisposable(view.resultClick
             .subscribe {
-                this.view?.showSearchDetail(latestResults[it].gameID)
+                val selectedResult = latestResults[it]
+                this.view?.showSearchDetail(selectedResult.gameID, selectedResult.name)
             })
     }
 
