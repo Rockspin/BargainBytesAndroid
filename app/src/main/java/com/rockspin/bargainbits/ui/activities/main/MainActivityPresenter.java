@@ -1,7 +1,6 @@
 package com.rockspin.bargainbits.ui.activities.main;
 
 import com.rockspin.bargainbits.R;
-import com.rockspin.bargainbits.data.models.currency.CurrencyNamesAndISOCodes;
 import com.rockspin.bargainbits.ui.BasePresenter;
 import com.rockspin.bargainbits.watch_list.WatchedItem;
 import javax.inject.Inject;
@@ -31,12 +30,6 @@ public class MainActivityPresenter extends BasePresenter<MainActivityPresenter.I
         addSubscription(getView().onOpenWatchListPressed().doOnNext(aVoid -> getView().openWatchList()).subscribe());
         // when the user pressed the stores filter button
         addSubscription(getView().onStoresFilterPressed().doOnNext(aVoid -> getView().setStoresDrawerOpen(true)).subscribe());
-        // when the user pressed the select currency button
-        addSubscription(getView().onSelectCurrencyPressed()
-                                 .flatMap(aVoid1 -> getModel().onCurrenciesUpdated())
-                                 .doOnNext(getView()::showSelectCurrencyDialog)
-                                 .doOnError(getView()::errorLoadingCurrencies)
-                                 .subscribe());
 
         // when the user pressed the app rate button
         addSubscription(getView().onRateAppPressed().doOnNext(aVoid -> getView().goToStoreAndRate()).subscribe());
@@ -45,8 +38,6 @@ public class MainActivityPresenter extends BasePresenter<MainActivityPresenter.I
         addSubscription(getView().onShareAppPressed().doOnNext(aVoid -> getView().showShareAppDialog()).subscribe());
         addSubscription(getView().onViewPagerChanged().doOnNext(getView()::setNavigationSpinnerItem).subscribe());
         //watch list reactions
-
-        addSubscription(getModel().onCurrencyUpdatedToNonDefault().doOnNext(aVoid -> getView().showCurrencyDisclaimer()).subscribe());
 
         addSubscription(getView().onNavigationItemSelected().doOnNext(getView()::selectTab).subscribe());
 
@@ -74,8 +65,6 @@ public class MainActivityPresenter extends BasePresenter<MainActivityPresenter.I
 
         Observable<Void> onStoresFilterPressed();
 
-        Observable<Void> onSelectCurrencyPressed();
-
         Observable<Void> onRateAppPressed();
 
         Observable<Void> onShareAppPressed();
@@ -95,13 +84,7 @@ public class MainActivityPresenter extends BasePresenter<MainActivityPresenter.I
 
         void setTitle(int store_filter);
 
-        void showCurrencyDisclaimer();
-
         void showShareAppDialog();
-
-        void errorLoadingCurrencies(Throwable throwable);
-
-        void showSelectCurrencyDialog(CurrencyNamesAndISOCodes currencyNamesAndISOCodes);
 
         void setStoresDrawerOpen(boolean open);
 

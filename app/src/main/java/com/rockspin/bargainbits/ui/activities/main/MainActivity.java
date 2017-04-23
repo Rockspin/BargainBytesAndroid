@@ -27,30 +27,25 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import com.fernandocejas.arrow.checks.Preconditions;
 import com.jakewharton.rxbinding.support.v4.view.RxViewPager;
 import com.jakewharton.rxbinding.support.v4.widget.RxDrawerLayout;
 import com.jakewharton.rxbinding.widget.RxAdapterView;
 import com.rockspin.bargainbits.R;
-import com.rockspin.bargainbits.data.models.currency.CurrencyNamesAndISOCodes;
 import com.rockspin.bargainbits.ui.BaseActivity;
 import com.rockspin.bargainbits.ui.activities.WatchListActivity;
 import com.rockspin.bargainbits.ui.activities.main.deals.DealsFragmentPagerAdapter;
 import com.rockspin.bargainbits.ui.activities.main.storesdrawer.StoresDrawerFragment;
-import com.rockspin.bargainbits.ui.dialogs.CurrencyPickerDialogFragment;
 import com.rockspin.bargainbits.ui.views.deallist.view.DealsListViewImpl;
 import com.rockspin.bargainbits.utils.Feedback;
 import javax.inject.Inject;
 import org.codechimp.apprater.AppRater;
 import rx.Observable;
 import rx.subjects.PublishSubject;
-import timber.log.Timber;
 
 import static com.rockspin.bargainbits.utils.RXTools.toVoid;
 
 public class MainActivity extends BaseActivity implements DealsListViewImpl.DealsListContainer, MainActivityPresenter.IView {
 
-    private static final String CURRENCY_DIALOG_TAG = "CURRENCY_DIALOG_TAG";
     private final PublishSubject<Integer> onOptionsItemSelected = PublishSubject.create();
     // used to send the options item clicks to the view
     private ActionBarDrawerToggle drawerToggle;
@@ -192,10 +187,6 @@ public class MainActivity extends BaseActivity implements DealsListViewImpl.Deal
         return onOptionsItemSelected.compose(filterByID(R.id.action_store_filter));
     }
 
-    @Override public Observable<Void> onSelectCurrencyPressed() {
-        return onOptionsItemSelected.compose(filterByID(R.id.action_displayed_currency));
-    }
-
     @Override public Observable<Void> onRateAppPressed() {
         return onOptionsItemSelected.compose(filterByID(R.id.rate));
     }
@@ -216,10 +207,6 @@ public class MainActivity extends BaseActivity implements DealsListViewImpl.Deal
         return RxViewPager.pageSelections(viewPager);
     }
 
-    @Override public void showCurrencyDisclaimer() {
-        showSnackBar(R.string.currency_disclaimer);
-    }
-
     @Override public void showShareAppDialog() {
         final Intent shareIntent = new Intent();
         shareIntent.setAction(Intent.ACTION_SEND);
@@ -228,18 +215,6 @@ public class MainActivity extends BaseActivity implements DealsListViewImpl.Deal
         final String shareText = getString(R.string.share_app_text, "http://play.google.com/store/apps/details?id=" + getPackageName());
         shareIntent.putExtra(Intent.EXTRA_TEXT, shareText);
         startActivity(shareIntent);
-    }
-
-    @Override public void errorLoadingCurrencies(Throwable throwable) {
-        Timber.e(throwable, "Failure when retrieving currency exchange object");
-        Snackbar.make(drawerLayout, R.string.error_no_currency_exchange, Snackbar.LENGTH_SHORT)
-                .setActionTextColor(ContextCompat.getColor(this, R.color.primary_color))
-                .show();
-    }
-
-    @Override public void showSelectCurrencyDialog(CurrencyNamesAndISOCodes currencyNamesAndISOCodes) {
-        Preconditions.checkNotNull(currencyNamesAndISOCodes, "names and ios");
-        CurrencyPickerDialogFragment.instantiate(currencyNamesAndISOCodes).show(getSupportFragmentManager(), CURRENCY_DIALOG_TAG);
     }
 
     @Override public void setStoresDrawerOpen(boolean open) {

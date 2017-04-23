@@ -5,7 +5,6 @@ import com.rockspin.bargainbits.ui.activities.main.deals.DealsFragment;
 import com.rockspin.bargainbits.ui.activities.main.storesdrawer.StoresDrawerFragment;
 import com.rockspin.bargainbits.ui.activities.search.gameinfo.GameInfoFragment;
 import com.rockspin.bargainbits.ui.activities.search.results.SearchResultsFragment;
-import com.rockspin.bargainbits.ui.dialogs.CurrencyPickerDialogFragment;
 import com.rockspin.bargainbits.ui.dialogs.store_picker.StorePickerDialogFragment;
 import com.rockspin.bargainbits.ui.dialogs.watchlist.EditWatchListEntryDialogFragment;
 import dagger.Binds;
@@ -17,7 +16,6 @@ import dagger.multibindings.IntoMap;
 
 @Module(subcomponents = {
     AndroidFragmentModule.StorePickerDialogFragmentComponent.class,
-    AndroidFragmentModule.CurrencyPickerDialogFragmentComponent.class,
     AndroidFragmentModule.EditWatchListEntryDialogFragmentComponent.class,
     AndroidFragmentModule.GameInfoFragmentComponent.class,
     AndroidFragmentModule.StoresDrawerFragmentComponent.class,
@@ -37,20 +35,6 @@ public abstract class AndroidFragmentModule {
 
         @Subcomponent.Builder
         abstract class Builder extends AndroidInjector.Builder<StorePickerDialogFragment> {
-        }
-    }
-
-    @Binds
-    @IntoMap
-    @FragmentKey(CurrencyPickerDialogFragment.class)
-    public abstract AndroidInjector.Factory<? extends Fragment>
-    bindCurrencyPickerDialogFragmentInjectorFactory(CurrencyPickerDialogFragmentComponent.Builder builder);
-
-    @Subcomponent
-    public interface CurrencyPickerDialogFragmentComponent extends AndroidInjector<CurrencyPickerDialogFragment> {
-
-        @Subcomponent.Builder
-        abstract class Builder extends AndroidInjector.Builder<CurrencyPickerDialogFragment> {
         }
     }
 

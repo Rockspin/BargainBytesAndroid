@@ -15,7 +15,9 @@ import rx.Observable;
 
 /**
  * Retrofit interface for Currency API.
+ * @deprecated The currency change feature is barely used in the app. Do not use it.
  */
+@Deprecated
 public interface ICurrencyAPIService {
     // Cache currency results for a day, accept stale responses for a week
     @Headers("Cache-Control: public, max-age=86400, s-maxage=86400, max-stale=604800") @GET("/latest") Observable<CurrencyExchange> getLatest(

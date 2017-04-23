@@ -5,7 +5,9 @@ import java.util.Locale;
 
 /**
  * Utility that can be used to convert values from USD to active currency and back.
+ * @deprecated The currency change feature is hardly used in the app. Do not use it.
  */
+@Deprecated
 public class CurrencyHelper {
     private final String countryName;
     private final BBCurrency bbCurrency;

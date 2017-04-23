@@ -31,13 +31,6 @@
       />
 
   <item
-      android:id="@+id/action_displayed_currency"
-      android:orderInCategory="0010"
-      app:showAsAction="never"
-      android:title="@string/currency"
-      />
-
-  <item
       android:id="@+id/rate"
       android:orderInCategory="0100"
       app:showAsAction="never"
