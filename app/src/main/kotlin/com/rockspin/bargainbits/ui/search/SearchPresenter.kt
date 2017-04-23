@@ -15,6 +15,7 @@ import javax.inject.Inject
 class SearchPresenter @Inject constructor(val apiService: GameApiService, val formatter: PriceFormatter) : BaseMvpPresenter<SearchPresenter.SearchView>() {
 
     interface SearchView : BaseMvpView {
+        fun showLoading(show: Boolean)
         fun updateResults(viewModels: List<ResultViewModel>)
         fun showFetchError()
         fun showNoResults()
@@ -35,8 +36,10 @@ class SearchPresenter @Inject constructor(val apiService: GameApiService, val fo
     var searchQuery: String = ""
         set(value) {
             addLifetimeDisposable(apiService.searchGames(value)
-                .map { it.map { ResultViewModel(it.name, it.thumbnailUrl, formatter.formatPrice(it.cheapestPrice)) } }
                 .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe { view?.showLoading(true) }
+                .doFinally { view?.showLoading(false) }
+                .map { it.map { ResultViewModel(it.name, it.thumbnailUrl, formatter.formatPrice(it.cheapestPrice)) } }
                 .subscribe( { viewModels ->
                     if (viewModels.isEmpty()) {
                         view?.showNoResults()

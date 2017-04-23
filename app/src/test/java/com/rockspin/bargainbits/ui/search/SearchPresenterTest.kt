@@ -78,6 +78,21 @@ class SearchPresenterTest {
     }
 
     @Test
+    fun whenSearch_controlsLoadingState() {
+        val publishSubject = PublishSubject.create<List<GameSearchResult>>()
+        `when`(mockApiService.searchGames(anyString())).thenReturn(publishSubject)
+
+        presenter.searchQuery = "testQuery"
+
+        verify(mockView).showLoading(true)
+
+        publishSubject.onNext(emptyList())
+        publishSubject.onComplete()
+
+        verify(mockView).showLoading(false)
+    }
+
+    @Test
     fun whenSearchSuccessful_showsMappedViewModels() {
         `when`(mockFormatter.formatPrice(1.0)).thenReturn("$ 1.00")
         `when`(mockFormatter.formatPrice(2.0)).thenReturn("$ 2.00")

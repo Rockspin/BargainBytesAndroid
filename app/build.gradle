@@ -80,6 +80,7 @@ android {
     }
 
     compileOptions {
+        // TODO - Put back to 1.7 once retrolambda is out of project to enable incremental builds
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
