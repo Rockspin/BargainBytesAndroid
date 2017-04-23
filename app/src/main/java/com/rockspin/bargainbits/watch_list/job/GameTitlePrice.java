@@ -3,7 +3,7 @@ package com.rockspin.bargainbits.watch_list.job;
 import android.content.Context;
 import com.annimon.stream.Stream;
 import com.rockspin.bargainbits.R;
-import com.rockspin.bargainbits.data.models.cheapshark.GameInfo;
+import com.rockspin.bargainbits.data.models.GameInfo;
 import com.rockspin.bargainbits.data.models.currency.CurrencyHelper;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +20,7 @@ public final class GameTitlePrice {
         checkNotNull(context, "cannot be null");
         gamesOnSaleCount = gameInfoList.size();
         notificationTextList = Stream.of(gameInfoList).limit(WatchListNotification.MAX_NOTIFICATION_LINES).map(input -> {
-            String price = currencyExchangeHelper.getFormattedPrice(input.getLowestSalePrice());
+            String price = currencyExchangeHelper.getFormattedPrice((float) input.getLowestSalePrice());
             String title = input.getInfo().getGameName();
             return context.getString(R.string.watch_list_notification_item_entry, title, price);
         }).reduce(new ArrayList<>(),(list, value) -> {

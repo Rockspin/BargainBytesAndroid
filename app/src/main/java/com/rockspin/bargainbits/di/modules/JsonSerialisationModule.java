@@ -3,13 +3,10 @@ package com.rockspin.bargainbits.di.modules;
 import com.google.gson.Gson;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
-import com.rockspin.bargainbits.data.models.cheapshark.AbbreviatedDeal;
-import com.rockspin.bargainbits.data.models.cheapshark.GameInfo;
-import com.rockspin.bargainbits.data.models.currency.BBCurrency;
-import com.rockspin.bargainbits.data.models.currency.CurrencyExchange;
+import com.rockspin.bargainbits.data.models.AbbreviatedDeal;
+import com.rockspin.bargainbits.data.models.GameInfo;
 import dagger.Module;
 import dagger.Provides;
 import java.lang.reflect.Type;
@@ -62,8 +59,8 @@ import timber.log.Timber;
         for (final GameInfo gameInfo : pResponse) {
             final List<AbbreviatedDeal> dealList = gameInfo.getDeals();
             for (final AbbreviatedDeal deal : dealList) {
-                final float retailPrice = deal.getRetailPrice();
-                final float salePrice = deal.getPrice();
+                final float retailPrice = (float) deal.getRetailPrice();
+                final float salePrice = (float) deal.getPrice();
 
                 if (retailPrice != salePrice) {
                     if (deal.getPrice() > deal.getRetailPrice()) {

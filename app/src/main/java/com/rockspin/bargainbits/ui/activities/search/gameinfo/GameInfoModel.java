@@ -5,8 +5,8 @@ import android.graphics.drawable.Drawable;
 import com.rockspin.bargainbits.data.repository.CurrencyRepository;
 import com.rockspin.bargainbits.data.repository.DealRepository;
 import com.rockspin.bargainbits.data.repository.StoresRepository;
-import com.rockspin.bargainbits.data.models.cheapshark.AbbreviatedDeal;
-import com.rockspin.bargainbits.data.models.cheapshark.GameInfo;
+import com.rockspin.bargainbits.data.models.AbbreviatedDeal;
+import com.rockspin.bargainbits.data.models.GameInfo;
 import com.rockspin.bargainbits.data.rest_client.ICheapsharkAPIService;
 import com.rockspin.bargainbits.ui.activities.search.gameinfo.recycler.GamesInfoDealsViewModel;
 
@@ -39,8 +39,8 @@ public class GameInfoModel {
 
             final Observable<GameInfo> loadGameInfo = iCheapsharkAPIService.getGameInfo(gameID);
             final Observable<AbbreviatedDeal> sortedDeals = loadGameInfo.flatMap(gameInfo -> Observable.from(gameInfo.getDeals())).toSortedList((dealOne, dealTwo) -> {
-                final float dealOnePrice = dealOne.getPrice();
-                final float dealTwoPrice = dealTwo.getPrice();
+                final float dealOnePrice = (float) dealOne.getPrice();
+                final float dealTwoPrice = (float) dealTwo.getPrice();
 
                 return Float.compare(dealOnePrice, dealTwoPrice);
             }).doOnNext(abbreviatedDeals -> {
@@ -50,9 +50,9 @@ public class GameInfoModel {
             final Observable<String> storeNameObservable = sortedDeals.flatMap(deal -> storesRepository.getStoreNameForID(deal.getStoreID()));
 
             return Observable.zip(sortedDeals, storeNameObservable, (deal, storeName) -> {
-                float saving = deal.getSavingsFraction() * 100.0f;
-                final String dealPrice = currencyHelper.getFormattedPrice(deal.getPrice());
-                final String retailPrice = currencyHelper.getFormattedPrice(deal.getRetailPrice());
+                float saving = (float) (deal.getSavingsFraction() * 100.0f);
+                final String dealPrice = currencyHelper.getFormattedPrice((float) deal.getPrice());
+                final String retailPrice = currencyHelper.getFormattedPrice((float) deal.getRetailPrice());
                 final boolean hasSavings = deal.getSavingsFraction() > 0.0f;
                 final boolean singlePriceMode = deal.getPrice() >= deal.getRetailPrice();
                 final Drawable storeDrawable = storesRepository.getStoreIconDrawableForId(deal.getStoreID());

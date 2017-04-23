@@ -12,7 +12,7 @@ import com.fernandocejas.arrow.optional.Optional;
 import com.rockspin.apputils.cache.helper.SimpleCacheReader;
 import com.rockspin.apputils.cache.helper.SimpleCacheWriter;
 import com.rockspin.bargainbits.data.models.cheapshark.CompactDeal;
-import com.rockspin.bargainbits.data.models.cheapshark.GameInfo;
+import com.rockspin.bargainbits.data.models.GameInfo;
 import com.rockspin.bargainbits.data.rest_client.ICheapsharkAPIService;
 import com.rockspin.bargainbits.utils.analytics.IAnalytics;
 import com.rockspin.bargainbits.watch_list.WatchedItem;

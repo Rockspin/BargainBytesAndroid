@@ -10,7 +10,7 @@ import android.os.Parcelable;
 
 import com.rockspin.bargainbits.data.models.cheapshark.CompactDeal;
 import com.rockspin.bargainbits.data.models.GameSearchResult;
-import com.rockspin.bargainbits.data.models.cheapshark.GameInfo;
+import com.rockspin.bargainbits.data.models.GameInfo;
 
 import java.io.Serializable;
 
@@ -41,6 +41,6 @@ public abstract class WatchedItem implements Parcelable, Serializable {
     }
 
     public static WatchedItem from(GameInfo gameInfo) {
-        return create(gameInfo.getInfo().getGameName(), gameInfo.getInfo().getGameId(), gameInfo.getLowestSalePrice());
+        return create(gameInfo.getInfo().getGameName(), gameInfo.getInfo().getGameId(), (float) gameInfo.getLowestSalePrice());
     }
 }

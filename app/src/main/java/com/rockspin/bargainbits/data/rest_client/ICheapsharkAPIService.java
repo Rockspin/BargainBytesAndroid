@@ -8,7 +8,7 @@ package com.rockspin.bargainbits.data.rest_client;
 
 import com.rockspin.bargainbits.data.models.cheapshark.Deal;
 import com.rockspin.bargainbits.data.models.GameSearchResult;
-import com.rockspin.bargainbits.data.models.cheapshark.GameInfo;
+import com.rockspin.bargainbits.data.models.GameInfo;
 import com.rockspin.bargainbits.data.models.cheapshark.Store;
 
 import java.util.List;
