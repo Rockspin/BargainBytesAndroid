@@ -43,6 +43,9 @@ class SearchActivity : BaseMvpActivity<SearchPresenter.SearchView, SearchPresent
     override val backClick: Observable<*>
         get() = binding.backButton.clicks()
 
+    override val resultClick: Observable<Int>
+        get() = adapter.onItemSelected
+
     override fun showLoading(show: Boolean) {
         binding.searchProgressBar.visible = show
     }
@@ -57,6 +60,10 @@ class SearchActivity : BaseMvpActivity<SearchPresenter.SearchView, SearchPresent
         binding.searchResultsRecyclerView.visible = true
 
         adapter.viewModels = viewModels
+    }
+
+    override fun showSearchDetail(gameId: String) {
+        // TODO
     }
 
     override fun showFetchError() {

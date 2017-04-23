@@ -1,5 +1,6 @@
 package com.rockspin.bargainbits.ui.search
 
+import com.rockspin.bargainbits.data.models.GameSearchResult
 import com.rockspin.bargainbits.data.rest_client.GameApiService
 import com.rockspin.bargainbits.ui.mvp.BaseMvpPresenter
 import com.rockspin.bargainbits.ui.mvp.BaseMvpView
@@ -20,16 +21,25 @@ class SearchPresenter @Inject constructor(val apiService: GameApiService, val fo
         fun showFetchError()
         fun showNoResults()
         fun goBack()
+        fun showSearchDetail(gameId: String)
 
         val backClick: Observable<*>
+        val resultClick: Observable<Int>
     }
+
+    private var latestResults = emptyList<GameSearchResult>()
 
     override fun onViewCreated(view: SearchView) {
         super.onViewCreated(view)
 
         addLifetimeDisposable(view.backClick
             .subscribe {
-                view.goBack()
+                this.view?.goBack()
+            })
+
+        addLifetimeDisposable(view.resultClick
+            .subscribe {
+                this.view?.showSearchDetail(latestResults[it].gameID)
             })
     }
 
@@ -39,6 +49,7 @@ class SearchPresenter @Inject constructor(val apiService: GameApiService, val fo
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe { view?.showLoading(true) }
                 .doFinally { view?.showLoading(false) }
+                .doOnNext { latestResults = it }
                 .map { it.map { ResultViewModel(it.name, it.thumbnailUrl, formatter.formatPrice(it.cheapestPrice)) } }
                 .subscribe( { viewModels ->
                     if (viewModels.isEmpty()) {

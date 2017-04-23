@@ -34,12 +34,14 @@ class SearchPresenterTest {
     lateinit var mockFormatter: PriceFormatter
 
     private val mockBackClick = PublishSubject.create<Unit>()
+    private val mockResultClick = PublishSubject.create<Int>()
 
     private lateinit var presenter: SearchPresenter
 
     @Before
     fun setUp() {
         `when`(mockView.backClick).thenReturn(mockBackClick)
+        `when`(mockView.resultClick).thenReturn(mockResultClick)
         `when`(mockApiService.searchGames(anyString())).thenReturn(Observable.just(emptyList()))
 
         presenter = SearchPresenter(mockApiService, mockFormatter)
@@ -98,8 +100,8 @@ class SearchPresenterTest {
         `when`(mockFormatter.formatPrice(2.0)).thenReturn("$ 2.00")
 
         `when`(mockApiService.searchGames("testQuery")).thenReturn(Observable.just(listOf(
-            GameSearchResult(gameID ="testId0", cheapestPrice = 1.0, name = "testName0", thumbnailUrl = "testUrl0"),
-            GameSearchResult(gameID ="testId1", cheapestPrice = 2.0, name = "testName1", thumbnailUrl = "testUrl1")
+            GameSearchResult(gameID ="", cheapestPrice = 1.0, name = "testName0", thumbnailUrl = "testUrl0"),
+            GameSearchResult(gameID ="", cheapestPrice = 2.0, name = "testName1", thumbnailUrl = "testUrl1")
         )))
 
         presenter.searchQuery = "testQuery"
@@ -108,5 +110,19 @@ class SearchPresenterTest {
             ResultViewModel("testName0", "testUrl0", "$ 1.00"),
             ResultViewModel("testName1", "testUrl1", "$ 2.00")
         ))
+    }
+
+    @Test
+    fun whenDealSelected_showSearchDetail() {
+        `when`(mockApiService.searchGames("testQuery")).thenReturn(Observable.just(listOf(
+            GameSearchResult(gameID ="testId0", cheapestPrice = 0.0, name = "", thumbnailUrl = ""),
+            GameSearchResult(gameID ="testId1", cheapestPrice = 0.0, name = "", thumbnailUrl = "")
+        )))
+
+        presenter.searchQuery = "testQuery"
+
+        mockResultClick.onNext(1)
+
+        verify(mockView).showSearchDetail("testId1")
     }
 }
