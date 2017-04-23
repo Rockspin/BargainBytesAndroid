@@ -3,6 +3,7 @@ package com.rockspin.bargainbits.ui.search
 import com.rockspin.bargainbits.data.models.GameSearchResult
 import com.rockspin.bargainbits.data.rest_client.GameApiService
 import com.rockspin.bargainbits.test_utils.RxSchedulersRule
+import com.rockspin.bargainbits.util.format.PriceFormatter
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import org.junit.After
@@ -10,7 +11,6 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.ArgumentMatchers
 import org.mockito.Mock
 import org.mockito.Mockito.*
 import org.mockito.junit.MockitoJUnitRunner
@@ -30,6 +30,9 @@ class SearchPresenterTest {
     @Mock
     lateinit var mockView: SearchPresenter.SearchView
 
+    @Mock
+    lateinit var mockFormatter: PriceFormatter
+
     private val mockBackClick = PublishSubject.create<Unit>()
 
     private lateinit var presenter: SearchPresenter
@@ -39,7 +42,7 @@ class SearchPresenterTest {
         `when`(mockView.backClick).thenReturn(mockBackClick)
         `when`(mockApiService.searchGames(anyString())).thenReturn(Observable.just(emptyList()))
 
-        presenter = SearchPresenter(mockApiService)
+        presenter = SearchPresenter(mockApiService, mockFormatter)
         presenter.onViewCreated(mockView)
     }
 
@@ -76,16 +79,19 @@ class SearchPresenterTest {
 
     @Test
     fun whenSearchSuccessful_showsMappedViewModels() {
+        `when`(mockFormatter.formatPrice(1.0)).thenReturn("$ 1.00")
+        `when`(mockFormatter.formatPrice(2.0)).thenReturn("$ 2.00")
+
         `when`(mockApiService.searchGames("testQuery")).thenReturn(Observable.just(listOf(
-            GameSearchResult(gameID ="testId0", cheapestPrice = 1.0f, name = "testName0", thumbnailUrl = "testUrl0"),
-            GameSearchResult(gameID ="testId1", cheapestPrice = 2.0f, name = "testName1", thumbnailUrl = "testUrl1")
+            GameSearchResult(gameID ="testId0", cheapestPrice = 1.0, name = "testName0", thumbnailUrl = "testUrl0"),
+            GameSearchResult(gameID ="testId1", cheapestPrice = 2.0, name = "testName1", thumbnailUrl = "testUrl1")
         )))
 
         presenter.searchQuery = "testQuery"
 
         verify(mockView).updateResults(listOf(
-            ResultViewModel("testName0", "testUrl0", "USD 1.00"),
-            ResultViewModel("testName1", "testUrl1", "USD 2.00")
+            ResultViewModel("testName0", "testUrl0", "$ 1.00"),
+            ResultViewModel("testName1", "testUrl1", "$ 2.00")
         ))
     }
 }

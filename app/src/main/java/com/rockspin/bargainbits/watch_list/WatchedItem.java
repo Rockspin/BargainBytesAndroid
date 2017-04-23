@@ -33,7 +33,7 @@ public abstract class WatchedItem implements Parcelable, Serializable {
     }
 
     public static WatchedItem from(GameSearchResult game){
-        return  create(game.getName(), game.getGameID(), game.getCheapestPrice());
+        return  create(game.getName(), game.getGameID(), (float) game.getCheapestPrice());
     }
 
     public static WatchedItem from(CompactDeal compactDeal){

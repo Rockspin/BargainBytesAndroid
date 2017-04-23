@@ -35,7 +35,7 @@ public class SearchResultsModel {
                 gameList.clear();
                 gameList.addAll(games);
             }).flatMap(Observable::from).map(game -> {
-                final String cheapestPrice = currencyHelper.getFormattedPrice(game.getCheapestPrice());
+                final String cheapestPrice = currencyHelper.getFormattedPrice((float) game.getCheapestPrice());
                 return new SearchResultsAdapterModel(game.getThumbnailUrl(), game.getName(), cheapestPrice);
             }).toList());
         }

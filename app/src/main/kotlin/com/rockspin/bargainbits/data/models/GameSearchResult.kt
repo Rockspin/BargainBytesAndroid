@@ -17,7 +17,7 @@ data class GameSearchResult(
     @SerializedName("steamAppID")
     val steamAppID: String? = null,
     @SerializedName("cheapest")
-    val cheapestPrice: Float, // cheapestPrice price the game has ever been, in USD
+    val cheapestPrice: Double, // cheapestPrice price the game has ever been, in USD
     @SerializedName("cheapestDealID")
     val cheapestDealID: String? = null,
     @SerializedName("external")
