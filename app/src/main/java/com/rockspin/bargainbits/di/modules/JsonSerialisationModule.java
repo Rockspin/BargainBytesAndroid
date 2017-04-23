@@ -23,32 +23,6 @@ import timber.log.Timber;
 
 @Module public class JsonSerialisationModule {
 
-    @Provides @Singleton JsonDeserializer<CurrencyExchange> providesCurrencyExchangeJsonDeserializer() {
-        return (json, typeOfT, context) -> {
-            JsonObject rootObject = json.getAsJsonObject();
-
-            final CurrencyExchange currencyExchange = new CurrencyExchange();
-            currencyExchange.setBase(rootObject.get("base")
-                                               .getAsString());
-            currencyExchange.setDate(rootObject.get("date")
-                                               .getAsString());
-
-            JsonObject ratesObject = rootObject.get("rates")
-                                               .getAsJsonObject();
-            final List<BBCurrency> BBCurrencyList = new ArrayList<>();
-            for (Map.Entry<String, JsonElement> entry : ratesObject.entrySet()) {
-                String isoCode = entry.getKey();
-                float exchangeRate = entry.getValue()
-                                          .getAsFloat();
-                BBCurrencyList.add(new BBCurrency(isoCode, exchangeRate));
-            }
-
-            currencyExchange.setRates(BBCurrencyList);
-
-            return currencyExchange;
-        };
-    }
-
     @Provides @Singleton JsonDeserializer<List<GameInfo>> providesGameInfoListDeserializer() {
         return (json, typeOfT, context) -> {
 

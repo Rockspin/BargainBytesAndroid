@@ -6,12 +6,9 @@ import com.google.gson.JsonDeserializer
 import com.google.gson.reflect.TypeToken
 import com.rockspin.apputils.di.annotations.ApplicationScope
 import com.rockspin.bargainbits.data.models.cheapshark.GameInfo
-import com.rockspin.bargainbits.data.models.currency.CurrencyExchange
 import com.rockspin.bargainbits.data.rest_client.GameApiService
 import com.rockspin.bargainbits.data.rest_client.ICheapsharkAPIService
-import com.rockspin.bargainbits.data.rest_client.ICurrencyAPIService
 import com.rockspin.bargainbits.di.annotations.CheapsharkUrl
-import com.rockspin.bargainbits.di.annotations.CurrencyUrl
 import com.rockspin.bargainbits.services.Services
 import com.rockspin.bargainbits.utils.analytics.IAnalytics
 import com.rockspin.bargainbits.utils.environment.IServices
@@ -95,22 +92,6 @@ class APIServiceModule {
             .baseUrl(fixedUrl)
             .build()
             .create(GameApiService::class.java)
-    }
-
-    @Provides
-    @Singleton
-    internal fun providesCurrencyApiService(okHttpClient: com.squareup.okhttp.OkHttpClient, currencyExchangeJsonDeserializer: JsonDeserializer<CurrencyExchange>,
-        @CurrencyUrl url: String): ICurrencyAPIService {
-        val currencyExchangeGson = GsonBuilder().registerTypeAdapter(CurrencyExchange::class.java, currencyExchangeJsonDeserializer)
-            .create()
-
-        val restAdapterBuilder = RestAdapter.Builder().setClient(OkClient(okHttpClient))
-            .setLogLevel(RestAdapter.LogLevel.BASIC)
-            .setEndpoint(url)
-            .setConverter(GsonConverter(currencyExchangeGson))
-
-        return restAdapterBuilder.build()
-            .create(ICurrencyAPIService::class.java)
     }
 
     @Provides
