@@ -13,7 +13,7 @@
             app:elevation="4dp">
 
             <include layout="@layout/view_toolbar"
-                android:id="@+id/includedToolbar"/>
+                android:id="@+id/searchToolbar"/>
 
         </android.support.design.widget.AppBarLayout>
 

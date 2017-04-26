@@ -105,7 +105,7 @@ public final class GameInfoFragment extends Fragment implements GameInfoPresente
 
     @Override public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.game_info, menu);
+        inflater.inflate(R.menu.menu_search_detail, menu);
     }
 
     @Override public boolean onOptionsItemSelected(final MenuItem item) {

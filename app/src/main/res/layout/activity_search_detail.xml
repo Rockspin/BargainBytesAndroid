@@ -5,54 +5,21 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingBottom="@dimen/grid_space_2x">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/grid_space_2x"
-                android:background="@color/primary_color"
-                android:orientation="horizontal"
-                android:paddingBottom="@dimen/grid_space_2x"
-                android:paddingLeft="@dimen/grid_space_2x"
-                android:paddingRight="@dimen/grid_space_2x"
-                android:paddingTop="@dimen/grid_space_2x">
-
-                <TextView
-                    android:id="@+id/gameTitle"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="start|center_vertical"
-                    android:textSize="16sp"
-                    android:textColor="@color/primary_text_color_inverse"
-                    android:textStyle="bold"
-                    tools:text="Batman Arkham Asylum"/>
-
-                <ImageButton
-                    android:id="@+id/watchListButton"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_marginStart="@dimen/grid_space_1x"
-                    android:background="?selectableItemBackground"
-                    android:src="@drawable/ic_watch_list_add_24dp"
-                    android:contentDescription="@string/add_to_watch_list"/>
-
-            </LinearLayout>
+            <include layout="@layout/view_toolbar"
+                android:id="@+id/searchDetailToolbar" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/dealResultsRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:paddingLeft="@dimen/grid_space_2x"
-                android:paddingRight="@dimen/grid_space_2x"
                 app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
 
         </LinearLayout>
@@ -63,6 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:visibility="gone"
+            tools:visibility="visible"
             style="?android:attr/progressBarStyleLarge"/>
 
     </FrameLayout>

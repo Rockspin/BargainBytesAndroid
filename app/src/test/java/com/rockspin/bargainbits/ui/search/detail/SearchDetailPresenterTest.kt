@@ -44,7 +44,7 @@ class SearchDetailPresenterTest {
     lateinit var mockApiService: GameApiService
 
     @Mock
-    lateinit var mockView: SearchDetailPresenter.SearchDetailView
+    lateinit var mockView: SearchDetailPresenter.View
 
     @Mock
     lateinit var mockFormatter: PriceFormatter
@@ -77,7 +77,7 @@ class SearchDetailPresenterTest {
 
     @Test
     fun whenViewCreated_setsTitleToGameName() {
-        verify(mockView).title = TEST_GAME_NAME
+        verify(mockView).setScreenTitle(TEST_GAME_NAME)
     }
 
     @Test

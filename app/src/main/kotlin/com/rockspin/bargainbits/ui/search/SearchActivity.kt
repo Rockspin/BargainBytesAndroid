@@ -25,11 +25,13 @@ class SearchActivity : BaseMvpActivity<SearchPresenter.SearchView, SearchPresent
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_search)
 
-        setSupportActionBar(binding.includedToolbar.toolbar)
+        setSupportActionBar(binding.searchToolbar.toolbar)
         supportActionBar?.setHomeButtonEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         binding.searchResultsRecyclerView.adapter = adapter
+
+        // TODO - Handle Config Changes
 
     }
 
@@ -67,7 +69,7 @@ class SearchActivity : BaseMvpActivity<SearchPresenter.SearchView, SearchPresent
     }
 
     override fun showFetchError() {
-        // TODO
+        // TODO - Show try again view
     }
 
     override fun goBack() {

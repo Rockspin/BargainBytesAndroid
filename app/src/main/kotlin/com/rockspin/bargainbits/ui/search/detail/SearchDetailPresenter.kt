@@ -18,22 +18,22 @@ import javax.inject.Inject
  * Created by valentin.hinov on 23/04/2017.
  */
 class SearchDetailPresenter @Inject constructor(val apiService: GameApiService, val storeRepository: StoreRepository, val formatter: PriceFormatter)
-    : BaseMvpPresenter<SearchDetailPresenter.SearchDetailView>() {
+    : BaseMvpPresenter<SearchDetailPresenter.View>() {
 
-    interface SearchDetailView : BaseMvpView {
+    interface View : BaseMvpView {
         fun showLoading(show: Boolean)
         fun showAvailableDeals(deals: List<AbbreviatedDealViewModel>)
         fun showLoadError()
+        fun setScreenTitle(title: String)
 
-        var title: String
         val onItemClicked: Observable<Int>
         val onWatchListClicked: Observable<*>
     }
 
-    fun onViewCreated(view: SearchDetailView, gameId: String, gameName: String) {
+    fun onViewCreated(view: View, gameId: String, gameName: String) {
         super.onViewCreated(view)
 
-        this.view?.title = gameName
+        this.view?.setScreenTitle(gameName)
 
         addLifetimeDisposable(view.onItemClicked
             .subscribe {

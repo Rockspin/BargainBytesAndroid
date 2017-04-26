@@ -43,13 +43,11 @@
             android:name=".ui.activities.WatchListActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/watch_list"
-            >
+            android:parentActivityName=".ui.activities.main.MainActivity"/>
 
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.activities.main.MainActivity"
-                />
-        </activity>
+        <activity
+            android:name=".ui.search.SearchDetailActivity"
+            android:parentActivityName=".ui.search.SearchActivity"/>
 
         <activity
             android:name=".ui.search.SearchActivity"
