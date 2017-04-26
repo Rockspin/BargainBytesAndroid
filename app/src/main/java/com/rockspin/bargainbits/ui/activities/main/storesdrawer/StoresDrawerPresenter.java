@@ -1,6 +1,6 @@
 package com.rockspin.bargainbits.ui.activities.main.storesdrawer;
 
-import com.rockspin.bargainbits.data.models.cheapshark.Store;
+import com.rockspin.bargainbits.data.models.Store;
 import com.rockspin.bargainbits.ui.BasePresenter;
 import com.rockspin.bargainbits.ui.activities.main.storesdrawer.adapter.StoreEnabled;
 import java.util.List;
@@ -53,7 +53,7 @@ public class StoresDrawerPresenter extends BasePresenter<StoresDrawerPresenter.I
         addSubscription(iView.onStoreSelected().doOnNext(storePosition -> {
             final Store store = storePosition.store;
             final boolean checked = storePosition.checked;
-            getModel().saveStoreEnabledState(store.getStoreID(), store.getStoreName(), checked);
+            getModel().saveStoreEnabledState(store.getStoreId(), store.getStoreName(), checked);
         }).subscribe());
     }
 

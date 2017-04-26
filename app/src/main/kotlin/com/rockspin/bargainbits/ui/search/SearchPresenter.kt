@@ -23,8 +23,8 @@ class SearchPresenter @Inject constructor(val apiService: GameApiService, val fo
         fun goBack()
         fun showSearchDetail(gameId: String, gameName: String)
 
-        val backClick: Observable<*>
-        val resultClick: Observable<Int>
+        val onBackClick: Observable<*>
+        val onResultClick: Observable<Int>
     }
 
     private var latestResults = emptyList<GameSearchResult>()
@@ -32,12 +32,12 @@ class SearchPresenter @Inject constructor(val apiService: GameApiService, val fo
     override fun onViewCreated(view: SearchView) {
         super.onViewCreated(view)
 
-        addLifetimeDisposable(view.backClick
+        addLifetimeDisposable(view.onBackClick
             .subscribe {
                 this.view?.goBack()
             })
 
-        addLifetimeDisposable(view.resultClick
+        addLifetimeDisposable(view.onResultClick
             .subscribe {
                 val selectedResult = latestResults[it]
                 this.view?.showSearchDetail(selectedResult.gameID, selectedResult.name)
@@ -50,7 +50,7 @@ class SearchPresenter @Inject constructor(val apiService: GameApiService, val fo
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe { view?.showLoading(true) }
                 .doFinally { view?.showLoading(false) }
-                .doOnNext { latestResults = it }
+                .doOnSuccess { latestResults = it }
                 .map { it.map { ResultViewModel(it.name, it.thumbnailUrl, formatter.formatPrice(it.cheapestPrice)) } }
                 .subscribe( { viewModels ->
                     if (viewModels.isEmpty()) {

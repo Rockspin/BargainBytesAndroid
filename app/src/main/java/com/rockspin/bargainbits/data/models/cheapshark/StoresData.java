@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import com.rockspin.bargainbits.R;
 
+import com.rockspin.bargainbits.data.models.Store;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -20,7 +21,7 @@ public final class StoresData {
         mStoreSet.addAll(pStoresList);
         mStoreNameMap.clear();
         for (final Store store : pStoresList) {
-            mStoreNameMap.put(store.getStoreID(), store.getStoreName());
+            mStoreNameMap.put(store.getStoreId(), store.getStoreName());
         }
     }
 

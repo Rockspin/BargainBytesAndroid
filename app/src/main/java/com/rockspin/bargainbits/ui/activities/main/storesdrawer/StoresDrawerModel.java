@@ -26,7 +26,7 @@ public class StoresDrawerModel {
     public Observable<List<StoreEnabled>> loadStores() {
         return storeFilter.getStores()
                           .flatMap(Observable::from)
-                          .map(store -> new StoreEnabled(store, storeFilter.isStoreEnabled(store.getStoreID())))
+                          .map(store -> new StoreEnabled(store, storeFilter.isStoreEnabled(store.getStoreId())))
                           .toList();
     }
 

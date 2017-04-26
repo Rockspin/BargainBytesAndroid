@@ -7,17 +7,13 @@ import com.google.gson.annotations.SerializedName
  */
 data class AbbreviatedDeal(
     @SerializedName("storeID")
-    val storeID: String? = null,
+    val storeID: String,
     @SerializedName("dealID")
-    val dealID: String? = null,
+    val dealID: String,
     @SerializedName("price")
     val price: Double,
     @SerializedName("retailPrice")
-    var retailPrice: Double
-) {
+    var retailPrice: Double,
+    @SerializedName("savings")
     val savingsFraction: Double
-        get() {
-            val fraction = price / retailPrice
-            return 1.0 - fraction
-        }
-}
+)

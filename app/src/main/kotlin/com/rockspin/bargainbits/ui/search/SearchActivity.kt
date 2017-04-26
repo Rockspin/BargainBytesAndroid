@@ -7,7 +7,6 @@ import com.jakewharton.rxbinding2.view.clicks
 import com.rockspin.bargainbits.R
 import com.rockspin.bargainbits.databinding.ActivitySearchBinding
 import com.rockspin.bargainbits.ui.BaseMvpActivity
-import com.rockspin.bargainbits.ui.search.detail.SearchDetailBottomSheetDialogFragment
 import com.rockspin.bargainbits.util.visible
 import io.reactivex.Observable
 import javax.inject.Inject
@@ -41,10 +40,10 @@ class SearchActivity : BaseMvpActivity<SearchPresenter.SearchView, SearchPresent
 
     //region - SearchView interface
 
-    override val backClick: Observable<*>
+    override val onBackClick: Observable<*>
         get() = binding.backButton.clicks()
 
-    override val resultClick: Observable<Int>
+    override val onResultClick: Observable<Int>
         get() = adapter.onItemSelected
 
     override fun showLoading(show: Boolean) {
@@ -64,8 +63,7 @@ class SearchActivity : BaseMvpActivity<SearchPresenter.SearchView, SearchPresent
     }
 
     override fun showSearchDetail(gameId: String, gameName: String) {
-        val searchDetailFragment = SearchDetailBottomSheetDialogFragment.newInstance(gameId, gameName)
-        searchDetailFragment.show(supportFragmentManager, "SearchDetail")
+        // TODO
     }
 
     override fun showFetchError() {

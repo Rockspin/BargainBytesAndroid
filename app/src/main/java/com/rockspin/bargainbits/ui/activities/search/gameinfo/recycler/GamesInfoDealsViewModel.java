@@ -3,7 +3,6 @@ package com.rockspin.bargainbits.ui.activities.search.gameinfo.recycler;
 import android.graphics.drawable.Drawable;
 
 public class GamesInfoDealsViewModel {
-    public final String salePrice;
     public final Drawable storeImage;
     public final String storeName;
 
@@ -14,9 +13,8 @@ public class GamesInfoDealsViewModel {
     public final boolean hasSavings;
     public final boolean singlePriceMode;
 
-    private GamesInfoDealsViewModel(String salePrice, Drawable storeImage, String storeName, float savingPercentage, boolean hasSavings, boolean singlePriceMode,
+    private GamesInfoDealsViewModel(Drawable storeImage, String storeName, float savingPercentage, boolean hasSavings, boolean singlePriceMode,
         String retailPrice, String dealPrice) {
-        this.salePrice = salePrice;
         this.storeImage = storeImage;
         this.storeName = storeName;
         this.savingPercentage = savingPercentage;
@@ -27,7 +25,6 @@ public class GamesInfoDealsViewModel {
     }
 
     public static class Builder {
-        private String salePrice;
         private Drawable storeImage;
         private String storeName;
         private float savingPercentage;
@@ -35,11 +32,6 @@ public class GamesInfoDealsViewModel {
         private boolean singlePriceMode;
         private String retailPrice;
         private String dealPrice;
-
-        public Builder setSalePrice(String salePrice) {
-            this.salePrice = salePrice;
-            return this;
-        }
 
         public Builder setStoreImage(Drawable storeImage) {
             this.storeImage = storeImage;
@@ -77,7 +69,7 @@ public class GamesInfoDealsViewModel {
         }
 
         public GamesInfoDealsViewModel build() {
-            return new GamesInfoDealsViewModel(salePrice, storeImage, storeName, savingPercentage, hasSavings, singlePriceMode, retailPrice, dealPrice);
+            return new GamesInfoDealsViewModel(storeImage, storeName, savingPercentage, hasSavings, singlePriceMode, retailPrice, dealPrice);
         }
     }
 }

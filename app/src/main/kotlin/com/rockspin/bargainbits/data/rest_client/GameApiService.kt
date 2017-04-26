@@ -1,7 +1,10 @@
 package com.rockspin.bargainbits.data.rest_client
 
+import com.rockspin.bargainbits.data.models.GameInfo
 import com.rockspin.bargainbits.data.models.GameSearchResult
-import io.reactivex.Observable
+import com.rockspin.bargainbits.data.repository.stores.GameStore
+import com.rockspin.bargainbits.data.models.Store
+import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -11,5 +14,11 @@ import retrofit2.http.Query
 interface GameApiService {
 
     @GET("games")
-    fun searchGames(@Query("title") gameTitle: String): Observable<List<GameSearchResult>>
+    fun searchGames(@Query("title") gameTitle: String): Single<List<GameSearchResult>>
+
+    @GET("games")
+    fun getGameInfo(@Query("id") gameId: String): Single<GameInfo>
+
+    @GET("stores")
+    fun getStores(): Single<List<Store>>
 }

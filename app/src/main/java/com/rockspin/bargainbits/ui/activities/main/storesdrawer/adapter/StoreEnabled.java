@@ -1,6 +1,6 @@
 package com.rockspin.bargainbits.ui.activities.main.storesdrawer.adapter;
 
-import com.rockspin.bargainbits.data.models.cheapshark.Store;
+import com.rockspin.bargainbits.data.models.Store;
 
 public class StoreEnabled {
     public final Store store;

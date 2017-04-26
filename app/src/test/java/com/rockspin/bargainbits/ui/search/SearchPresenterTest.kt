@@ -3,8 +3,9 @@ package com.rockspin.bargainbits.ui.search
 import com.rockspin.bargainbits.data.models.GameSearchResult
 import com.rockspin.bargainbits.data.rest_client.GameApiService
 import com.rockspin.bargainbits.test_utils.RxSchedulersRule
+import com.rockspin.bargainbits.test_utils.completeWithValue
 import com.rockspin.bargainbits.util.format.PriceFormatter
-import io.reactivex.Observable
+import io.reactivex.Single
 import io.reactivex.subjects.PublishSubject
 import org.junit.After
 import org.junit.Before
@@ -40,9 +41,9 @@ class SearchPresenterTest {
 
     @Before
     fun setUp() {
-        `when`(mockView.backClick).thenReturn(mockBackClick)
-        `when`(mockView.resultClick).thenReturn(mockResultClick)
-        `when`(mockApiService.searchGames(anyString())).thenReturn(Observable.just(emptyList()))
+        `when`(mockView.onBackClick).thenReturn(mockBackClick)
+        `when`(mockView.onResultClick).thenReturn(mockResultClick)
+        `when`(mockApiService.searchGames(anyString())).thenReturn(Single.just(emptyList()))
 
         presenter = SearchPresenter(mockApiService, mockFormatter)
         presenter.onViewCreated(mockView)
@@ -73,7 +74,7 @@ class SearchPresenterTest {
 
     @Test
     fun whenSearchError_showFetchError() {
-        `when`(mockApiService.searchGames(anyString())).thenReturn(Observable.error(Throwable()))
+        `when`(mockApiService.searchGames(anyString())).thenReturn(Single.error(Throwable()))
         presenter.searchQuery = "testQuery"
 
         verify(mockView).showFetchError()
@@ -82,14 +83,13 @@ class SearchPresenterTest {
     @Test
     fun whenSearch_controlsLoadingState() {
         val publishSubject = PublishSubject.create<List<GameSearchResult>>()
-        `when`(mockApiService.searchGames(anyString())).thenReturn(publishSubject)
+        `when`(mockApiService.searchGames(anyString())).thenReturn(publishSubject.singleOrError())
 
         presenter.searchQuery = "testQuery"
 
         verify(mockView).showLoading(true)
 
-        publishSubject.onNext(emptyList())
-        publishSubject.onComplete()
+        publishSubject.completeWithValue(emptyList())
 
         verify(mockView).showLoading(false)
     }
@@ -99,7 +99,7 @@ class SearchPresenterTest {
         `when`(mockFormatter.formatPrice(1.0)).thenReturn("$ 1.00")
         `when`(mockFormatter.formatPrice(2.0)).thenReturn("$ 2.00")
 
-        `when`(mockApiService.searchGames("testQuery")).thenReturn(Observable.just(listOf(
+        `when`(mockApiService.searchGames("testQuery")).thenReturn(Single.just(listOf(
             GameSearchResult(gameID ="", cheapestPrice = 1.0, name = "testName0", thumbnailUrl = "testUrl0"),
             GameSearchResult(gameID ="", cheapestPrice = 2.0, name = "testName1", thumbnailUrl = "testUrl1")
         )))
@@ -114,7 +114,7 @@ class SearchPresenterTest {
 
     @Test
     fun whenDealSelected_showSearchDetail() {
-        `when`(mockApiService.searchGames("testQuery")).thenReturn(Observable.just(listOf(
+        `when`(mockApiService.searchGames("testQuery")).thenReturn(Single.just(listOf(
             GameSearchResult(gameID ="testId0", cheapestPrice = 0.0, name = "testName0", thumbnailUrl = ""),
             GameSearchResult(gameID ="testId1", cheapestPrice = 0.0, name = "testName1", thumbnailUrl = "")
         )))

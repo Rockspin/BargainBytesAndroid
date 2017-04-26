@@ -6,7 +6,7 @@ data class GameInfo(
     @SerializedName("info")
     val info: Info,
     @SerializedName("cheapestPriceEver")
-    var cheapestPriceEver: CheapestPriceEver? = null,
+    val cheapestPriceEver: CheapestPriceEver? = null,
     @SerializedName("deals")
     val deals: List<AbbreviatedDeal>
 ) {
