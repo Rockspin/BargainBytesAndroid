@@ -8,7 +8,7 @@ import com.rockspin.apputils.di.annotations.ApplicationScope
 import com.rockspin.bargainbits.data.models.GameInfo
 import com.rockspin.bargainbits.data.rest_client.GameApiService
 import com.rockspin.bargainbits.data.rest_client.ICheapsharkAPIService
-import com.rockspin.bargainbits.di.annotations.CheapsharkUrl
+import com.rockspin.bargainbits.di.annotations.GameApiUrl
 import com.rockspin.bargainbits.services.Services
 import com.rockspin.bargainbits.utils.analytics.IAnalytics
 import com.rockspin.bargainbits.utils.environment.IServices
@@ -81,7 +81,7 @@ class APIServiceModule {
 
     @Provides
     @Singleton
-    internal fun providesGameApiService(@CheapsharkUrl url: String, okHttpClient: OkHttpClient): GameApiService {
+    internal fun providesGameApiService(@GameApiUrl url: String, okHttpClient: OkHttpClient): GameApiService {
         // TODO - add backslach to main URL once old Retrofit ICheapsharkAPIService service is gone
         val fixedUrl = url + "/"
 
@@ -97,7 +97,7 @@ class APIServiceModule {
     @Provides
     @Singleton
     internal fun providesCheapsharkAPIService(okHttpClient: com.squareup.okhttp.OkHttpClient, gameInfoListDeserializer: JsonDeserializer<List<GameInfo>>,
-        @CheapsharkUrl url: String): ICheapsharkAPIService {
+        @GameApiUrl url: String): ICheapsharkAPIService {
         val gameInfoListType = object : TypeToken<List<GameInfo>>() {}.type
         val cheapsharkGson = GsonBuilder().registerTypeAdapter(gameInfoListType, gameInfoListDeserializer)
             .create()

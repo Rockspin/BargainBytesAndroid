@@ -19,6 +19,7 @@
             android:id="@+id/gameThumb"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_marginEnd="@dimen/grid_space_1x"
             android:layout_weight="0.2"/>
 
         <RelativeLayout
@@ -26,7 +27,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="0.8">
-
 
             <TextView
                 android:id="@+id/gameTitle"

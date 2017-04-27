@@ -155,8 +155,11 @@ dependencies {
     // Percent Support Library
     compile "com.android.support:percent:$supportLibVersion"
 
-    //App combat
+    // App compat
     compile "com.android.support:appcompat-v7:$supportLibVersion"
+
+    // Chrome tabs
+    compile "com.android.support:customtabs:$supportLibVersion"
 
     //Gson
     compile 'com.google.code.gson:gson:2.7'

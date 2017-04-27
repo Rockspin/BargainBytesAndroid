@@ -29,8 +29,8 @@ class SearchDetailPresenterTest {
     companion object {
         private val TEST_GAME_ID = "0"
         private val TEST_GAME_NAME = "testGameName"
-
         private val TEST_STORE_URL_PREFIX = "prefix:"
+        private val TEST_GAME_DEAL_URL = "https://url?dealId="
 
         fun createGameInfoWithDeals(deals: List<AbbreviatedDeal>): GameInfo {
             return GameInfo(Info(TEST_GAME_NAME), deals = deals)
@@ -52,21 +52,21 @@ class SearchDetailPresenterTest {
     @Mock
     lateinit var mockStoreRepository: StoreRepository
 
-    private val mockWatchListClick = PublishSubject.create<Unit>()
-    private val mockDealClick = PublishSubject.create<Int>()
-    private val gameInfoResult = PublishSubject.create<GameInfo>()
+    private val testWatchListClick = PublishSubject.create<Unit>()
+    private val testDealClick = PublishSubject.create<Int>()
+    private val testGameInfoResult = PublishSubject.create<GameInfo>()
 
     private lateinit var presenter: SearchDetailPresenter
 
     @Before
     fun setUp() {
 
-        `when`(mockView.onItemClicked).thenReturn(mockDealClick)
-        `when`(mockView.onWatchListClicked).thenReturn(mockWatchListClick)
-        `when`(mockApiService.getGameInfo(anyString())).thenReturn(gameInfoResult.singleOrError())
+        `when`(mockView.onItemClicked).thenReturn(testDealClick)
+        `when`(mockView.onWatchListClicked).thenReturn(testWatchListClick)
+        `when`(mockApiService.getGameInfo(anyString())).thenReturn(testGameInfoResult.singleOrError())
         `when`(mockStoreRepository.getGameStoreForId(anyString())).thenReturn(Single.just(GameStore("", "")))
 
-        presenter = SearchDetailPresenter(mockApiService, mockStoreRepository, mockFormatter)
+        presenter = SearchDetailPresenter(mockApiService, mockStoreRepository, mockFormatter, TEST_GAME_DEAL_URL)
         presenter.onViewCreated(mockView)
         presenter.setData(TEST_GAME_ID, TEST_GAME_NAME)
     }
@@ -90,14 +90,14 @@ class SearchDetailPresenterTest {
     fun whenGetGameInfo_controlsLoadingState() {
         verify(mockView).showLoading(true)
 
-        gameInfoResult.completeWithValue(createGameInfoWithDeals(emptyList()))
+        testGameInfoResult.completeWithValue(createGameInfoWithDeals(emptyList()))
 
         verify(mockView).showLoading(false)
     }
 
     @Test
     fun whenGetGameInfoError_showsLoadError() {
-        gameInfoResult.onError(Throwable())
+        testGameInfoResult.onError(Throwable())
 
         verify(mockView).showLoadError()
     }
@@ -115,12 +115,25 @@ class SearchDetailPresenterTest {
         `when`(mockStoreRepository.getGameStoreForId("testStoreId1")).thenReturn(Single.just(
             GameStore("testStoreName1", "$TEST_STORE_URL_PREFIX testStoreId1")))
 
-        gameInfoResult.completeWithValue(createGameInfoWithDeals(testDeals))
+        testGameInfoResult.completeWithValue(createGameInfoWithDeals(testDeals))
 
         val expectedViewModels = listOf(
             AbbreviatedDealViewModel("$TEST_STORE_URL_PREFIX testStoreId0", "testStoreName0", null, "$1.00"),
             AbbreviatedDealViewModel("$TEST_STORE_URL_PREFIX testStoreId1", "testStoreName1", "$2.00", "$1.00", 0.5))
 
         verify(mockView).showAvailableDeals(expectedViewModels)
+    }
+
+    @Test
+    fun whenItemClick_openCorrespondingDealUrl() {
+        val testDeals = listOf(
+            AbbreviatedDeal("testStoreId0", "testDealId0", 0.0, 0.0, 0.0),
+            AbbreviatedDeal("testStoreId1", "testDealId1", 0.0, 0.0, 0.0))
+
+        testGameInfoResult.completeWithValue(createGameInfoWithDeals(testDeals))
+
+        testDealClick.onNext(1)
+
+        verify(mockView).openDealUrl("${TEST_GAME_DEAL_URL}testDealId1")
     }
 }

@@ -3,6 +3,7 @@ package com.rockspin.bargainbits.ui.search.detail
 import android.content.Context
 import android.content.Intent
 import android.databinding.DataBindingUtil
+import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.widget.Toast
@@ -15,6 +16,10 @@ import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
 import io.reactivex.subjects.PublishSubject
 import javax.inject.Inject
+import android.support.customtabs.CustomTabsIntent
+import android.support.v4.content.ContextCompat
+
+
 
 class SearchDetailActivity : BaseMvpActivity<SearchDetailPresenter.View, SearchDetailPresenter>(), SearchDetailPresenter.View {
 
@@ -85,6 +90,21 @@ class SearchDetailActivity : BaseMvpActivity<SearchDetailPresenter.View, SearchD
     override fun showLoadError() {
         Toast.makeText(this, "Error loading search detail", Toast.LENGTH_SHORT).show()
         // TODO - show try again view
+    }
+
+    override fun openDealUrl(url: String) {
+        val uri = Uri.parse(url)
+
+        // create an intent builder
+        val intentBuilder = CustomTabsIntent.Builder()
+            .setToolbarColor(ContextCompat.getColor(this, R.color.primary_color))
+            .setSecondaryToolbarColor(ContextCompat.getColor(this, R.color.primary_color_dark))
+            .setStartAnimations(this, android.R.anim.fade_in, android.R.anim.fade_out)
+            .setExitAnimations(this, android.R.anim.fade_in, android.R.anim.fade_out)
+            .enableUrlBarHiding()
+
+        val customTabsIntent = intentBuilder.build()
+        customTabsIntent.launchUrl(this, uri)
     }
 
     override val onItemClicked: Observable<Int>
