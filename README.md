@@ -39,6 +39,7 @@ Each feature will be described in more detail in its own ticket. This is just an
 * Fetch store images from the Cheapshark API instead of having them in the app.
 * Redesign search as a floating action button on main screen. 
 * Smart search - Searching should dynamically populate the results.
+* Update search result UI to show whether an item has an active deal.
 * Better caching. A lot of what the app fetches can be cached to allow it to work offline.
 * Paging of deal list - Automatically load new results once list is scrolled to the bottom.
 * Redesign of deal list - Need idea
