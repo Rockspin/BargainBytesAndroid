@@ -35,10 +35,11 @@ In order of importance - but some tasks can be done simultaneously. All of the e
 
 #### Step 2 - Work on new features. 
 Each feature will be described in more detail in its own ticket. This is just an overview. In no particular order.
-* Open deal links in app instead of an external browser.
+* Open deal links in Custom Chrome Tabs in-app instead of an external browser.
 * Fetch store images from the Cheapshark API instead of having them in the app.
 * Redesign search as a floating action button on main screen. 
 * Smart search - Searching should dynamically populate the results.
+* Add "add to watch list" as custom Chrome Tab option when opening deals.
 * Consolidate analytics & crash reporting tool into one. Use either Fabric or Firebase.
 * Better caching. A lot of what the app fetches can be cached to allow it to work offline.
 * Paging of deal list - Automatically load new results once list is scrolled to the bottom.
