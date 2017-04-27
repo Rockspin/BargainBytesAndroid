@@ -67,7 +67,8 @@ class SearchDetailPresenterTest {
         `when`(mockStoreRepository.getGameStoreForId(anyString())).thenReturn(Single.just(GameStore("", "")))
 
         presenter = SearchDetailPresenter(mockApiService, mockStoreRepository, mockFormatter)
-        presenter.onViewCreated(mockView, TEST_GAME_ID, TEST_GAME_NAME)
+        presenter.onViewCreated(mockView)
+        presenter.setData(TEST_GAME_ID, TEST_GAME_NAME)
     }
 
     @After
@@ -117,7 +118,7 @@ class SearchDetailPresenterTest {
         gameInfoResult.completeWithValue(createGameInfoWithDeals(testDeals))
 
         val expectedViewModels = listOf(
-            AbbreviatedDealViewModel("$TEST_STORE_URL_PREFIX testStoreId0", "testStoreName0", "$1.00"),
+            AbbreviatedDealViewModel("$TEST_STORE_URL_PREFIX testStoreId0", "testStoreName0", null, "$1.00"),
             AbbreviatedDealViewModel("$TEST_STORE_URL_PREFIX testStoreId1", "testStoreName1", "$2.00", "$1.00", 0.5))
 
         verify(mockView).showAvailableDeals(expectedViewModels)

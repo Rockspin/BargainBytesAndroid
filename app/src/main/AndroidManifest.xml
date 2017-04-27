@@ -46,7 +46,7 @@
             android:parentActivityName=".ui.activities.main.MainActivity"/>
 
         <activity
-            android:name=".ui.search.SearchDetailActivity"
+            android:name=".ui.search.detail.SearchDetailActivity"
             android:parentActivityName=".ui.search.SearchActivity"/>
 
         <activity

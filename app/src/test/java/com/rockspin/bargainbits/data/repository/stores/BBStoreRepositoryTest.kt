@@ -1,7 +1,6 @@
 package com.rockspin.bargainbits.data.repository.stores
 
 import com.rockspin.bargainbits.data.models.Store
-import com.rockspin.bargainbits.data.repository.stores.GameStore
 import com.rockspin.bargainbits.data.rest_client.GameApiService
 import io.reactivex.Single
 import org.assertj.core.api.Assertions.assertThat
@@ -17,14 +16,14 @@ class BBStoreRepositoryTest {
 
     companion object {
         private val TEST_API_STORES = listOf(
-            Store("TestStoreId0", "TestStoreName0", true, createImagesWithLogoUrl("TestImageUrl0")),
-            Store("TestStoreId1", "TestStoreName1", false, createImagesWithLogoUrl("TestImageUrl1")),
-            Store("TestStoreId2", "TestStoreName2", true, createImagesWithLogoUrl("TestImageUrl2"))
+            Store("TestStoreId0", "TestStoreName0", 1, createImagesWithLogoUrl("TestImageUrl0")),
+            Store("TestStoreId1", "TestStoreName1", 0, createImagesWithLogoUrl("TestImageUrl1")),
+            Store("TestStoreId2", "TestStoreName2", 1, createImagesWithLogoUrl("TestImageUrl2"))
         )
 
         private val TEST_GAME_STORES = listOf(
-            GameStore("TestStoreName0", "TestImageUrl0"),
-            GameStore("TestStoreName2", "TestImageUrl2")
+            GameStore("TestStoreName0", "${BBStoreRepository.BASE_STORE_IMAGE_URL}TestImageUrl0"),
+            GameStore("TestStoreName2", "${BBStoreRepository.BASE_STORE_IMAGE_URL}TestImageUrl2")
         )
 
         private fun createImagesWithLogoUrl(url: String): Store.Images {

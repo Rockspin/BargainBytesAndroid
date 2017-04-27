@@ -6,12 +6,12 @@ package com.rockspin.bargainbits.ui.search.detail
 data class AbbreviatedDealViewModel(
     val storeImageUrl: String,
     val storeName: String,
-    val normalPrice: String,
-    val dealPrice: String? = null,
+    val normalPrice: String? = null,
+    val dealPrice: String,
     val savingPercentage: Double? = null
 ) {
     val hasDeal: Boolean
         get() {
-            return dealPrice != null
+            return savingPercentage != null
         }
 }

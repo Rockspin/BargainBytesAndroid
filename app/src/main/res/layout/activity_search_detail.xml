@@ -19,7 +19,9 @@
                 android:id="@+id/dealResultsRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@color/list_background_color"
                 android:orientation="vertical"
+                tools:listitem="@layout/item_abbreviated_deal"
                 app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
 
         </LinearLayout>

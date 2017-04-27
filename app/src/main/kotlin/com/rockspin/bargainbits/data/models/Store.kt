@@ -18,10 +18,13 @@ data class Store (
     @SerializedName("storeName")
     val storeName: String,
     @SerializedName("isActive")
-    val isActive: Boolean,
+    private val isActiveInt: Int,
     @SerializedName("images")
     private val images: Images
 ) {
+
+    val isActive: Boolean
+    get() = isActiveInt == 1
 
     val imageUrl: String
     get() = images.logoUrl

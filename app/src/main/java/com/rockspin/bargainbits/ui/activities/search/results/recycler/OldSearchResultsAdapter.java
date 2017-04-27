@@ -32,7 +32,7 @@ public class OldSearchResultsAdapter extends RecyclerView.Adapter<OldSearchResul
     }
 
     @Override public SearchResultsAdapterViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View rootView = layoutInflater.inflate(R.layout.view_search_result, parent, false);
+        View rootView = layoutInflater.inflate(R.layout.item_search_result, parent, false);
         return new SearchResultsAdapterViewHolder(rootView);
     }
 

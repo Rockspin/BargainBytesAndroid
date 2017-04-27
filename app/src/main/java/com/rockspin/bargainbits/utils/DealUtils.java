@@ -28,12 +28,19 @@ public final class DealUtils {
 
     private DealUtils() { /* not used */ }
 
+    /**
+     * @deprecated Use the {@link #getFormattedSavingsString(Context, double)} version instead
+     */
+    @Deprecated
     public static CharSequence getFormattedSavingsString(final Context context, final float savings) {
+        return getFormattedSavingsString(context, (double) savings);
+    }
+
+    public static CharSequence getFormattedSavingsString(final Context context, final double savings) {
         final String percentageString = Math.round(savings) + "%";
         final String savingString = context.getString(R.string.saving_short);
         return Html.fromHtml("<strong>" + percentageString + "</strong>" + "<br />" + "<small>" + savingString + "</small>");
     }
-
 
     public static Deal GameInfo(final AbbreviatedDeal abbreviatedDeal) {
         final Deal deal = new Deal();

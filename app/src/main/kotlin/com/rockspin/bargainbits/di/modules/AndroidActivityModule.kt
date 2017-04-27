@@ -7,7 +7,7 @@ import com.rockspin.bargainbits.ui.activities.WatchListActivity
 import com.rockspin.bargainbits.ui.activities.main.MainActivity
 import com.rockspin.bargainbits.ui.activities.search.GamesSearchActivity
 import com.rockspin.bargainbits.ui.search.SearchActivity
-import com.rockspin.bargainbits.ui.search.SearchDetailActivity
+import com.rockspin.bargainbits.ui.search.detail.SearchDetailActivity
 import dagger.Binds
 import dagger.Module
 import dagger.Subcomponent

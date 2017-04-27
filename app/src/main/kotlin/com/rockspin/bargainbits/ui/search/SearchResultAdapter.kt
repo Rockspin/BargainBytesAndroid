@@ -5,9 +5,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.jakewharton.rxbinding2.view.clicks
 import com.rockspin.apputils.di.annotations.ActivityScope
-import com.rockspin.bargainbits.databinding.ViewSearchResultBinding
+import com.rockspin.bargainbits.databinding.ItemSearchResultBinding
 import io.reactivex.Observable
-import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.subjects.PublishSubject
 import javax.inject.Inject
 
@@ -25,7 +24,7 @@ class SearchResultAdapter @Inject internal constructor(@ActivityScope private va
         }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchResultsAdapterViewHolder {
-        val itemBinding = ViewSearchResultBinding.inflate(layoutInflater, parent, false)
+        val itemBinding = ItemSearchResultBinding.inflate(layoutInflater, parent, false)
         val holder = SearchResultsAdapterViewHolder(itemBinding)
 
         holder.itemView.clicks()
@@ -49,5 +48,5 @@ class SearchResultAdapter @Inject internal constructor(@ActivityScope private va
         binding.gameTitle.text = viewModel.name
     }
 
-    class SearchResultsAdapterViewHolder(val binding: ViewSearchResultBinding) : RecyclerView.ViewHolder(binding.root)
+    class SearchResultsAdapterViewHolder(val binding: ItemSearchResultBinding) : RecyclerView.ViewHolder(binding.root)
 }

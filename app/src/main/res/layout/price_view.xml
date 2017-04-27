@@ -28,7 +28,7 @@
         android:textColor="@color/primary_text_color"
         android:textSize="15sp"
         tools:ignore="HardcodedText"
-        tools:text="$ 1.99"
+        tools:text="$1.99"
         />
 
     <TextView
@@ -42,7 +42,7 @@
         android:textSize="15sp"
         android:textStyle="bold"
         tools:ignore="HardcodedText"
-        tools:text="$ 0.19"
+        tools:text="$0.19"
         />
 
 </LinearLayout>

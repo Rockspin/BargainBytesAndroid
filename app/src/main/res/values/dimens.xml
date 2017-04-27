@@ -1,10 +1,12 @@
 <resources>
   <!-- Default screen margins, per the Android Design guidelines. -->
-  <dimen name="activity_horizontal_margin">16dp</dimen>
-  <dimen name="activity_vertical_margin">16dp</dimen>
+  <dimen name="activity_horizontal_margin">@dimen/grid_space_2x</dimen>
+  <dimen name="activity_vertical_margin">@dimen/grid_space_2x</dimen>
   <dimen name="price_box_width">90dp</dimen>
-  <dimen name="min_list_item_height">70dp</dimen>
+  <dimen name="min_list_item_height">@dimen/grid_space_9x</dimen>
   <dimen name="list_item_padding">8dp</dimen>
+
+  <!-- Material Grid Spacing. Everything is aligned on an 8dp grid -->
 
   <dimen name="grid_space_0.25x">2dp</dimen>
   <dimen name="grid_space_0.5x">4dp</dimen>
@@ -12,4 +14,6 @@
   <dimen name="grid_space_2x">16dp</dimen>
   <dimen name="grid_space_3x">24dp</dimen>
   <dimen name="grid_space_7x">56dp</dimen>
+  <dimen name="grid_space_8x">64dp</dimen>
+  <dimen name="grid_space_9x">72dp</dimen>
 </resources>

@@ -3,10 +3,12 @@ package com.rockspin.bargainbits.ui.search
 import android.app.SearchManager
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.widget.Toast
 import com.jakewharton.rxbinding2.view.clicks
 import com.rockspin.bargainbits.R
 import com.rockspin.bargainbits.databinding.ActivitySearchBinding
 import com.rockspin.bargainbits.ui.BaseMvpActivity
+import com.rockspin.bargainbits.ui.search.detail.SearchDetailActivity
 import com.rockspin.bargainbits.util.visible
 import io.reactivex.Observable
 import javax.inject.Inject
@@ -65,10 +67,11 @@ class SearchActivity : BaseMvpActivity<SearchPresenter.SearchView, SearchPresent
     }
 
     override fun showSearchDetail(gameId: String, gameName: String) {
-        // TODO
+        startActivity(SearchDetailActivity.createIntent(this, gameId, gameName))
     }
 
     override fun showFetchError() {
+        Toast.makeText(this, "Error loading search results", Toast.LENGTH_SHORT).show()
         // TODO - Show try again view
     }
 

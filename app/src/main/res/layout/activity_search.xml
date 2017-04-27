@@ -24,7 +24,7 @@
             android:orientation="vertical"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-            tools:listitem="@layout/view_search_result"/>
+            tools:listitem="@layout/item_search_result"/>
 
         <ProgressBar
             android:id="@+id/searchProgressBar"

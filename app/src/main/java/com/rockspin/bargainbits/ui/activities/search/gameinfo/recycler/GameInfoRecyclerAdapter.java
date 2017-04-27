@@ -32,7 +32,7 @@ public class GameInfoRecyclerAdapter extends RecyclerView.Adapter<GameInfoRecycl
     }
 
     @Override public SearchResultsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View rootView = layoutInflater.inflate(R.layout.abbreviated_deal_view, parent, false);
+        View rootView = layoutInflater.inflate(R.layout.item_abbreviated_deal, parent, false);
         return new SearchResultsViewHolder(rootView);
     }
 
@@ -61,7 +61,7 @@ public class GameInfoRecyclerAdapter extends RecyclerView.Adapter<GameInfoRecycl
             holder.savingsView.setVisibility(View.GONE);
         }
 
-        holder.storeImage.setImageDrawable(deal.storeImage);
+        //holder.storeImage.setImageDrawable(deal.storeImage);
 
         RxView.clicks(holder.itemView).takeUntil(RxView.detaches(holder.itemView))
               .doOnNext(aVoid -> itemSelected.onNext(position))
@@ -84,7 +84,7 @@ public class GameInfoRecyclerAdapter extends RecyclerView.Adapter<GameInfoRecycl
 
     public static class SearchResultsViewHolder extends RecyclerView.ViewHolder {
         @Bind(R.id.priceHolder) PriceView priceView;
-        @Bind(R.id.storeImage) ImageView storeImage;
+        //@Bind(R.id.storeImage) ImageView storeImage;
         @Bind(R.id.storeName) TextView storeName;
         @Bind(R.id.savingPercentage) TextView savingsView;
 

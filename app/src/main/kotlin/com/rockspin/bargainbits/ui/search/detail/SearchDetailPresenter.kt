@@ -30,17 +30,15 @@ class SearchDetailPresenter @Inject constructor(val apiService: GameApiService, 
         val onWatchListClicked: Observable<*>
     }
 
-    fun onViewCreated(view: View, gameId: String, gameName: String) {
-        super.onViewCreated(view)
-
+    fun setData(gameId: String, gameName: String) {
         this.view?.setScreenTitle(gameName)
 
-        addLifetimeDisposable(view.onItemClicked
+        addLifetimeDisposable(view!!.onItemClicked
             .subscribe {
 
             })
 
-        addLifetimeDisposable(view.onWatchListClicked
+        addLifetimeDisposable(view!!.onWatchListClicked
             .subscribe {
             })
 
@@ -58,15 +56,14 @@ class SearchDetailPresenter @Inject constructor(val apiService: GameApiService, 
                 val deal = pair.first
                 val store = pair.second
 
-                val hasSavings = deal.price < deal.retailPrice
-                val dealPrice = if (hasSavings) formatter.formatPrice(deal.price) else null
+                val hasSavings = deal.savingsFraction > 0
                 val savingPercentage = if (hasSavings) deal.savingsFraction else null
 
                 AbbreviatedDealViewModel(
                     storeImageUrl = store.imageUrl,
                     storeName = store.name,
-                    normalPrice = formatter.formatPrice(deal.retailPrice),
-                    dealPrice = dealPrice,
+                    normalPrice = if (hasSavings) formatter.formatPrice(deal.retailPrice) else null,
+                    dealPrice = formatter.formatPrice(deal.price),
                     savingPercentage = savingPercentage)
             }
             .toList()
