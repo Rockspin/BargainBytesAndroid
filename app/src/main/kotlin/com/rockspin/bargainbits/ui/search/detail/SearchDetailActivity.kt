@@ -20,7 +20,6 @@ import android.support.customtabs.CustomTabsIntent
 import android.support.v4.content.ContextCompat
 
 
-
 class SearchDetailActivity : BaseMvpActivity<SearchDetailPresenter.View, SearchDetailPresenter>(), SearchDetailPresenter.View {
 
     @Inject override lateinit var presenter: SearchDetailPresenter
