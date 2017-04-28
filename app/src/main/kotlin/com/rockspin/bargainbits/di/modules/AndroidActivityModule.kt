@@ -5,7 +5,6 @@ import com.rockspin.apputils.di.BaseActivityComponentBuilder
 import com.rockspin.apputils.di.modules.activities.ActivityModule
 import com.rockspin.bargainbits.ui.activities.WatchListActivity
 import com.rockspin.bargainbits.ui.activities.main.MainActivity
-import com.rockspin.bargainbits.ui.activities.search.GamesSearchActivity
 import com.rockspin.bargainbits.ui.search.SearchActivity
 import com.rockspin.bargainbits.ui.search.detail.SearchDetailActivity
 import dagger.Binds
@@ -16,25 +15,12 @@ import dagger.android.AndroidInjector
 import dagger.multibindings.IntoMap
 
 @Module(subcomponents = arrayOf(
-    AndroidActivityModule.GamesSearchActivityComponent::class,
     AndroidActivityModule.SearchActivityComponent::class,
     AndroidActivityModule.WatchListActivityComponent::class,
     AndroidActivityModule.MainActivityComponent::class,
     AndroidActivityModule.SearchDetailActivityComponent::class
 ))
 abstract class AndroidActivityModule {
-
-    @Binds
-    @IntoMap
-    @ActivityKey(GamesSearchActivity::class)
-    abstract fun bindGamesSearchActivityInjectorFactory(builder: GamesSearchActivityComponent.Builder): AndroidInjector.Factory<out Activity>
-
-    @Subcomponent(modules = arrayOf(ActivityModule::class, AndroidFragmentModule::class))
-    interface GamesSearchActivityComponent : AndroidInjector<GamesSearchActivity> {
-
-        @Subcomponent.Builder
-        abstract class Builder : BaseActivityComponentBuilder<GamesSearchActivity>()
-    }
 
     @Binds
     @IntoMap

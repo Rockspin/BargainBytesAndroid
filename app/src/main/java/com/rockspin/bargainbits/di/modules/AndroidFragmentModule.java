@@ -3,8 +3,6 @@ package com.rockspin.bargainbits.di.modules;
 import android.support.v4.app.Fragment;
 import com.rockspin.bargainbits.ui.activities.main.deals.DealsFragment;
 import com.rockspin.bargainbits.ui.activities.main.storesdrawer.StoresDrawerFragment;
-import com.rockspin.bargainbits.ui.activities.search.gameinfo.GameInfoFragment;
-import com.rockspin.bargainbits.ui.activities.search.results.SearchResultsFragment;
 import com.rockspin.bargainbits.ui.dialogs.store_picker.StorePickerDialogFragment;
 import com.rockspin.bargainbits.ui.dialogs.watchlist.EditWatchListEntryDialogFragment;
 import dagger.Binds;
@@ -17,9 +15,7 @@ import dagger.multibindings.IntoMap;
 @Module(subcomponents = {
     AndroidFragmentModule.StorePickerDialogFragmentComponent.class,
     AndroidFragmentModule.EditWatchListEntryDialogFragmentComponent.class,
-    AndroidFragmentModule.GameInfoFragmentComponent.class,
     AndroidFragmentModule.StoresDrawerFragmentComponent.class,
-    AndroidFragmentModule.SearchResultsFragmentComponent.class,
     AndroidFragmentModule.DealsFragmentComponent.class
 })
 public abstract class AndroidFragmentModule {
@@ -49,34 +45,6 @@ public abstract class AndroidFragmentModule {
 
         @Subcomponent.Builder
         abstract class Builder extends AndroidInjector.Builder<EditWatchListEntryDialogFragment> {
-        }
-    }
-
-    @Binds
-    @IntoMap
-    @FragmentKey(SearchResultsFragment.class)
-    public abstract AndroidInjector.Factory<? extends Fragment>
-    bindSearchResultsFragmentInjectorFactory(SearchResultsFragmentComponent.Builder builder);
-
-    @Subcomponent
-    public interface SearchResultsFragmentComponent extends AndroidInjector<SearchResultsFragment> {
-
-        @Subcomponent.Builder
-        abstract class Builder extends AndroidInjector.Builder<SearchResultsFragment> {
-        }
-    }
-
-    @Binds
-    @IntoMap
-    @FragmentKey(GameInfoFragment.class)
-    public abstract AndroidInjector.Factory<? extends Fragment>
-    bindGameInfoFragmentInjectorFactory(GameInfoFragmentComponent.Builder builder);
-
-    @Subcomponent
-    public interface GameInfoFragmentComponent extends AndroidInjector<GameInfoFragment> {
-
-        @Subcomponent.Builder
-        abstract class Builder extends AndroidInjector.Builder<GameInfoFragment> {
         }
     }
 
