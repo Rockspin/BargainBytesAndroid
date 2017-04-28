@@ -54,3 +54,6 @@ If you find a bug - please open an issue. Until the list in Step 1 is complete, 
 
 #### Are you a designer?
 If you're a designer why not reach out? The app needs some love in the design department as seen from Step 2 - large parts of its UI haven't been updated since originally created. If you'd like to offer UI help, please open an issue.
+
+#### Git Strategy
+One main **develop** branch with feature/bug fix branches coming off it. Merges into master happen for PlayStore releases - these are tagged with the version number at the time. Hot fixes for the last release branch off master and are then merged into both master and develop. 
