@@ -36,7 +36,7 @@ public class EditWatchListEntryPresenter extends BasePresenter<EditWatchListEntr
         originalItem = model.verifyDataCorrect(passedItem);
 
         addSubscription(Observable.just(originalItem)
-                                  .doOnNext(watchedItem -> getView().setGameName(watchedItem.gameName()))
+                                  .doOnNext(watchedItem -> getView().setGameName(watchedItem.getGameName()))
                                   .doOnNext(this::updateSeekbar)
                                   .switchMap(ignored -> onWatchStateChanged())
                                   .doOnNext(initialWatchedState -> getView().showWatchStateSelected(initialWatchedState))
@@ -51,7 +51,7 @@ public class EditWatchListEntryPresenter extends BasePresenter<EditWatchListEntr
                                       }
                                   })
                                   //TODO: viewWillHide creating a new object everytime we move the slider
-                                  .map(price -> WatchedItem.create(originalItem.gameName(), originalItem.gameId(), price))
+                                  .map(price -> new WatchedItem(originalItem.getGameName(), originalItem.getGameId(), price))
                                   .switchMap(watchedItem -> getView().onDialogDismissObservable()
                                                                    .doOnNext(userSelectedAddItem -> {
                                                                        if (userSelectedAddItem) {
@@ -66,7 +66,7 @@ public class EditWatchListEntryPresenter extends BasePresenter<EditWatchListEntr
     private Observable<Float> onSelectedPriceChanges() {
         return getView().onSelectedPercentagePrice()
                         .map(selectedInterval -> MAX_VALUE_USD * (selectedInterval / SELECTION_INTERVALS))
-                        .startWith(originalItem.watchedPrice())
+                        .startWith(originalItem.getWatchedPrice())
                         .filter(price -> price > 0)
                         .distinctUntilChanged()
                         .withLatestFrom(model.onCurrentCurrencyChanged(), (priceInUsd, currencyHelper) -> currencyHelper.getActiveCurrencyValueOf(priceInUsd))
@@ -85,12 +85,12 @@ public class EditWatchListEntryPresenter extends BasePresenter<EditWatchListEntr
     }
 
     private WatchedState getOriginalState() {
-        return originalItem.hasCustomWatchPrice() ? WatchedState.PRICE : WatchedState.ANY;
+        return originalItem.getHasCustomWatchPrice() ? WatchedState.PRICE : WatchedState.ANY;
     }
 
     private void updateSeekbar(WatchedItem watchedItem) {
-        if (watchedItem.watchedPrice() > 0) {
-            getView().setSeekbarProgress((int) (watchedItem.watchedPrice() * (SELECTION_INTERVALS / MAX_VALUE_USD)));
+        if (watchedItem.getWatchedPrice() > 0) {
+            getView().setSeekbarProgress((int) (watchedItem.getWatchedPrice() * (SELECTION_INTERVALS / MAX_VALUE_USD)));
         } else {
             getView().setSeekbarProgress(1);
         }

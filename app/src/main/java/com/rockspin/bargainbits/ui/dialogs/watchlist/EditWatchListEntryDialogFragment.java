@@ -34,12 +34,12 @@ public class EditWatchListEntryDialogFragment extends DialogFragment {
     @Inject WatchListRepository watchListRepository;
     @Inject EditWatchListEntryPresenter presenter;
 
-    public EditWatchListEntryDialogFragment() { /* not used */ }
-
-    public void setWatchedItem(WatchedItem watchedItem) {
-        final Bundle bundle = new Bundle();
-        bundle.putParcelable(EditWatchListEntryDialogFragment.WATCHED_ITEM_KEY, watchedItem);
-        setArguments(bundle);
+    public static EditWatchListEntryDialogFragment newInstance(WatchedItem watchedItem) {
+        Bundle args = new Bundle(1);
+        args.putParcelable(WATCHED_ITEM_KEY, watchedItem);
+        EditWatchListEntryDialogFragment fragment = new EditWatchListEntryDialogFragment();
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override public void onCreate(@Nullable Bundle savedInstanceState) {

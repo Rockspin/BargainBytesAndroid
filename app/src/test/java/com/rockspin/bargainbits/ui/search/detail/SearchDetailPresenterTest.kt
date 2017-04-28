@@ -9,6 +9,7 @@ import com.rockspin.bargainbits.data.rest_client.GameApiService
 import com.rockspin.bargainbits.test_utils.RxSchedulersRule
 import com.rockspin.bargainbits.test_utils.completeWithValue
 import com.rockspin.bargainbits.util.format.PriceFormatter
+import com.rockspin.bargainbits.watch_list.WatchedItem
 import io.reactivex.Single
 import io.reactivex.subjects.PublishSubject
 import org.junit.After
@@ -135,5 +136,19 @@ class SearchDetailPresenterTest {
         testDealClick.onNext(1)
 
         verify(mockView).openDealUrl("${TEST_GAME_DEAL_URL}testDealId1")
+    }
+
+    @Test
+    fun whenWatchListClicked_openWatchItemViewForCheapestDeal() {
+        val testDeals = listOf(
+            AbbreviatedDeal("", "", 2.0, 0.0, 0.0),
+            AbbreviatedDeal("", "", 1.5, 0.0, 0.0),
+            AbbreviatedDeal("", "", 1.8, 0.0, 0.0))
+
+        testGameInfoResult.completeWithValue(createGameInfoWithDeals(testDeals))
+
+        testWatchListClick.onNext(Unit)
+
+        verify(mockView).openWatchItemView(WatchedItem(TEST_GAME_NAME, TEST_GAME_ID, 1.5f))
     }
 }

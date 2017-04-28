@@ -139,8 +139,7 @@ public class DealsListViewImpl extends RecyclerView implements DealsListPresente
     }
 
     @Override public void editOrAddToWatchList(WatchedItem watchedItem) {
-        final EditWatchListEntryDialogFragment editWatchListEntryDialogFragment = new EditWatchListEntryDialogFragment();
-        editWatchListEntryDialogFragment.setWatchedItem(watchedItem);
+        final EditWatchListEntryDialogFragment editWatchListEntryDialogFragment = EditWatchListEntryDialogFragment.newInstance(watchedItem);
         editWatchListEntryDialogFragment.show(((AppCompatActivity)getContext()).getSupportFragmentManager(), WATCH_LIST_DIALOG_TAG);
     }
 
@@ -163,17 +162,17 @@ public class DealsListViewImpl extends RecyclerView implements DealsListPresente
     }
 
     public void showItemAddedToWatchList(WatchedItem watchedItem) {
-        showSnackBar(getContext().getString(R.string.watchlist_item_added, watchedItem.gameName()));
+        showSnackBar(getContext().getString(R.string.watchlist_item_added, watchedItem.getGameName()));
     }
 
     public void showItemRemovedFromWatchlist(WatchedItem watchedItem) {
-        final String title = getContext().getString(R.string.watchlist_item_removed, watchedItem.gameName());
+        final String title = getContext().getString(R.string.watchlist_item_removed, watchedItem.getGameName());
         final String undo = getContext().getString(R.string.undo);
         showSnackBar(title, undo, v -> presenter.addItemToWatchList(watchedItem));
     }
 
     public void showGameInWatchlistEdited(WatchedItem watchedItem) {
-        showSnackBar(getContext().getString(R.string.watchlist_item_edited, watchedItem.gameName()));
+        showSnackBar(getContext().getString(R.string.watchlist_item_edited, watchedItem.getGameName()));
     }
 
     public void showWatchListFull() {

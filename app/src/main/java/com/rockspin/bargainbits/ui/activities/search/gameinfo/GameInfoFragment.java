@@ -150,7 +150,8 @@ public final class GameInfoFragment extends Fragment implements GameInfoPresente
     }
 
     @Override public void addItemToWatchList(WatchedItem watchedItem) {
-        editWatchListEntryDialogFragment.setWatchedItem(watchedItem);
+        // TODO - remove this class
+        //editWatchListEntryDialogFragment.setWatchedItem(watchedItem);
         editWatchListEntryDialogFragment.show(getFragmentManager(), "EditWatchListEntryDialogFragment");
     }
 

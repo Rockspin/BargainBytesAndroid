@@ -114,7 +114,7 @@ public class DealsListModel {
     WatchedItem getWatchedItemForIndex(int index) {
         final CompactDeal compactDeal = getCompactDeal(index);
         Optional<WatchedItem> fromWatchList = watchListRepository.getWatchedItemByGameId(compactDeal.getGameId());
-        return or(fromWatchList, () -> WatchedItem.from(compactDeal));
+        return or(fromWatchList, () -> WatchedItem.Companion.from(compactDeal));
     }
 
     DealShareModel getShareModel(int index) {

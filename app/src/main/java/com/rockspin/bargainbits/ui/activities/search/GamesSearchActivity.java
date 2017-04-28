@@ -119,11 +119,11 @@ public class GamesSearchActivity extends BaseActivity implements GamesSearchPres
     }
 
     @Override public void watchListEdited(WatchedItem watchedItem) {
-        showSnackBar(getString(R.string.watchlist_item_edited, watchedItem.gameName()));
+        showSnackBar(getString(R.string.watchlist_item_edited, watchedItem.getGameName()));
     }
 
     @Override public void watchListAdded(WatchedItem watchedItem) {
-        showSnackBar(getString(R.string.watchlist_item_added, watchedItem.gameName()));
+        showSnackBar(getString(R.string.watchlist_item_added, watchedItem.getGameName()));
     }
 
     @Override public void watchListFull() {
@@ -132,7 +132,7 @@ public class GamesSearchActivity extends BaseActivity implements GamesSearchPres
     }
 
     @Override public void onWatchListItemRemoved(WatchedItem itemRemoved, View.OnClickListener clickListener) {
-        final String snackbarText = getString(R.string.watchlist_item_removed, itemRemoved.gameName());
+        final String snackbarText = getString(R.string.watchlist_item_removed, itemRemoved.getGameName());
         showSnackBar(snackbarText, clickListener);
     }
 

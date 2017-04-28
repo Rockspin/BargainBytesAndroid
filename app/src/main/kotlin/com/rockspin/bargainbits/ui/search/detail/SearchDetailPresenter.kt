@@ -8,6 +8,7 @@ import com.rockspin.bargainbits.di.annotations.GameDealUrl
 import com.rockspin.bargainbits.ui.mvp.BaseMvpPresenter
 import com.rockspin.bargainbits.ui.mvp.BaseMvpView
 import com.rockspin.bargainbits.util.format.PriceFormatter
+import com.rockspin.bargainbits.watch_list.WatchedItem
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -34,6 +35,7 @@ class SearchDetailPresenter @Inject constructor(
 
         val onItemClicked: Observable<Int>
         val onWatchListClicked: Observable<*>
+        fun openWatchItemView(watchedItem: WatchedItem)
     }
 
     private var loadedDeals: List<AbbreviatedDeal> = emptyList()
@@ -47,7 +49,12 @@ class SearchDetailPresenter @Inject constructor(
             })
 
         addLifetimeDisposable(view!!.onWatchListClicked
+            .map {
+                val cheapestDeal = loadedDeals.sortedByDescending { it.price }.last()
+                WatchedItem(gameName, gameId, cheapestDeal.price.toFloat())
+            }
             .subscribe {
+                view?.openWatchItemView(it)
             })
 
         fetchGameInfo(gameId)
@@ -61,10 +68,7 @@ class SearchDetailPresenter @Inject constructor(
                 Single.zip<AbbreviatedDeal, GameStore, Pair<AbbreviatedDeal, GameStore>>(Single.just(it), storeRepository.getGameStoreForId
                 (it.storeID), BiFunction { deal, store -> Pair(deal, store) })
             }
-            .map { pair ->
-                val deal = pair.first
-                val store = pair.second
-
+            .map { (deal, store) ->
                 val hasSavings = deal.savingsFraction > 0
                 val savingPercentage = if (hasSavings) deal.savingsFraction else null
 

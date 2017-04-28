@@ -41,7 +41,7 @@ public class GameInfoPresenter extends BasePresenter<GameInfoPresenter.IView, Ga
     }
 
     public void addGameToWatchList() {
-        getView().addItemToWatchList(WatchedItem.from(game));
+        getView().addItemToWatchList(WatchedItem.Companion.from(game));
     }
 
     interface IView {
