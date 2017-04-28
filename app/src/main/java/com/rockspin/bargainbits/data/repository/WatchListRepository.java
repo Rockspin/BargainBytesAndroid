@@ -12,7 +12,7 @@ import com.fernandocejas.arrow.optional.Optional;
 import com.rockspin.apputils.cache.helper.SimpleCacheReader;
 import com.rockspin.apputils.cache.helper.SimpleCacheWriter;
 import com.rockspin.bargainbits.data.models.cheapshark.CompactDeal;
-import com.rockspin.bargainbits.data.models.cheapshark.GameInfo;
+import com.rockspin.bargainbits.data.models.GameInfo;
 import com.rockspin.bargainbits.data.rest_client.ICheapsharkAPIService;
 import com.rockspin.bargainbits.utils.analytics.IAnalytics;
 import com.rockspin.bargainbits.watch_list.WatchedItem;
@@ -32,8 +32,16 @@ import timber.log.Timber;
  */
 @Singleton
 public class WatchListRepository {
-    private static final String WATCH_LIST_KEY = "WATCH_LIST";
     public static final int MAX_WATCHED_ITEMS = 25;
+
+    private static final String WATCH_LIST_KEY = "WATCH_LIST";
+
+    public enum Action {
+        EDITED,
+        ADDED,
+        FULL,
+        REMOVED
+    }
 
     private final PublishSubject<Pair<WatchedItem, Action>> watchListEdited = PublishSubject.create();
 
@@ -72,12 +80,12 @@ public class WatchListRepository {
             int indexOfItem = mWatchedItemList.indexOf(watchedItem);
             mWatchedItemList.set(indexOfItem, watchedItem);
             watchListEdited.onNext(new Pair<>(watchedItem, Action.EDITED));
-            Timber.d("Updating entry " + watchedItem.gameName() + " in watch list");
+            Timber.d("Updating entry " + watchedItem.getGameName() + " in watch list");
         } else {
             mWatchedItemList.add(watchedItem);
-            Timber.d("Item " + watchedItem.gameName() + " added to watch list");
+            Timber.d("Item " + watchedItem.getGameName() + " added to watch list");
 
-            iAnalytics.onGameAddedToWatchList(watchedItem.gameName(), watchedItem.hasCustomWatchPrice());
+            iAnalytics.onGameAddedToWatchList(watchedItem.getGameName(), watchedItem.getHasCustomWatchPrice());
             watchListEdited.onNext(new Pair<>(watchedItem, Action.ADDED));
         }
 
@@ -95,12 +103,12 @@ public class WatchListRepository {
         cacheWriter.cacheValue(WATCH_LIST_KEY, mWatchedItemList)
                    .subscribe();
         watchListEdited.onNext(new Pair<>(watchedItem, Action.REMOVED));
-        Timber.d("Item " + watchedItem.gameName() + " removed from watch list");
+        Timber.d("Item " + watchedItem.getGameName() + " removed from watch list");
     }
 
     public Optional<WatchedItem> getWatchedItemByGameId(final String gameId) {
         for (WatchedItem watchedItem : mWatchedItemList) {
-            if (watchedItem.gameId()
+            if (watchedItem.getGameId()
                            .equals(gameId)) {
                 return Optional.of(watchedItem);
             }
@@ -118,7 +126,7 @@ public class WatchListRepository {
 
     private String[] getGameIdArray() {
         return Stream.of(mWatchedItemList)
-                     .map(WatchedItem::gameId)
+                     .map(WatchedItem::getGameId)
                      .toArray(String[]::new);
     }
 
@@ -151,9 +159,9 @@ public class WatchListRepository {
                                                                                                                         .getGameId());
 
                                                if (watchedItem.get()
-                                                              .hasCustomWatchPrice()) {
+                                                              .getHasCustomWatchPrice()) {
                                                    return gameInfo.getLowestSalePrice() <= watchedItem.get()
-                                                                                                      .watchedPrice();
+                                                                                                      .getWatchedPrice();
                                                } else {
                                                    return gameInfo.isOnSale();
                                                }
@@ -192,14 +200,8 @@ public class WatchListRepository {
     }
 
     private Observable.Transformer<? super Pair<WatchedItem, Action>, CompactDeal> getCompactDealForGameID() {
-        return pairObservable -> pairObservable.map(watchedItemActionPair1 -> watchedItemActionPair1.first.gameId())
+        return pairObservable -> pairObservable.map(watchedItemActionPair1 -> watchedItemActionPair1.first.getGameId())
                                                .map(watchedCompactDealToGameID::get);
     }
 
-    public enum Action {
-        EDITED,
-        ADDED,
-        FULL,
-        REMOVED
-    }
 }

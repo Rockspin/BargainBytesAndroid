@@ -11,6 +11,16 @@
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
         <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
+
+        <item name="android:textColorPrimary">@color/primary_text_color</item>
+        <item name="android:textColorPrimaryInverse">@color/primary_text_color_inverse</item>
+        <item name="android:textColorSecondary">@color/secondary_text_color</item>
+
+        <item name="android:toolbarStyle">@style/Theme.ToolbarStyle</item>
+    </style>
+
+    <style name="Theme.ToolbarStyle" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+
     </style>
 
     <style name="DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">

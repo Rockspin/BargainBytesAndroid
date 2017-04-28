@@ -7,9 +7,9 @@
 package com.rockspin.bargainbits.data.rest_client;
 
 import com.rockspin.bargainbits.data.models.cheapshark.Deal;
-import com.rockspin.bargainbits.data.models.cheapshark.Game;
-import com.rockspin.bargainbits.data.models.cheapshark.GameInfo;
-import com.rockspin.bargainbits.data.models.cheapshark.Store;
+import com.rockspin.bargainbits.data.models.GameSearchResult;
+import com.rockspin.bargainbits.data.models.GameInfo;
+import com.rockspin.bargainbits.data.models.Store;
 
 import java.util.List;
 import java.util.Map;
@@ -22,7 +22,9 @@ import rx.Observable;
 
 /**
  * Retrofit Interface for the Cheapshark API.
+ * @deprecated Use {@link GameApiService} instead
  */
+@Deprecated
 public interface ICheapsharkAPIService {
     // Cache store results for a day, accept stale responses for a week
     @Headers("Cache-Control: public, max-age=86400, s-maxage=86400, max-stale=604800") @GET("/stores") Observable<List<Store>> getStores();
@@ -30,7 +32,7 @@ public interface ICheapsharkAPIService {
     // Deals lookups must always be fresh - do not cache
     @Headers("Cache-Control: public, max-age=0, s-maxage=0") @GET("/deals") Observable<List<Deal>> getDeals(@QueryMap Map<String, String> requestParams);
 
-    @GET("/games") Observable<List<Game>> searchGames(@Query("title") String gameTitle);
+    @GET("/games") Observable<List<GameSearchResult>> searchGames(@Query("title") String gameTitle);
 
     @GET("/games") Observable<GameInfo> getGameInfo(@Query("id") String gameId);
 

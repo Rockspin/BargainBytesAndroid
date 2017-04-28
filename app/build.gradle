@@ -47,6 +47,8 @@ android {
         versionName "1.4.1"
 
         vectorDrawables.useSupportLibrary = true
+        // TODO - remove multidex once app refactoring to Kotlin is done and all old libraries are removed
+        multiDexEnabled true
     }
 
     signingConfigs {
@@ -78,6 +80,7 @@ android {
     }
 
     compileOptions {
+        // TODO - Put back to 1.7 once retrolambda is out of project to enable incremental builds
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
@@ -91,16 +94,36 @@ android {
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
     }
+
+    dataBinding {
+        enabled = true
+    }
+}
+
+retrolambda {
+    jvmArgs '-noverify'
+}
+
+kapt {
+    generateStubs = true
 }
 
 dependencies {
     compile project(':apputils')
 
+    kapt "com.android.databinding:compiler:$gradle_plugin_version"
+
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
-    compile 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
+    compile 'com.jakewharton.rxbinding2:rxbinding-kotlin:2.0.0'
 
     // Retrofit
+    compile 'com.squareup.retrofit2:retrofit:2.2.0'
+    compile "com.squareup.retrofit2:converter-gson:2.2.0"
+    compile "com.squareup.retrofit2:adapter-rxjava2:2.2.0"
+    compile 'com.squareup.okhttp3:okhttp:3.7.0'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.7.0'
+
     compile 'com.squareup.okhttp:okhttp:2.4.0'
     compile 'com.squareup.retrofit:retrofit:1.9.0'
 
@@ -109,6 +132,10 @@ dependencies {
     compile "com.google.dagger:dagger-android-support:$daggerVersion"
     kapt "com.google.dagger:dagger-android-processor:$daggerVersion"
     kapt "com.google.dagger:dagger-compiler:$daggerVersion"
+
+    compile 'nz.bradcampbell:paperparcel:2.0.1'
+    compile 'nz.bradcampbell:paperparcel-kotlin:2.0.1'
+    kapt 'nz.bradcampbell:paperparcel-compiler:2.0.1'
 
     // RX
     compile 'io.reactivex:rxjava:1.1.0'
@@ -132,8 +159,11 @@ dependencies {
     // Percent Support Library
     compile "com.android.support:percent:$supportLibVersion"
 
-    //App combat
+    // App compat
     compile "com.android.support:appcompat-v7:$supportLibVersion"
+
+    // Chrome tabs
+    compile "com.android.support:customtabs:$supportLibVersion"
 
     //Gson
     compile 'com.google.code.gson:gson:2.7'

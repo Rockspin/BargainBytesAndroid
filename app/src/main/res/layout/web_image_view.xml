@@ -5,16 +5,16 @@
   ~ All Rights Reserved
   -->
 
-<RelativeLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     >
 
   <ImageView
       android:id="@+id/imageView"
       android:src="@drawable/ic_game_image_placeholder"
-      android:layout_centerInParent="true"
+      android:layout_gravity="center"
       android:adjustViewBounds="true"
       android:visibility="invisible"
       android:layout_width="match_parent"
@@ -26,8 +26,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:indeterminate="true"
-      android:layout_centerInParent="true"
-      style="@android:style/Widget.ProgressBar"
+      android:layout_gravity="center"
       />
 
-</RelativeLayout>
+</FrameLayout>

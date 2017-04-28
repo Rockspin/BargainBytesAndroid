@@ -8,7 +8,7 @@ import com.evernote.android.job.Job;
 import com.evernote.android.job.JobManager;
 import com.evernote.android.job.JobRequest;
 import com.rockspin.apputils.di.annotations.ApplicationScope;
-import com.rockspin.bargainbits.data.models.cheapshark.GameInfo;
+import com.rockspin.bargainbits.data.models.GameInfo;
 import com.rockspin.bargainbits.data.models.currency.CurrencyHelper;
 import com.rockspin.bargainbits.data.repository.CurrencyRepository;
 import com.rockspin.bargainbits.data.repository.WatchListRepository;

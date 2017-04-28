@@ -3,13 +3,10 @@ package com.rockspin.bargainbits.di.modules;
 import com.google.gson.Gson;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
-import com.rockspin.bargainbits.data.models.cheapshark.AbbreviatedDeal;
-import com.rockspin.bargainbits.data.models.cheapshark.GameInfo;
-import com.rockspin.bargainbits.data.models.currency.BBCurrency;
-import com.rockspin.bargainbits.data.models.currency.CurrencyExchange;
+import com.rockspin.bargainbits.data.models.AbbreviatedDeal;
+import com.rockspin.bargainbits.data.models.GameInfo;
 import dagger.Module;
 import dagger.Provides;
 import java.lang.reflect.Type;
@@ -22,32 +19,6 @@ import javax.inject.Singleton;
 import timber.log.Timber;
 
 @Module public class JsonSerialisationModule {
-
-    @Provides @Singleton JsonDeserializer<CurrencyExchange> providesCurrencyExchangeJsonDeserializer() {
-        return (json, typeOfT, context) -> {
-            JsonObject rootObject = json.getAsJsonObject();
-
-            final CurrencyExchange currencyExchange = new CurrencyExchange();
-            currencyExchange.setBase(rootObject.get("base")
-                                               .getAsString());
-            currencyExchange.setDate(rootObject.get("date")
-                                               .getAsString());
-
-            JsonObject ratesObject = rootObject.get("rates")
-                                               .getAsJsonObject();
-            final List<BBCurrency> BBCurrencyList = new ArrayList<>();
-            for (Map.Entry<String, JsonElement> entry : ratesObject.entrySet()) {
-                String isoCode = entry.getKey();
-                float exchangeRate = entry.getValue()
-                                          .getAsFloat();
-                BBCurrencyList.add(new BBCurrency(isoCode, exchangeRate));
-            }
-
-            currencyExchange.setRates(BBCurrencyList);
-
-            return currencyExchange;
-        };
-    }
 
     @Provides @Singleton JsonDeserializer<List<GameInfo>> providesGameInfoListDeserializer() {
         return (json, typeOfT, context) -> {
@@ -88,8 +59,8 @@ import timber.log.Timber;
         for (final GameInfo gameInfo : pResponse) {
             final List<AbbreviatedDeal> dealList = gameInfo.getDeals();
             for (final AbbreviatedDeal deal : dealList) {
-                final float retailPrice = deal.getRetailPrice();
-                final float salePrice = deal.getPrice();
+                final float retailPrice = (float) deal.getRetailPrice();
+                final float salePrice = (float) deal.getPrice();
 
                 if (retailPrice != salePrice) {
                     if (deal.getPrice() > deal.getRetailPrice()) {

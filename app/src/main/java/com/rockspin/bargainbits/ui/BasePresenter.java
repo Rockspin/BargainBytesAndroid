@@ -4,6 +4,7 @@ import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import com.fernandocejas.arrow.checks.Preconditions;
+import com.rockspin.bargainbits.ui.mvp.BaseMvpPresenter;
 import rx.Subscription;
 import rx.subscriptions.CompositeSubscription;
 
@@ -11,7 +12,9 @@ import rx.subscriptions.CompositeSubscription;
  * @param <View> The presenter view this presenter will be updating.
  * @param <Model> the model this class uses to fetch data.
  * @param <Data> the initial data this presenter needs on viewWillShow.
+ * @deprecated - Use {@link BaseMvpPresenter} instead
  */
+@Deprecated
 public abstract class BasePresenter<View, Model, Data> {
 
     @Nullable protected final Model model;

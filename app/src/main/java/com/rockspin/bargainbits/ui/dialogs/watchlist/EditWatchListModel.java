@@ -40,7 +40,7 @@ public class EditWatchListModel {
     }
 
     public WatchedItem verifyDataCorrect(WatchedItem watchedItem) {
-        return watchListRepository.getWatchedItemByGameId(watchedItem.gameId())
-                                  .or(WatchedItem.create(watchedItem.gameName(), watchedItem.gameId(), -1));
+        return watchListRepository.getWatchedItemByGameId(watchedItem.getGameId())
+                                  .or(new WatchedItem(watchedItem.getGameName(), watchedItem.getGameId(), -1));
     }
 }

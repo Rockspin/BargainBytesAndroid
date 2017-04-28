@@ -8,6 +8,7 @@ package com.rockspin.bargainbits.data.models.cheapshark;
 
 import com.annimon.stream.Stream;
 import com.rockspin.bargainbits.CustomOperators;
+import com.rockspin.bargainbits.data.models.GameInfo;
 import com.rockspin.bargainbits.utils.DealUtils;
 import java.util.ArrayList;
 import java.util.List;

@@ -13,7 +13,10 @@
   <color name="accent_color">#651FFF</color>
   <color name="destructive_color">#EF5350</color>
   <color name="primary_text_color">#212121</color>
+  <color name="primary_text_color_inverse">#FFFFFF</color>
   <color name="secondary_text_color">#727272</color>
+  <color name="list_background_color">#EEEEEE</color>
+
   <color name="text_icon_color">#FFFFFF</color>
   <color name="divider_color">#B6B6B6</color>
   <color name="price_box_color">#D1D2D4</color>
@@ -22,5 +25,4 @@
   <color name="store_list_background_color">#FFFFFF</color>
   <color name="action_bar_menu_color">#000000</color>
   <color name="action_bar_dropdown_menu_color">#FFFFFF</color>
-  <color name="banner_container_background">#D1D2D4</color>
 </resources>

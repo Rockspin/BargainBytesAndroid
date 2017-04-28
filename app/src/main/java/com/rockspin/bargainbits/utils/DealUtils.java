@@ -14,7 +14,7 @@ import android.support.v4.content.FileProvider;
 import android.text.Html;
 
 import com.rockspin.bargainbits.R;
-import com.rockspin.bargainbits.data.models.cheapshark.AbbreviatedDeal;
+import com.rockspin.bargainbits.data.models.AbbreviatedDeal;
 import com.rockspin.bargainbits.data.models.cheapshark.Deal;
 
 import java.io.File;
@@ -28,20 +28,27 @@ public final class DealUtils {
 
     private DealUtils() { /* not used */ }
 
+    /**
+     * @deprecated Use the {@link #getFormattedSavingsString(Context, double)} version instead
+     */
+    @Deprecated
     public static CharSequence getFormattedSavingsString(final Context context, final float savings) {
+        return getFormattedSavingsString(context, (double) savings);
+    }
+
+    public static CharSequence getFormattedSavingsString(final Context context, final double savings) {
         final String percentageString = Math.round(savings) + "%";
         final String savingString = context.getString(R.string.saving_short);
         return Html.fromHtml("<strong>" + percentageString + "</strong>" + "<br />" + "<small>" + savingString + "</small>");
     }
 
-
     public static Deal GameInfo(final AbbreviatedDeal abbreviatedDeal) {
         final Deal deal = new Deal();
         deal.setDealID(abbreviatedDeal.getDealID());
         deal.setStoreID(abbreviatedDeal.getStoreID());
-        deal.setSalePrice(abbreviatedDeal.getPrice());
-        deal.setNormalPrice(abbreviatedDeal.getRetailPrice());
-        deal.setSavings(abbreviatedDeal.getSavingsFraction() * 100.0f);
+        deal.setSalePrice((float) abbreviatedDeal.getPrice());
+        deal.setNormalPrice((float) abbreviatedDeal.getRetailPrice());
+        deal.setSavings((float) (abbreviatedDeal.getSavingsFraction() * 100.0f));
 
         return deal;
     }
@@ -56,9 +63,9 @@ public final class DealUtils {
         final Deal deal = new Deal();
         deal.setDealID(abbreviatedDeal.getDealID());
         deal.setStoreID(abbreviatedDeal.getStoreID());
-        deal.setSalePrice(abbreviatedDeal.getPrice());
-        deal.setNormalPrice(abbreviatedDeal.getRetailPrice());
-        deal.setSavings(abbreviatedDeal.getSavingsFraction() * 100.0f);
+        deal.setSalePrice((float) abbreviatedDeal.getPrice());
+        deal.setNormalPrice((float) abbreviatedDeal.getRetailPrice());
+        deal.setSavings((float) (abbreviatedDeal.getSavingsFraction() * 100.0f));
 
         return deal;
     }

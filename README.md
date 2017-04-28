@@ -39,6 +39,7 @@ Each feature will be described in more detail in its own ticket. This is just an
 * Fetch store images from the Cheapshark API instead of having them in the app.
 * Redesign search as a floating action button on main screen. 
 * Smart search - Searching should dynamically populate the results.
+* Update search result UI to show whether an item has an active deal.
 * Add "add to watch list" as custom Chrome Tab option when opening deals.
 * Consolidate analytics & crash reporting tool into one. Use either Fabric or Firebase.
 * Better caching. A lot of what the app fetches can be cached to allow it to work offline.

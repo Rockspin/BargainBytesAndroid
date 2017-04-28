@@ -6,7 +6,8 @@ import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import com.rockspin.apputils.di.annotations.ApplicationScope;
 import com.rockspin.bargainbits.R;
-import com.rockspin.bargainbits.data.models.cheapshark.Store;
+import com.rockspin.bargainbits.data.models.Store;
+import com.rockspin.bargainbits.data.repository.stores.StoreRepository;
 import com.rockspin.bargainbits.data.rest_client.ICheapsharkAPIService;
 import com.rockspin.bargainbits.utils.Constants;
 import com.rockspin.bargainbits.utils.RxSuccessCache;
@@ -17,7 +18,11 @@ import javax.inject.Singleton;
 import rx.Observable;
 import rx.subjects.BehaviorSubject;
 
+/**
+ * @deprecated - Use the {@link StoreRepository} instead
+ */
 @Singleton
+@Deprecated
 public class StoresRepository {
 
     private final RxSuccessCache<List<Store>> stores = RxSuccessCache.create();
@@ -39,7 +44,7 @@ public class StoresRepository {
     private Observable<Map<String, Store>> getStoresMap() {
         return stores.get(() -> iCheapsharkAPIService.getStores())
                      .flatMap(Observable::from)
-                     .toMap(Store::getStoreID);
+                     .toMap(Store::getStoreId);
     }
 
     public Observable<Store> getStoreForId(String storeID) {

@@ -2,7 +2,7 @@ package com.rockspin.bargainbits.ui.views.deallist.recycleview;
 
 import com.annimon.stream.Stream;
 import com.rockspin.bargainbits.CustomOperators.ToList;
-import com.rockspin.bargainbits.data.models.cheapshark.GameInfo;
+import com.rockspin.bargainbits.data.models.GameInfo;
 import com.rockspin.bargainbits.ui.views.deallist.recycleview.storesgrid.StoreEntryViewModel;
 import com.rockspin.bargainbits.utils.DealUtils;
 import java.util.List;
@@ -69,7 +69,7 @@ public class DealAdapterModel {
                                                                        .map(StoreEntryViewModel::from)
                                                                        .custom(new ToList<StoreEntryViewModel>());
 
-        final float savingsPercent = gameInfo.getTopSavingsFraction() * 100;
+        final float savingsPercent = (float) (gameInfo.getTopSavingsFraction() * 100);
         return new DealAdapterModelBuilder().setGameName(gameInfo.getInfo().getGameName())
                                             .setHighestNormalPrice(String.valueOf(gameInfo.getHighestNormalPrice()))
                                             .setLowestSalePriceString(String.valueOf(gameInfo.getLowestSalePrice()))

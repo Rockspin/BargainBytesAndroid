@@ -53,7 +53,7 @@ public final class StoreDrawerListAdapter extends ArrayAdapter<StoreEnabled> {
 
         final StoreEnabled storePosition = getItem(position);
 
-        holder.storeImage.setImageDrawable(StoresData.getStoreIconDrawableForId(storePosition.store.getStoreID(), convertView.getContext()));
+        holder.storeImage.setImageDrawable(StoresData.getStoreIconDrawableForId(storePosition.store.getStoreId(), convertView.getContext()));
 
         if (!allStoresChecked) {
             holder.storeSwitch.setVisibility(View.VISIBLE);
@@ -83,7 +83,7 @@ public final class StoreDrawerListAdapter extends ArrayAdapter<StoreEnabled> {
     }
 
     @Override public long getItemId(int position) {
-        return getItem(position).store.getStoreID().hashCode();
+        return getItem(position).store.getStoreId().hashCode();
     }
 
     public PublishSubject<StoreEnabled> onStoreEnabled() {
