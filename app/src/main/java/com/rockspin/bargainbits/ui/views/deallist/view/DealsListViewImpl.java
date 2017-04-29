@@ -37,7 +37,7 @@ public class DealsListViewImpl extends RecyclerView implements DealsListPresente
     private static final String STORE_PICKER_DIALOG_TAG = "STORE_PICKER_DIALOG_TAG";
     private static final String WATCH_LIST_DIALOG_TAG = "WATCH_LIST_DIALOG_TAG";
 
-    private final BehaviorSubject<Boolean> onLoadingSubject = BehaviorSubject.create(false);
+    private final BehaviorSubject<Boolean> onLoadingSubject;
     private final DealRecyclerAdapter dealRecyclerAdapter;
     private DealsListContainer dealsListContainer;
 
@@ -54,9 +54,16 @@ public class DealsListViewImpl extends RecyclerView implements DealsListPresente
     public DealsListViewImpl(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
-        dealRecyclerAdapter = new DealRecyclerAdapter(LayoutInflater.from(context));
-        setLayoutManager(new LinearLayoutManager(context));
-        ((SimpleItemAnimator) getItemAnimator()).setSupportsChangeAnimations(false);
+        if (!isInEditMode()) {
+            onLoadingSubject = BehaviorSubject.create(false);
+
+            dealRecyclerAdapter = new DealRecyclerAdapter(LayoutInflater.from(context));
+            setLayoutManager(new LinearLayoutManager(context));
+            ((SimpleItemAnimator) getItemAnimator()).setSupportsChangeAnimations(false);
+        } else {
+            onLoadingSubject = null;
+            dealRecyclerAdapter = null;
+        }
     }
 
     @Override

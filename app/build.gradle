@@ -142,6 +142,7 @@ dependencies {
 
     //RX Android
     compile 'io.reactivex:rxandroid:1.0.1'
+    compile "com.github.akarnokd:rxjava2-interop:0.9.7"
 
     // RX Binding
     compile 'com.jakewharton.rxbinding:rxbinding:0.3.0'
