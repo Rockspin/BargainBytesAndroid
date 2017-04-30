@@ -42,4 +42,14 @@ class WatchListPresenterTest {
 
         verify(view).showLoadingView(false)
     }
+
+    @Test
+    fun whenOnBackButtonTriggeredCloseWatchList() {
+        `when`(view.onListIsLoading()).thenReturn(Observable.never())
+        `when`(view.onBackButtonPressed()).thenReturn(Observable.just(Any()))
+
+        presenter.onViewCreated(view)
+
+        verify(view).closeWatchList()
+    }
 }
