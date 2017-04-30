@@ -2,8 +2,6 @@ package com.rockspin.bargainbits.ui.watch_list
 
 import android.os.Bundle
 import android.support.v7.widget.Toolbar
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import butterknife.Bind
@@ -14,6 +12,7 @@ import com.rockspin.bargainbits.ui.BaseMvpActivity
 import com.rockspin.bargainbits.ui.views.deallist.DealsListView
 import com.rockspin.bargainbits.ui.views.deallist.view.DealsListPresenter
 import com.rockspin.bargainbits.ui.views.deallist.view.DealsListViewImpl
+import com.rockspin.bargainbits.util.visible
 import hu.akarnokd.rxjava.interop.RxJavaInterop
 import io.reactivex.Observable
 import javax.inject.Inject
@@ -35,34 +34,17 @@ class WatchListActivity : BaseMvpActivity<WatchListView, WatchListPresenter>(), 
         ButterKnife.bind(this)
 
         setSupportActionBar(toolbar)
-        supportActionBar!!.setHomeButtonEnabled(true)
+        supportActionBar?.setHomeButtonEnabled(true)
 
         dealsList.setPresenter(dealsListPresenter)
-        presenter.onViewCreated(this)
         dealsList.viewWillShow(this)
         dealsList.loadDealsInWatchList()
     }
 
     override fun onDestroy() {
-        presenter.onViewDestroyed()
-        dealsList.viewWillHide();
+        dealsList.viewWillHide()
 
         super.onDestroy()
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.watch_list, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when(item!!.itemId) {
-            android.R.id.home -> {
-                onBackPressed()
-                return true
-            }
-            else -> return super.onOptionsItemSelected(item)
-        }
     }
 
     override fun closeView() {
@@ -74,11 +56,7 @@ class WatchListActivity : BaseMvpActivity<WatchListView, WatchListPresenter>(), 
     }
 
     override fun showLoadingView(loading: Boolean) {
-        if (loading) {
-            loadingView.visibility = View.VISIBLE
-        } else {
-            loadingView.visibility = View.GONE
-        }
+        loadingView.visible = loading
     }
 
     override fun onBackButtonPressed(): Observable<Any> {
@@ -90,11 +68,7 @@ class WatchListActivity : BaseMvpActivity<WatchListView, WatchListPresenter>(), 
     }
 
     override fun showListEmptyView(show: Boolean) {
-        if (show) {
-            noResultsView.visibility = View.VISIBLE
-        } else {
-            noResultsView.visibility = View.GONE
-        }
+        noResultsView.visible = show
     }
 
     override fun isDealsEmpty(): Boolean {
