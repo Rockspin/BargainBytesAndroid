@@ -12,7 +12,7 @@ import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.content.ContextCompat;
 import com.fernandocejas.arrow.checks.Preconditions;
 import com.rockspin.bargainbits.R;
-import com.rockspin.bargainbits.ui.activities.WatchListActivity;
+import com.rockspin.bargainbits.ui.watch_list.WatchListActivity;
 import java.util.List;
 
 public final class WatchListNotification {
