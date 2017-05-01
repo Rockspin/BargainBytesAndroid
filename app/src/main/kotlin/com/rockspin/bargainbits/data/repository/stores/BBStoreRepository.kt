@@ -24,7 +24,7 @@ class BBStoreRepository(val apiService: GameApiService) : StoreRepository {
             .map { storeIdMap[storeID] }
     }
 
-    fun getStores(): Single<List<GameStore>> {
+    override fun getStores(): Single<List<GameStore>> {
         val cached: Observable<List<GameStore>> = if (cachedStores != null) Observable.just(cachedStores) else Observable.empty()
 
         return Observable.concat(listOf(cached, apiStoresCall.toObservable()))
@@ -37,7 +37,7 @@ class BBStoreRepository(val apiService: GameApiService) : StoreRepository {
                 apiService.getStores()
                     .map { it.filter { it.isActive } }
                     .map {
-                        storeIdMap = it.map { it.storeId to GameStore(it.storeName, "$BASE_STORE_IMAGE_URL${it.imageUrl}") }.toMap()
+                        storeIdMap = it.map { it.storeId to GameStore(it.storeId, it.storeName, "$BASE_STORE_IMAGE_URL${it.imageUrl}") }.toMap()
                         storeIdMap.values.toList()
                     }
                     .doOnSuccess { cachedStores = it }

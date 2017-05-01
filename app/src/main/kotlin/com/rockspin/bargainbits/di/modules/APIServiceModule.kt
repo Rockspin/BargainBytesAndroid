@@ -1,6 +1,7 @@
 package com.rockspin.bargainbits.di.modules
 
 import android.content.Context
+import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonDeserializer
 import com.google.gson.reflect.TypeToken
@@ -96,19 +97,22 @@ class APIServiceModule {
 
     @Provides
     @Singleton
-    internal fun providesCheapsharkAPIService(okHttpClient: com.squareup.okhttp.OkHttpClient, gameInfoListDeserializer: JsonDeserializer<List<GameInfo>>,
+    internal fun providesCheapsharkAPIService(okHttpClient: com.squareup.okhttp.OkHttpClient, gson: Gson,
         @GameApiUrl url: String): ICheapsharkAPIService {
-        val gameInfoListType = object : TypeToken<List<GameInfo>>() {}.type
-        val cheapsharkGson = GsonBuilder().registerTypeAdapter(gameInfoListType, gameInfoListDeserializer)
-            .create()
-
         val restAdapterBuilder = RestAdapter.Builder().setClient(OkClient(okHttpClient))
             .setLogLevel(RestAdapter.LogLevel.BASIC)
             .setEndpoint(url)
-            .setConverter(GsonConverter(cheapsharkGson))
+            .setConverter(GsonConverter(gson))
 
         return restAdapterBuilder.build()
             .create(ICheapsharkAPIService::class.java)
+    }
+
+    @Provides
+    internal fun providesGson(gameInfoListDeserializer: JsonDeserializer<List<GameInfo>>): Gson {
+        val gameInfoListType = object : TypeToken<List<GameInfo>>() {}.type
+        return GsonBuilder().registerTypeAdapter(gameInfoListType, gameInfoListDeserializer)
+            .create()
     }
 
     @Provides

@@ -22,8 +22,8 @@ class BBStoreRepositoryTest {
         )
 
         private val TEST_GAME_STORES = listOf(
-            GameStore("TestStoreName0", "${BBStoreRepository.BASE_STORE_IMAGE_URL}TestImageUrl0"),
-            GameStore("TestStoreName2", "${BBStoreRepository.BASE_STORE_IMAGE_URL}TestImageUrl2")
+            GameStore("TestStoreId0", "TestStoreName0", "${BBStoreRepository.BASE_STORE_IMAGE_URL}TestImageUrl0"),
+            GameStore("TestStoreId2", "TestStoreName2", "${BBStoreRepository.BASE_STORE_IMAGE_URL}TestImageUrl2")
         )
 
         private fun createImagesWithLogoUrl(url: String): Store.Images {

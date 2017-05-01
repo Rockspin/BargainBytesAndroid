@@ -11,6 +11,8 @@ import com.annimon.stream.Stream;
 import com.fernandocejas.arrow.optional.Optional;
 import com.rockspin.apputils.cache.helper.SimpleCacheReader;
 import com.rockspin.apputils.cache.helper.SimpleCacheWriter;
+import com.rockspin.apputils.cache.interfaces.ICacheReader;
+import com.rockspin.apputils.cache.interfaces.ICacheWriter;
 import com.rockspin.bargainbits.data.models.cheapshark.CompactDeal;
 import com.rockspin.bargainbits.data.models.GameInfo;
 import com.rockspin.bargainbits.data.rest_client.ICheapsharkAPIService;
@@ -50,15 +52,13 @@ public class WatchListRepository {
 
     @Inject IAnalytics iAnalytics;
     @Inject ICheapsharkAPIService iCheapsharkAPIService;
-    @Inject SimpleCacheWriter cacheWriter;
+    @Inject ICacheWriter cacheWriter;
 
-    @Inject public WatchListRepository(SimpleCacheReader cacheReader) {
-        Single<? extends ArrayList> result = cacheReader.runRequest(WATCH_LIST_KEY, mWatchedItemList.getClass());
+    @Inject public WatchListRepository(ICacheReader cacheReader) {
+        io.reactivex.Single<? extends ArrayList> result = cacheReader.getItem(WATCH_LIST_KEY, mWatchedItemList.getClass());
 
         try {
-            mWatchedItemList.addAll(result.toObservable()
-                                          .toBlocking()
-                                          .first());
+            mWatchedItemList.addAll(result.blockingGet());
         } catch (final Exception e) {
             Timber.d(e, "Watchlist failure to retrieve from cache");
         }

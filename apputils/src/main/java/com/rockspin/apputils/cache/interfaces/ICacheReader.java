@@ -1,19 +1,18 @@
 package com.rockspin.apputils.cache.interfaces;
 
+import io.reactivex.Single;
 import java.io.Serializable;
-import rx.Single;
 
 /**
  * Cache request.
  */
-public interface ICacheReader{
+public interface ICacheReader {
 
     /**
      * retrieves values stored in cache.
-     * @return results form server.
-     * @param pKey key value to fetch.
-     * @param pClass class type to fetch.
+     * @return results from cache
+     * @param key key value to fetch.
+     * @param clazz class type to fetch.
      */
-    <T extends Serializable> Single<T> runRequest(final String pKey, Class<T> pClass);
-
+    <T extends Serializable> Single<T> getItem(final String key, Class<T> clazz);
 }

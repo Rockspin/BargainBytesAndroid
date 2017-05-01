@@ -3,6 +3,8 @@ package com.rockspin.apputils.cache.helper;
 import com.rockspin.apputils.cache.LruDiscCache;
 import com.rockspin.apputils.cache.LruMemoryCache;
 import com.rockspin.test.TestHelper;
+import hu.akarnokd.rxjava.interop.RxJavaInterop;
+import io.reactivex.Single;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,7 +12,6 @@ import junit.framework.Assert;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import rx.Single;
 
 public class ArrayListTest {
 
@@ -42,12 +43,12 @@ public class ArrayListTest {
 
     @Test
     public void testWritingArrayList() throws Exception {
-        final Single<ArrayList<String>> cacheResult = mCacheWriter.cacheValue(TEST_KEY, mArrayList);
-        cacheResult.toObservable().toBlocking().first();
+        final Single<ArrayList<String>> cacheResult = RxJavaInterop.toV2Single(mCacheWriter.cacheValue(TEST_KEY, mArrayList));
+        cacheResult.blockingGet();
 
-        final Single<? extends ArrayList> result = mCacheReader.runRequest(TEST_KEY,  mArrayList.getClass());
+        final Single<? extends ArrayList> result = mCacheReader.getItem(TEST_KEY, mArrayList.getClass());
 
-        Assert.assertEquals(mArrayList, result.toObservable().toBlocking().first());
+        Assert.assertEquals(mArrayList, result.blockingGet());
     }
 
 }

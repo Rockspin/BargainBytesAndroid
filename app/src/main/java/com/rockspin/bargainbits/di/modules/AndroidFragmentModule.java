@@ -5,6 +5,7 @@ import com.rockspin.bargainbits.ui.activities.main.deals.DealsFragment;
 import com.rockspin.bargainbits.ui.activities.main.storesdrawer.StoresDrawerFragment;
 import com.rockspin.bargainbits.ui.dialogs.store_picker.StorePickerDialogFragment;
 import com.rockspin.bargainbits.ui.dialogs.watchlist.EditWatchListEntryDialogFragment;
+import com.rockspin.bargainbits.ui.store_filter.StoreFilterDialogFragment;
 import dagger.Binds;
 import dagger.Module;
 import dagger.Subcomponent;
@@ -16,7 +17,8 @@ import dagger.multibindings.IntoMap;
     AndroidFragmentModule.StorePickerDialogFragmentComponent.class,
     AndroidFragmentModule.EditWatchListEntryDialogFragmentComponent.class,
     AndroidFragmentModule.StoresDrawerFragmentComponent.class,
-    AndroidFragmentModule.DealsFragmentComponent.class
+    AndroidFragmentModule.DealsFragmentComponent.class,
+    AndroidFragmentModule.StoreFilterDialogFragmentComponent.class
 })
 public abstract class AndroidFragmentModule {
 
@@ -73,6 +75,20 @@ public abstract class AndroidFragmentModule {
 
         @Subcomponent.Builder
         abstract class Builder extends AndroidInjector.Builder<DealsFragment> {
+        }
+    }
+
+    @Binds
+    @IntoMap
+    @FragmentKey(StoreFilterDialogFragment.class)
+    public abstract AndroidInjector.Factory<? extends Fragment>
+    bindStoreFilterDialogFragmentInjectorFactory(StoreFilterDialogFragmentComponent.Builder builder);
+
+    @Subcomponent
+    public interface StoreFilterDialogFragmentComponent extends AndroidInjector<StoreFilterDialogFragment> {
+
+        @Subcomponent.Builder
+        abstract class Builder extends AndroidInjector.Builder<StoreFilterDialogFragment> {
         }
     }
 }

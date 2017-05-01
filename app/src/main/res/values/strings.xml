@@ -28,6 +28,8 @@
   <string name="releases">Releases</string>
   <string name="released">Released</string>
   <string name="store_filter">Stores Filter</string>
+  <string name="active_stores_header_title">Interested in</string>
+  <string name="inactive_stores_header_title">Not interested in</string>
   <string name="choose_store_dialog_title">Choose Store</string>
   <string name="watch_list">Watch List</string>
   <string name="add_to_watch_list">Add To Watch List</string>
@@ -67,6 +69,7 @@
   <string name="share_watched_item">%1$s is in my #BargainByte Watch List so I will know when it\'s on sale! Tracked using %2$s</string>
   <string name="cancel">Cancel</string>
   <string name="undo">Undo</string>
+  <string name="try_again">Try Again</string>
 
   <string name="error">Error</string>
   <string name="error_no_connection">Can\'t load data. Please check your connection and try again.</string>
@@ -75,8 +78,5 @@
   <string name="error_no_stores">Can\'t access game stores. Are you connected to the internet? Bargain Bytes needs an internet connection to function correctly.</string>
   <string name="error_no_currency_exchange">Currency exchange data not available. Please try again later.</string>
   <string name="error_cannot_load_deal_url">Cannot load this deal right now.</string>
-  <string name="cant_load_stores">Can\'t load stores. Tap to try again</string>
-  <string name="game_info_image_trans" translatable="false">fragment_trans_image</string>
-  <string name="game_info_title_trans" translatable="false">game_info_title_trans</string>
-  <string name="game_info_price_trans" translatable="false">game_info_price_trans</string>
+  <string name="load_stores_error">Can\'t load stores right now.</string>
 </resources>

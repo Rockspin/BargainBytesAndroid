@@ -75,5 +75,7 @@
   <string name="watchlist_item_edited">Състоянието на %1$s в Списък за Следене беше променено.</string>
   <string name="watchlist_item_removed">%1$s беше премахната от Списък за Следене.</string>
   <string name="undo">Върни</string>
-  <string name="cant_load_stores">Cant load stores. Tap to try again</string>
+  <string name="load_stores_error">Магазините не могат да бъдат заредени в момента.</string>
+    <string name="active_stores_header_title">Интересувам се от</string>
+  <string name="inactive_stores_header_title">Не се интересувам от</string>
 </resources>

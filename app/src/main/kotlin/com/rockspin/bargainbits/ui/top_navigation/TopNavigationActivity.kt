@@ -30,6 +30,7 @@ import com.rockspin.bargainbits.R
 import com.rockspin.bargainbits.ui.BaseMvpActivity
 import com.rockspin.bargainbits.ui.activities.main.deals.DealsFragmentPagerAdapter
 import com.rockspin.bargainbits.ui.activities.main.storesdrawer.StoresDrawerFragment
+import com.rockspin.bargainbits.ui.store_filter.StoreFilterDialogFragment
 import com.rockspin.bargainbits.ui.views.deallist.view.DealsListViewImpl
 import com.rockspin.bargainbits.ui.watch_list.WatchListActivity
 import com.rockspin.bargainbits.utils.Feedback
@@ -140,7 +141,8 @@ class TopNavigationActivity : BaseMvpActivity<TopNavigationView, TopNavigationPr
     }
 
     override fun openStoresDrawer() {
-        drawerLayout.openDrawer(GravityCompat.START)
+        val storeFilterDialogFragment = StoreFilterDialogFragment.newInstance()
+        storeFilterDialogFragment.show(supportFragmentManager, StoreFilterDialogFragment::class.java.simpleName)
     }
 
     override fun onRateAppPressed(): Observable<Any> {

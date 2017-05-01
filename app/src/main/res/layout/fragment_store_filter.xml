@@ -1,0 +1,64 @@
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/list_background_color"
+        android:minHeight="@dimen/store_filter_bottom_sheet_min_height"
+        android:paddingTop="@dimen/grid_space_1x"
+        android:paddingStart="@dimen/grid_space_2x"
+        android:paddingEnd="@dimen/grid_space_2x"
+        >
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/storeFilterRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_store"
+            />
+
+        <ProgressBar
+            android:id="@+id/storeFilterProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            tools:visibility="visible"
+            style="?android:attr/progressBarStyleLarge"
+            />
+
+        <LinearLayout
+            android:id="@+id/errorView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/grid_space_1x"
+                android:text="@string/load_stores_error"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+            <Button
+                style="@style/PrimaryButton"
+                android:id="@+id/tryAgainButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/try_again"/>
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+</layout>

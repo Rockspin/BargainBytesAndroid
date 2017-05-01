@@ -65,7 +65,7 @@ class SearchDetailPresenterTest {
         `when`(mockView.onItemClicked).thenReturn(testDealClick)
         `when`(mockView.onWatchListClicked).thenReturn(testWatchListClick)
         `when`(mockApiService.getGameInfo(anyString())).thenReturn(testGameInfoResult.singleOrError())
-        `when`(mockStoreRepository.getGameStoreForId(anyString())).thenReturn(Single.just(GameStore("", "")))
+        `when`(mockStoreRepository.getGameStoreForId(anyString())).thenReturn(Single.just(GameStore("", "", "")))
 
         presenter = SearchDetailPresenter(mockApiService, mockStoreRepository, mockFormatter, TEST_GAME_DEAL_URL)
         presenter.onViewCreated(mockView)
@@ -112,9 +112,9 @@ class SearchDetailPresenterTest {
         `when`(mockFormatter.formatPrice(2.0)).thenReturn("$2.00")
         `when`(mockFormatter.formatPrice(1.0)).thenReturn("$1.00")
         `when`(mockStoreRepository.getGameStoreForId("testStoreId0")).thenReturn(Single.just(
-            GameStore("testStoreName0", "$TEST_STORE_URL_PREFIX testStoreId0")))
+            GameStore("testStoreId0", "testStoreName0", "$TEST_STORE_URL_PREFIX testStoreId0")))
         `when`(mockStoreRepository.getGameStoreForId("testStoreId1")).thenReturn(Single.just(
-            GameStore("testStoreName1", "$TEST_STORE_URL_PREFIX testStoreId1")))
+            GameStore("testStoreId0", "testStoreName1", "$TEST_STORE_URL_PREFIX testStoreId1")))
 
         testGameInfoResult.completeWithValue(createGameInfoWithDeals(testDeals))
 
