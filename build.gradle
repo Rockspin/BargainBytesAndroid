@@ -34,6 +34,6 @@ task wrapper(type: Wrapper) {
 }
 
 ext {
-    daggerVersion = "2.10"
+    daggerVersion = "2.11-rc2"
     supportLibVersion = "25.3.1"
 }

@@ -5,11 +5,12 @@ import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import dagger.android.AndroidInjection
 import dagger.android.DispatchingAndroidInjector
-import dagger.android.support.HasDispatchingSupportFragmentInjector
+import dagger.android.HasFragmentInjector
+import dagger.android.support.HasSupportFragmentInjector
 import javax.inject.Inject
 
 @Deprecated("Use BaseMvpActivity instead")
-abstract class BaseActivity : AppCompatActivity(), HasDispatchingSupportFragmentInjector {
+abstract class BaseActivity : AppCompatActivity(), HasSupportFragmentInjector {
 
     @Inject internal lateinit var fragmentInjector: DispatchingAndroidInjector<Fragment>
 
