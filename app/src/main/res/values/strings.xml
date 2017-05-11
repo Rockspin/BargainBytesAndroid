@@ -76,7 +76,7 @@
   <string name="error_no_currency_exchange">Currency exchange data not available. Please try again later.</string>
   <string name="error_cannot_load_deal_url">Cannot load this deal right now.</string>
   <string name="cant_load_stores">Can\'t load stores. Tap to try again</string>
-  <string name="game_info_image_trans">fragment_trans_image</string>
-  <string name="game_info_title_trans">game_info_title_trans</string>
-  <string name="game_info_price_trans">game_info_price_trans</string>
+  <string name="game_info_image_trans" translatable="false">fragment_trans_image</string>
+  <string name="game_info_title_trans" translatable="false">game_info_title_trans</string>
+  <string name="game_info_price_trans" translatable="false">game_info_price_trans</string>
 </resources>
