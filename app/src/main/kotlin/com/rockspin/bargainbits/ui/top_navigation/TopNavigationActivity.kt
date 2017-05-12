@@ -45,10 +45,10 @@ class TopNavigationActivity : BaseMvpActivity<TopNavigationView, TopNavigationPr
 
     @Inject override lateinit var presenter: TopNavigationPresenter
 
-    @Bind(R.id.top_navigation_drawer_layout) internal lateinit var drawerLayout: DrawerLayout
-    @Bind(R.id.top_navigation_toolbar) internal lateinit var toolbar: Toolbar
-    @Bind(R.id.top_navigation_pager) internal lateinit var viewPager: ViewPager
-    @Bind(R.id.top_navigation_tabs) internal lateinit var tabLayout: TabLayout
+    @Bind(R.id.drawer_layout) internal lateinit var drawerLayout: DrawerLayout
+    @Bind(R.id.toolbar) internal lateinit var toolbar: Toolbar
+    @Bind(R.id.pager) internal lateinit var viewPager: ViewPager
+    @Bind(R.id.tabs) internal lateinit var tabLayout: TabLayout
 
     private lateinit var drawerToggle: ActionBarDrawerToggle
     private lateinit var appCompatSpinner: AppCompatSpinner
@@ -92,7 +92,7 @@ class TopNavigationActivity : BaseMvpActivity<TopNavigationView, TopNavigationPr
             //add the fragment that represents the drawer content
             val fragment = StoresDrawerFragment()
             supportFragmentManager.beginTransaction()
-                    .add(R.id.top_navigation_layout_drawer, fragment)
+                    .add(R.id.layout_drawer, fragment)
                     .commit()
         }
 

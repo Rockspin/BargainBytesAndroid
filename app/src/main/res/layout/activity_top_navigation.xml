@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/top_navigation_drawer_layout"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
@@ -19,7 +19,7 @@
             app:elevation="4dp">
 
             <android.support.v7.widget.Toolbar
-                android:id="@+id/top_navigation_toolbar"
+                android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="?attr/colorPrimary"
@@ -29,7 +29,7 @@
                 app:layout_scrollFlags="scroll|enterAlways|snap"/>
 
             <android.support.design.widget.TabLayout
-                android:id="@+id/top_navigation_tabs"
+                android:id="@+id/tabs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:tabGravity="fill"
@@ -42,7 +42,7 @@
         </android.support.design.widget.AppBarLayout>
 
         <android.support.v4.view.ViewPager
-            android:id="@+id/top_navigation_pager"
+            android:id="@+id/pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
@@ -57,7 +57,7 @@
    the container. A solid background is used for contrast
    with the content view. -->
     <RelativeLayout
-        android:id="@+id/top_navigation_layout_drawer"
+        android:id="@+id/layout_drawer"
         android:background="@android:color/transparent"
         android:layout_width="320dp"
         android:layout_height="match_parent"
