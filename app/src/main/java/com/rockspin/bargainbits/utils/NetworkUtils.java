@@ -10,8 +10,8 @@ import android.net.NetworkInfo;
 import com.rockspin.apputils.di.annotations.ApplicationScope;
 import javax.inject.Inject;
 
-import rx.Observable;
-import rx.subjects.BehaviorSubject;
+import io.reactivex.Observable;
+import io.reactivex.subjects.BehaviorSubject;
 
 /**
  * network utils class.
@@ -41,8 +41,8 @@ public class NetworkUtils {
     };
 
     public Observable<Boolean> onNetworkChanged() {
-        return behaviorSubject.doOnSubscribe(this::register)
-                              .doOnUnsubscribe(this::unregister);
+        return behaviorSubject.doOnSubscribe(__ -> register())
+                              .doOnDispose(this::unregister);
     }
 
     private void register() {
@@ -53,7 +53,7 @@ public class NetworkUtils {
         context.unregisterReceiver(broadcastReceiver);
     }
 
-    public static boolean isConnectedToInternet(Context context) {
+    private static boolean isConnectedToInternet(Context context) {
         final ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         final NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         return activeNetwork != null && activeNetwork.isConnectedOrConnecting();

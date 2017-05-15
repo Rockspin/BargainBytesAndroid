@@ -10,12 +10,10 @@
     <android.support.design.widget.CoordinatorLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/main_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <android.support.design.widget.AppBarLayout
-            android:id="@+id/appbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:elevation="4dp">
@@ -59,7 +57,7 @@
    the container. A solid background is used for contrast
    with the content view. -->
     <RelativeLayout
-        android:id="@+id/drawerViewParent"
+        android:id="@+id/layout_drawer"
         android:background="@android:color/transparent"
         android:layout_width="320dp"
         android:layout_height="match_parent"

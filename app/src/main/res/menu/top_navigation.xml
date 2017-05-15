@@ -1,0 +1,41 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menu_search_games"
+        android:icon="@drawable/ic_search_white_24dp"
+        android:title="@string/action_search_games"
+        app:actionViewClass="android.support.v7.widget.SearchView"
+        app:showAsAction="collapseActionView|ifRoom" />
+
+    <item
+        android:id="@+id/menu_watch_list"
+        android:icon="@drawable/ic_watch_list_24dp"
+        android:title="@string/watch_list"
+        app:showAsAction="collapseActionView|ifRoom" />
+
+    <item
+        android:id="@+id/menu_store_filter"
+        android:orderInCategory="0001"
+        android:title="@string/store_filter"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_rate"
+        android:orderInCategory="0100"
+        android:title="@string/rate_bargain_bytes"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_share"
+        android:orderInCategory="1000"
+        android:title="@string/share_bargain_bytes"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_feedback"
+        android:orderInCategory="1001"
+        android:title="@string/feedback"
+        app:showAsAction="never" />
+
+</menu>

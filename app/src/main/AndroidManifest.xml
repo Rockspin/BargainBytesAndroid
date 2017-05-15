@@ -29,7 +29,7 @@
             />
 
         <activity
-            android:name=".ui.activities.main.MainActivity"
+            android:name=".ui.top_navigation.TopNavigationActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name">
             <intent-filter>

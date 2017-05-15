@@ -3,9 +3,9 @@ package com.rockspin.bargainbits.di.modules
 import android.app.Activity
 import com.rockspin.apputils.di.BaseActivityComponentBuilder
 import com.rockspin.apputils.di.modules.activities.ActivityModule
-import com.rockspin.bargainbits.ui.activities.main.MainActivity
 import com.rockspin.bargainbits.ui.search.SearchActivity
 import com.rockspin.bargainbits.ui.search.detail.SearchDetailActivity
+import com.rockspin.bargainbits.ui.top_navigation.TopNavigationActivity
 import com.rockspin.bargainbits.ui.watch_list.WatchListActivity
 import dagger.Binds
 import dagger.Module
@@ -17,7 +17,7 @@ import dagger.multibindings.IntoMap
 @Module(subcomponents = arrayOf(
     AndroidActivityModule.SearchActivityComponent::class,
     AndroidActivityModule.WatchListActivityComponent::class,
-    AndroidActivityModule.MainActivityComponent::class,
+    AndroidActivityModule.TopNavigationActivityComponent::class,
     AndroidActivityModule.SearchDetailActivityComponent::class
 ))
 abstract class AndroidActivityModule {
@@ -48,14 +48,14 @@ abstract class AndroidActivityModule {
 
     @Binds
     @IntoMap
-    @ActivityKey(MainActivity::class)
-    abstract fun bindMainActivityInjectorFactory(builder: MainActivityComponent.Builder): AndroidInjector.Factory<out Activity>
+    @ActivityKey(TopNavigationActivity::class)
+    abstract fun bindTopNavigationActivityInjectorFactory(builder: TopNavigationActivityComponent.Builder): AndroidInjector.Factory<out Activity>
 
     @Subcomponent(modules = arrayOf(ActivityModule::class, AndroidFragmentModule::class))
-    interface MainActivityComponent : AndroidInjector<MainActivity> {
+    interface TopNavigationActivityComponent : AndroidInjector<TopNavigationActivity> {
 
         @Subcomponent.Builder
-        abstract class Builder : BaseActivityComponentBuilder<MainActivity>()
+        abstract class Builder : BaseActivityComponentBuilder<TopNavigationActivity>()
     }
 
     @Binds
