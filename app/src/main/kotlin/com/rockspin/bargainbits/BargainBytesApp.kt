@@ -16,10 +16,10 @@ import com.rockspin.bargainbits.utils.environment.IServices
 import com.rockspin.bargainbits.watch_list.job.WatchListCheckJob
 import com.rockspin.bargainbits.watch_list.job.WatchListCheckerJobCreator
 import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasDispatchingActivityInjector
+import dagger.android.HasActivityInjector
 import javax.inject.Inject
 
-class BargainBytesApp : Application(), HasDispatchingActivityInjector {
+class BargainBytesApp : Application(), HasActivityInjector {
 
     @Inject lateinit internal var iServices: IServices
 
