@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/list_row_height"
+        android:gravity="center"
+        android:orientation="horizontal"
+        >
+
+        <com.rockspin.bargainbits.ui.views.WebImageView
+            android:id="@+id/storeImage"
+            android:layout_width="@dimen/list_icon_size"
+            android:layout_height="@dimen/list_icon_size"
+            android:layout_gravity="center"
+            />
+
+        <android.support.v7.widget.SwitchCompat
+            android:id="@+id/storeNameSwitch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/grid_space_4x"
+            android:textAppearance="?attr/textAppearanceListItem"
+            tools:text="Steam"
+            />
+
+    </LinearLayout>
+
+</layout>

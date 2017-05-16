@@ -4,6 +4,7 @@ import com.rockspin.apputils.cache.LruDiscCache;
 import com.rockspin.apputils.cache.LruMemoryCache;
 import com.rockspin.test.TestHelper;
 import java.io.File;
+import java.util.NoSuchElementException;
 import junit.framework.Assert;
 import org.junit.After;
 import org.junit.Before;
@@ -35,13 +36,17 @@ public class SimpleCacheReaderTest {
     }
 
     @Test
-    public void testRunRequest() throws Exception {
+    public void testGetItem() throws Exception {
         final String key = mTestHelper.stringWithRandomLength(1000);
         final String value = mTestHelper.stringWithRandomLength(1000);
         final Single<String> result = mCacheWriter.cacheValue(key, value);
         result.toObservable().toBlocking().first();
-        final Single<String> lookupFuture = mCacheReader.runRequest(key, String.class);
-        Assert.assertEquals(lookupFuture.toObservable().toBlocking().first(), value);
+        final io.reactivex.Single<String> lookupFuture = mCacheReader.getItem(key, String.class);
+        Assert.assertEquals(lookupFuture.blockingGet(), value);
     }
 
+    @Test(expected = NoSuchElementException.class)
+    public void testGetItemNotExist_throwsNoSuchElementException() throws Exception {
+        mCacheReader.getItem("blabla", String.class).blockingGet();
+    }
 }

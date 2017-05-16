@@ -26,7 +26,7 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:textAppearance="?android:attr/textAppearanceLarge"
-      android:text="@string/cant_load_stores"
+      android:text="@string/load_stores_error"
       android:id="@+id/cantLoadStores"
       android:gravity="center"
       android:visibility="invisible"

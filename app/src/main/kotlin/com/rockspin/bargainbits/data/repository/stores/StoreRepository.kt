@@ -1,6 +1,5 @@
 package com.rockspin.bargainbits.data.repository.stores
 
-import com.rockspin.bargainbits.data.repository.stores.GameStore
 import io.reactivex.Single
 
 /**
@@ -9,4 +8,5 @@ import io.reactivex.Single
 interface StoreRepository {
     fun getGameStoreForId(storeID: String): Single<GameStore>
 
+    fun getStores(): Single<List<GameStore>>
 }

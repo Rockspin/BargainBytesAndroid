@@ -86,5 +86,10 @@ public final class WebImageView extends FrameLayout {
 
     public void clear() {
         Glide.clear(mImageView);
+        mImageView.setContentDescription(null);
+    }
+
+    public void setImageContentDescription(String contentDescription) {
+        mImageView.setContentDescription(contentDescription);
     }
 }
