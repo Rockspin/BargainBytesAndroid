@@ -19,7 +19,7 @@ retrolambda {
 
 android {
     compileSdkVersion 25
-    buildToolsVersion '25.0.2'
+    buildToolsVersion '25.0.3'
 
     packagingOptions {
         exclude 'META-INF/LICENSE.txt'
@@ -32,7 +32,6 @@ android {
         versionCode 29
         versionName "1.4.1"
 
-        vectorDrawables.useSupportLibrary = true
         // TODO - remove multidex once app refactoring to Kotlin is done and all old libraries are removed
         multiDexEnabled true
     }
@@ -74,7 +73,6 @@ android {
     }
 
     compileOptions {
-        // TODO - Put back to 1.7 once retrolambda is out of project to enable incremental builds
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
@@ -95,6 +93,10 @@ android {
 
     testOptions {
         unitTests.returnDefaultValues = true
+    }
+
+    lintOptions {
+        lintConfig rootProject.file('gradle/lint.xml')
     }
 }
 
