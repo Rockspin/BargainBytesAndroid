@@ -1,6 +1,6 @@
 package com.rockspin.bargainbits.data.repository.stores.filter
 
-import com.rockspin.bargainbits.data.repository.stores.GameStore
+import com.rockspin.bargainbits.data.models.GameStore
 
 data class GameStoreFiltered(
     private val gameStore: GameStore,

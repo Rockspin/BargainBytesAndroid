@@ -26,6 +26,7 @@ allprojects {
     repositories {
         mavenCentral()
         jcenter()
+        maven { url 'https://maven.google.com' }
     }
 }
 
@@ -37,6 +38,7 @@ task wrapper(type: Wrapper) {
 ext {
     daggerVersion = "2.11-rc2"
     supportLibVersion = "25.3.1"
+    archVersion = "1.0.0-alpha1"
 }
 
 // Force the declared version of the support library for all transitive dependencies

@@ -1,7 +1,7 @@
 package com.rockspin.bargainbits.ui.search.detail
 
 import com.rockspin.bargainbits.data.models.AbbreviatedDeal
-import com.rockspin.bargainbits.data.repository.stores.GameStore
+import com.rockspin.bargainbits.data.models.GameStore
 import com.rockspin.bargainbits.data.repository.stores.StoreRepository
 import com.rockspin.bargainbits.data.rest_client.GameApiService
 import com.rockspin.bargainbits.di.annotations.GameDealUrl

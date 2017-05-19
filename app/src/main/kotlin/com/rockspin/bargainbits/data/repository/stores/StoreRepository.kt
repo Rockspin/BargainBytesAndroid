@@ -1,5 +1,6 @@
 package com.rockspin.bargainbits.data.repository.stores
 
+import com.rockspin.bargainbits.data.models.GameStore
 import io.reactivex.Single
 
 /**
