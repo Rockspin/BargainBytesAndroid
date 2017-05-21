@@ -1,7 +1,7 @@
 package com.rockspin.bargainbits.data.repository.stores.filter
 
 import com.rockspin.bargainbits.data.repository.storage.PrimitiveStore
-import com.rockspin.bargainbits.data.repository.stores.GameStore
+import com.rockspin.bargainbits.data.models.GameStore
 import com.rockspin.bargainbits.data.repository.stores.StoreRepository
 import io.reactivex.Single
 import org.assertj.core.api.Assertions.assertThat

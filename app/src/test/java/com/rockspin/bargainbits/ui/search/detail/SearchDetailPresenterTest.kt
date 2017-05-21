@@ -3,7 +3,7 @@ package com.rockspin.bargainbits.ui.search.detail
 import com.rockspin.bargainbits.data.models.AbbreviatedDeal
 import com.rockspin.bargainbits.data.models.GameInfo
 import com.rockspin.bargainbits.data.models.Info
-import com.rockspin.bargainbits.data.repository.stores.GameStore
+import com.rockspin.bargainbits.data.models.GameStore
 import com.rockspin.bargainbits.data.repository.stores.StoreRepository
 import com.rockspin.bargainbits.data.rest_client.GameApiService
 import com.rockspin.bargainbits.test_utils.RxSchedulersRule

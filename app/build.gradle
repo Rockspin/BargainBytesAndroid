@@ -114,6 +114,15 @@ dependencies {
     compile 'com.jakewharton.rxbinding2:rxbinding-kotlin:2.0.0'
     compile 'com.jakewharton.rxbinding2:rxbinding-support-v4-kotlin:2.0.0'
 
+    // Android architecture components
+    compile "android.arch.lifecycle:runtime:$archVersion"
+    compile "android.arch.lifecycle:extensions:$archVersion"
+    kapt "android.arch.lifecycle:compiler:$archVersion"
+
+    compile "android.arch.persistence.room:runtime:$archVersion"
+    compile "android.arch.persistence.room:rxjava2:$archVersion"
+    kapt "android.arch.persistence.room:compiler:$archVersion"
+
     // Retrofit
     compile 'com.squareup.retrofit2:retrofit:2.2.0'
     compile "com.squareup.retrofit2:converter-gson:2.2.0"
@@ -204,6 +213,8 @@ dependencies {
         exclude module: 'support-com.google.common.annotations'
     }
     testCompile 'org.assertj:assertj-core:3.6.2'
-    testCompile 'org.mockito:mockito-core:2.7.22'
     testCompile "com.android.support:support-annotations:$supportLibVersion"
+    testCompile "android.arch.core:core-testing:$archVersion"
+    testCompile "com.nhaarman:mockito-kotlin:1.4.0"
+    testCompile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
 }

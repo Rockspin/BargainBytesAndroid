@@ -2,7 +2,6 @@ package com.rockspin.bargainbits.data.rest_client
 
 import com.rockspin.bargainbits.data.models.GameInfo
 import com.rockspin.bargainbits.data.models.GameSearchResult
-import com.rockspin.bargainbits.data.repository.stores.GameStore
 import com.rockspin.bargainbits.data.models.Store
 import io.reactivex.Single
 import retrofit2.http.GET

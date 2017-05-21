@@ -1,6 +1,6 @@
 package com.rockspin.bargainbits.ui.store_filter
 
-import com.rockspin.bargainbits.data.repository.stores.GameStore
+import com.rockspin.bargainbits.data.models.GameStore
 import com.rockspin.bargainbits.data.repository.stores.filter.GameStoreFiltered
 import com.rockspin.bargainbits.data.repository.stores.filter.StoreFilter
 import com.rockspin.bargainbits.test_utils.RxSchedulersRule
