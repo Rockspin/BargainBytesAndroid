@@ -39,7 +39,6 @@ public class DealsListViewImpl extends RecyclerView implements DealsListPresente
 
     private final BehaviorSubject<Boolean> onLoadingSubject;
     private final DealRecyclerAdapter dealRecyclerAdapter;
-    private DealsListContainer dealsListContainer;
 
     private DealsListPresenter presenter;
 
@@ -71,8 +70,7 @@ public class DealsListViewImpl extends RecyclerView implements DealsListPresente
         this.presenter = presenter;
     }
 
-    @Override public void viewWillShow(DealsListContainer dealsListContainer) {
-        this.dealsListContainer = dealsListContainer;
+    @Override public void viewWillShow() {
         presenter.start(this);
         setAdapter(dealRecyclerAdapter);
     }
@@ -156,10 +154,6 @@ public class DealsListViewImpl extends RecyclerView implements DealsListPresente
 
     @Override public void addDealToList(DealAdapterModel dealAdapterModel) {
         dealRecyclerAdapter.add(dealAdapterModel);
-    }
-
-    @Override public void closeView() {
-        dealsListContainer.closeView();
     }
 
     @Override public Observable<Integer> showStorePicker(List<StorePickerAdapter.StorePickerData> deals) {

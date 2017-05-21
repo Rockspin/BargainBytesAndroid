@@ -9,7 +9,9 @@ import dagger.android.HasFragmentInjector
 import dagger.android.support.HasSupportFragmentInjector
 import javax.inject.Inject
 
-@Deprecated("Use BaseMvpActivity instead")
+/**
+ * Use [BaseMvpActivity] if you want to use MVP.
+ */
 abstract class BaseActivity : AppCompatActivity(), HasSupportFragmentInjector {
 
     @Inject internal lateinit var fragmentInjector: DispatchingAndroidInjector<Fragment>

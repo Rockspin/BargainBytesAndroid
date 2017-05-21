@@ -43,8 +43,6 @@ public class DealsListPresenter extends BasePresenter<DealsListPresenter.View, D
         // listen for a deal being shared from the list.
         addSubscription(view.onClickShareDeal().doOnNext(model::sendGameSharedAnalytic).map(model::getShareModel).doOnNext(view::shareDeal).subscribe());
 
-        addSubscription(view.onBackPressed().doOnNext(aVoid -> view.closeView()).subscribe());
-
         addSubscription(model.onWatchListEdited().doOnNext(watchedItemActionPair -> {
 
             final WatchedItem watchedItem = watchedItemActionPair.first;
@@ -142,8 +140,6 @@ public class DealsListPresenter extends BasePresenter<DealsListPresenter.View, D
         void removeDealAtIndex(Integer integer);
 
         void addDealToList(DealAdapterModel dealAdapterModel);
-
-        void closeView();
 
         void showItemAddedToWatchList(WatchedItem first);
 

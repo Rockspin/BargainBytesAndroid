@@ -38,7 +38,6 @@ public final class DealsFragment extends Fragment implements DealFragmentPresent
     @Inject DealsListPresenter dealsListPresenter;
 
     private DealRepository.EDealsSorting dealSorting;
-    private DealsListViewImpl.DealsListContainer fragmentContainer;
 
     public static DealsFragment create(final DealRepository.EDealsSorting dealTabType) {
         final Bundle bundle = new Bundle();
@@ -51,8 +50,6 @@ public final class DealsFragment extends Fragment implements DealFragmentPresent
     @Override public void onAttach(Context context) {
         AndroidSupportInjection.inject(this);
         super.onAttach(context);
-        Preconditions.checkArgument(context instanceof DealsListViewImpl.DealsListContainer, "context should be a DealsListContainer");
-        fragmentContainer = (DealsListViewImpl.DealsListContainer) context;
     }
 
     @Override public void onCreate(final Bundle savedInstanceState) {
@@ -62,7 +59,7 @@ public final class DealsFragment extends Fragment implements DealFragmentPresent
 
     @Override public void onStart() {
         super.onStart();
-        dealsListView.viewWillShow(fragmentContainer);
+        dealsListView.viewWillShow();
         dealsListView.loadDealsWithSorting(dealSorting);
         dealFragmentPresenter.start(this);
     }

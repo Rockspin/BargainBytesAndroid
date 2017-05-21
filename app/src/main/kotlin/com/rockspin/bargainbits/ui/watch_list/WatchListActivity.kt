@@ -37,7 +37,7 @@ class WatchListActivity : BaseMvpActivity<WatchListView, WatchListPresenter>(), 
         supportActionBar?.setHomeButtonEnabled(true)
 
         dealsList.setPresenter(dealsListPresenter)
-        dealsList.viewWillShow(this)
+        dealsList.viewWillShow()
         dealsList.loadDealsInWatchList()
     }
 

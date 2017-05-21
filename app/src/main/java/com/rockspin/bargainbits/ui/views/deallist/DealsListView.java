@@ -7,7 +7,7 @@ import rx.Observable;
 
 public interface DealsListView {
 
-    void viewWillShow(DealsListViewImpl.DealsListContainer dealsListContainer);
+    void viewWillShow();
 
     /**
      * Load a list of deals.
