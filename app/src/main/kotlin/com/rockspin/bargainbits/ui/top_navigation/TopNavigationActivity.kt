@@ -32,15 +32,10 @@ class TopNavigationActivity : BaseActivity() {
     private var noInternetSnackbar: Snackbar? = null
     private val disposable = CompositeDisposable()
 
-    private lateinit var binding: ActivityTopNavigationBinding
+    private val binding by lazy { DataBindingUtil.setContentView<ActivityTopNavigationBinding>(this, R.layout.activity_top_navigation) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_top_navigation)
-
-        supportActionBar?.setTitle(R.string.title_activity_all_deals)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         //setup the TabLayout, the scrolling behaviour is controlled in xml
         val color = ContextCompat.getColor(this, R.color.text_icon_color)
