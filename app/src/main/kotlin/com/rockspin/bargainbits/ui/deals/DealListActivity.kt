@@ -1,26 +1,18 @@
-package com.rockspin.bargainbits.ui.top_navigation
+package com.rockspin.bargainbits.ui.deals
 
 import android.app.SearchManager
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.Intent
-import android.content.res.Resources
 import android.databinding.DataBindingUtil
-import android.graphics.Color
 import android.os.Bundle
 import android.support.design.widget.Snackbar
-import android.support.design.widget.TabLayout
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentStatePagerAdapter
-import android.support.v4.content.ContextCompat
 import android.support.v4.view.MenuItemCompat
 import android.support.v7.widget.SearchView
 import com.jakewharton.rxbinding2.support.v7.widget.itemClicks
 import com.rockspin.bargainbits.R
-import com.rockspin.bargainbits.data.repository.DealRepository
-import com.rockspin.bargainbits.databinding.ActivityTopNavigationBinding
+import com.rockspin.bargainbits.databinding.ActivityDealListBinding
 import com.rockspin.bargainbits.ui.BaseActivity
-import com.rockspin.bargainbits.ui.activities.main.deals.DealsFragment
 import com.rockspin.bargainbits.ui.store_filter.StoreFilterDialogFragment
 import com.rockspin.bargainbits.ui.watch_list.WatchListActivity
 import com.rockspin.bargainbits.utils.Feedback
@@ -30,27 +22,20 @@ import io.reactivex.rxkotlin.addTo
 import org.codechimp.apprater.AppRater
 import javax.inject.Inject
 
-class TopNavigationActivity : BaseActivity() {
+class DealListActivity : BaseActivity() {
 
     @Inject lateinit var networkUtils: NetworkUtils
+    @Inject lateinit var adapter: DealListAdapter
 
     private var noInternetSnackbar: Snackbar? = null
     private val disposable = CompositeDisposable()
 
-    private val binding by lazy { DataBindingUtil.setContentView<ActivityTopNavigationBinding>(this, R.layout.activity_top_navigation) }
+    private val binding by lazy { DataBindingUtil.setContentView<ActivityDealListBinding>(this, R.layout.activity_deal_list) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        //setup the TabLayout, the scrolling behaviour is controlled in xml
-        val color = ContextCompat.getColor(this, R.color.text_icon_color)
-        binding.tabLayout.setTabTextColors(Color.argb(178, Color.red(color), Color.green(color), Color.blue(color)), color)
-
-        binding.viewPager.adapter = DealsFragmentPagerAdapter(supportFragmentManager, resources)
-        binding.viewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(binding.tabLayout))
-        binding.tabLayout.setupWithViewPager(binding.viewPager)
-
-        binding.toolbar.inflateMenu(R.menu.top_navigation)
+        binding.toolbar.inflateMenu(R.menu.deal_list)
 
         val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
         val searchView = MenuItemCompat.getActionView(binding.toolbar.menu.findItem(R.id.menu_search_games)) as SearchView
@@ -69,6 +54,11 @@ class TopNavigationActivity : BaseActivity() {
             }
             .addTo(disposable)
 
+        val viewModel = ViewModelProviders.of(this).get(DealListViewModel::class.java)
+
+        binding.dealsRecyclerView.adapter = adapter
+
+        // TODO - move to view model
         networkUtils.onNetworkChanged()
             .subscribe { internetAvailable ->
                 if (internetAvailable) {
@@ -83,7 +73,6 @@ class TopNavigationActivity : BaseActivity() {
     override fun onDestroy() {
         super.onDestroy()
         disposable.dispose()
-        binding.viewPager.clearOnPageChangeListeners()
     }
 
     private fun openWatchList() {
@@ -119,37 +108,7 @@ class TopNavigationActivity : BaseActivity() {
     }
 
     private fun showNoInternetMessage() {
-        noInternetSnackbar = Snackbar.make(binding.viewPager, R.string.no_internet_connection, Snackbar.LENGTH_INDEFINITE)
+        noInternetSnackbar = Snackbar.make(binding.root, R.string.no_internet_connection, Snackbar.LENGTH_INDEFINITE)
         noInternetSnackbar?.show()
-    }
-
-    private class DealsFragmentPagerAdapter(fm: FragmentManager, resources: Resources) : FragmentStatePagerAdapter(fm) {
-
-        private val dealTypeTitles: Array<String> = resources.getStringArray(R.array.deal_list_type)
-
-        override fun getItem(position: Int): Fragment {
-            // getItem is called to instantiate the fragment for the given page.
-            val dealTabType = getDealTabType(position)
-            return DealsFragment.create(dealTabType)
-        }
-
-        override fun getCount(): Int {
-            return 4
-        }
-
-        override fun getPageTitle(position: Int): CharSequence {
-            return dealTypeTitles[position].toUpperCase()
-        }
-
-        private fun getDealTabType(position: Int): DealRepository.EDealsSorting {
-            when (position) {
-                0 -> return DealRepository.EDealsSorting.DEALS_RATING
-                1 -> return DealRepository.EDealsSorting.RELEASE
-                2 -> return DealRepository.EDealsSorting.SAVING
-                3 -> return DealRepository.EDealsSorting.PRICE
-
-                else -> throw IllegalStateException("position: $position has no deal sorting")
-            }
-        }
     }
 }

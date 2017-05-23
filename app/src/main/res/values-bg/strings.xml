@@ -79,4 +79,5 @@
     <string name="active_stores_header_title">Интересувам се от</string>
   <string name="inactive_stores_header_title">Не се интересувам от</string>
     <string name="try_again">Зареди Отново</string>
+    <string name="deal_list_savings_percent"><strong>%d%%</strong><br/><small>Отстъпка</small></string>
 </resources>

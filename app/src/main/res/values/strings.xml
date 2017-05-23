@@ -52,6 +52,8 @@
   <string name="watch_list_notification_item_entry">%1$s on sale for %2$s</string>
   <string name="watch_list_notification_more_items_available">and %1$d more</string>
 
+  <string name="deal_list_savings_percent"><![CDATA[<b>%d%%</b><br/><small>Savings</small>]]></string>
+
   <string name="currency">Currency</string>
   <string name="choose_currency_dialog_title">Choose displayed currency</string>
   <string name="currency_disclaimer">Please note that for currencies different from USD $, the prices are estimated using current rates.</string>
@@ -74,7 +76,7 @@
   <string name="error">Error</string>
   <string name="error_no_connection">Can\'t load data. Please check your connection and try again.</string>
   <string name="error_no_results">No results found - please try again later.</string>
-  <string name="error_no_deals">No Deals Loaded \n \n Tap to try again</string>
+  <string name="error_no_deals">Can\'t load deals right now</string>
   <string name="error_no_stores">Can\'t access game stores. Are you connected to the internet? Bargain Bytes needs an internet connection to function correctly.</string>
   <string name="error_no_currency_exchange">Currency exchange data not available. Please try again later.</string>
   <string name="error_cannot_load_deal_url">Cannot load this deal right now.</string>
