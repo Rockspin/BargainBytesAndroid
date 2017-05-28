@@ -1,17 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/drawer_layout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:context=".ui.activities.main.MainActivity">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <android.support.design.widget.CoordinatorLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:context=".ui.top_navigation.TopNavigationActivity">
 
         <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
@@ -24,43 +19,30 @@
                 android:layout_height="?attr/actionBarSize"
                 android:background="?attr/colorPrimary"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                app:layout_scrollFlags="scroll|enterAlways|snap"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                app:titleTextAppearance="@style/Toolbar.TitleText"
-                app:layout_scrollFlags="scroll|enterAlways|snap"/>
+                app:title="@string/title_activity_all_deals"
+                app:titleTextAppearance="@style/Toolbar.TitleText"/>
 
             <android.support.design.widget.TabLayout
-                android:id="@+id/tabs"
+                android:id="@+id/tabLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:tabGravity="fill"
-                app:tabTextAppearance="@style/MyTabLayoutTextAppearance"
-                app:tabPaddingStart="0dp"
+                app:tabMode="fixed"
                 app:tabPaddingEnd="0dp"
+                app:tabPaddingStart="0dp"
                 app:tabPaddingTop="0dp"
-                app:tabMode="fixed"/>
+                app:tabTextAppearance="@style/MyTabLayoutTextAppearance"/>
 
         </android.support.design.widget.AppBarLayout>
 
         <android.support.v4.view.ViewPager
-            android:id="@+id/pager"
+            android:id="@+id/viewPager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
     </android.support.design.widget.CoordinatorLayout>
 
-
-    <!-- android:layout_gravity="viewWillShow" tells DrawerLayout to treat
-   this as a sliding drawer on the left side for left-to-right
-   languages and on the right side for right-to-left languages.
-   The drawer is given a fixed width in dp and extends the full height of
-   the container. A solid background is used for contrast
-   with the content view. -->
-    <RelativeLayout
-        android:id="@+id/layout_drawer"
-        android:background="@android:color/transparent"
-        android:layout_width="320dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"/>
-
-</android.support.v4.widget.DrawerLayout>
+</layout>
