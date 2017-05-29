@@ -1,5 +1,6 @@
 package com.rockspin.bargainbits.data.repository.stores.filter
 
+import io.reactivex.Observable
 import io.reactivex.Single
 
 /**
@@ -14,4 +15,6 @@ interface StoreFilter {
      * Finds an instance of [GameStoreFiltered] with the same StoreId and replaces it with the one passed in
      */
     fun updateStore(gameStoreFiltered: GameStoreFiltered)
+
+    val activeStoresIdsObservable: Observable<Set<String>>
 }

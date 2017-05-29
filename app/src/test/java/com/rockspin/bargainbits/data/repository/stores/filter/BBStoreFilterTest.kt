@@ -59,10 +59,28 @@ class BBStoreFilterTest {
     }
 
     @Test
-    fun whenUpdateStore_updatesDataStore() {
+    fun whenUpdateStore_updatesDataStoreAndEmitsActiveStoreIds() {
         val updatedStore = GameStoreFiltered(TEST_STORE_LIST[1], false)
         storeFilter.updateStore(updatedStore)
 
         verify(mockPrimitiveStore).storeStringSet(BBStoreFilter.STORE_FILTER_KEY, setOf(TEST_STORE_LIST[1].id))
+    }
+
+    @Test
+    fun whenUpdateStore_updatesActiveStoreIdsObservable() {
+        storeFilter.activeStoresIdsObservable.blockingFirst()
+        
+        val updatedStore = GameStoreFiltered(TEST_STORE_LIST[1], false)
+        `when`(mockPrimitiveStore.getStoredStringSet(BBStoreFilter.STORE_FILTER_KEY)).thenReturn(setOf(TEST_STORE_LIST[1].id))
+        storeFilter.updateStore(updatedStore)
+
+        storeFilter.activeStoresIdsObservable.test()
+            .assertValue(setOf("id0", "id2"))
+    }
+
+    @Test
+    fun getActiveStoreIdsObservable_isInitiallyAllStores() {
+        val activeIds = storeFilter.activeStoresIdsObservable.blockingFirst()
+        assertThat(activeIds).containsExactly("id0", "id1", "id2")
     }
 }
