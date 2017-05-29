@@ -33,8 +33,8 @@ class RepositoryModule {
 
     @Provides
     @Singleton
-    internal fun providesGameDealRepository(gameApiService: GameApiService, database: BBDatabase, networkUtils: NetworkUtils): GameDealRepository {
-        return BBGameDealRepository(gameApiService, database, networkUtils)
+    internal fun providesGameDealRepository(gameApiService: GameApiService, database: BBDatabase): GameDealRepository {
+        return BBGameDealRepository(gameApiService, database)
     }
 
     @Provides

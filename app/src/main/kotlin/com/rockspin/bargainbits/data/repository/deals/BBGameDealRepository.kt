@@ -6,7 +6,6 @@ import com.rockspin.bargainbits.data.models.DealSortType
 import com.rockspin.bargainbits.data.models.GameDeal
 import com.rockspin.bargainbits.data.models.GroupedGameDeal
 import com.rockspin.bargainbits.data.rest_client.GameApiService
-import com.rockspin.bargainbits.utils.NetworkUtils
 import io.reactivex.Observable
 import io.reactivex.Single
 
@@ -15,8 +14,7 @@ import io.reactivex.Single
  */
 class BBGameDealRepository(
     private val apiService: GameApiService,
-    private val database: BBDatabase,
-    private val networkUtils: NetworkUtils): GameDealRepository {
+    private val database: BBDatabase): GameDealRepository {
 
     override fun getDeals(sortType: DealSortType, storeIds: Set<String>): Single<List<GroupedGameDeal>> {
         val sortedIds = storeIds.toSortedSet()

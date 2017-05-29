@@ -12,7 +12,6 @@ import com.rockspin.bargainbits.data.models.GroupedGameDeal
 import com.rockspin.bargainbits.data.models.daos.DbDealsDao
 import com.rockspin.bargainbits.data.models.daos.GameDealDao
 import com.rockspin.bargainbits.data.rest_client.GameApiService
-import com.rockspin.bargainbits.utils.NetworkUtils
 import io.reactivex.Flowable
 import io.reactivex.Single
 import org.assertj.core.api.Assertions.assertThat
@@ -49,9 +48,6 @@ class BBGameDealRepositoryTest {
     lateinit var mockService: GameApiService
 
     @Mock
-    lateinit var mockNetworkUtils: NetworkUtils
-
-    @Mock
     lateinit var mockGameDealDao: GameDealDao
 
     @Mock
@@ -66,9 +62,8 @@ class BBGameDealRepositoryTest {
         whenever(mockDatabase.dbDealsDao()).thenReturn(mockDbDealsDao)
         whenever(mockService.getDeals(any())).thenReturn(Single.just(TEST_DEALS))
         whenever(mockDbDealsDao.getDbDeals(any())).thenReturn(Flowable.just(DbDeals("invalid", "invalid")))
-//        whenever(mockNetworkUtils.isConnectedToInternet).thenReturn(true)
 
-        gameDealRepository = BBGameDealRepository(mockService, mockDatabase, mockNetworkUtils)
+        gameDealRepository = BBGameDealRepository(mockService, mockDatabase)
     }
 
     @Test
