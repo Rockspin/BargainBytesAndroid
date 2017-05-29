@@ -17,6 +17,7 @@ import com.rockspin.bargainbits.ui.store_filter.StoreFilterDialogFragment
 import com.rockspin.bargainbits.ui.watch_list.WatchListActivity
 import com.rockspin.bargainbits.utils.Feedback
 import com.rockspin.bargainbits.utils.NetworkUtils
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import org.codechimp.apprater.AppRater
@@ -26,6 +27,7 @@ class DealListActivity : BaseActivity() {
 
     @Inject lateinit var networkUtils: NetworkUtils
     @Inject lateinit var adapter: DealListAdapter
+    @Inject lateinit var factory: DealListViewModelFactory
 
     private var noInternetSnackbar: Snackbar? = null
     private val disposable = CompositeDisposable()
@@ -54,8 +56,6 @@ class DealListActivity : BaseActivity() {
             }
             .addTo(disposable)
 
-        val viewModel = ViewModelProviders.of(this).get(DealListViewModel::class.java)
-
         binding.dealsRecyclerView.adapter = adapter
 
         // TODO - move to view model
@@ -68,11 +68,19 @@ class DealListActivity : BaseActivity() {
                 }
             }
             .addTo(disposable)
+
+        val viewModel = ViewModelProviders.of(this, factory).get(DealListViewModel::class.java)
+        viewModel.dealEntries
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe { newEntries ->
+                adapter.viewModels = newEntries
+            }
+            .addTo(disposable)
     }
 
     override fun onDestroy() {
-        super.onDestroy()
         disposable.dispose()
+        super.onDestroy()
     }
 
     private fun openWatchList() {

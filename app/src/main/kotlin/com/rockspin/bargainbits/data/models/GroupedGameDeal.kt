@@ -15,7 +15,7 @@ data class GroupedGameDeal(private val deals: List<GameDeal>) {
     val metacriticScore = deals[0].metacriticScore
     val steamRatingPercent = deals[0].steamRatingPercent
     val steamRatingCount = deals[0].steamRatingCount
-    val dealRating = deals.maxBy { it.dealRating }
+    val dealRating = deals.maxBy { it.dealRating }!!.dealRating
     val thumbUrl = deals[0].thumbUrl
     val releaseDate = deals[0].releaseDate
     val lastUpdatedDate = deals[0].lastUpdatedDate

@@ -12,7 +12,7 @@
         <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:elevation="4dp">
+            android:elevation="4dp">
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -22,7 +22,8 @@
                 android:minHeight="?attr/actionBarSize"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
                 app:layout_scrollFlags="scroll|enterAlways|snap"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                >
 
                 <Spinner
                     android:id="@+id/dealSortTypeSpinner"
