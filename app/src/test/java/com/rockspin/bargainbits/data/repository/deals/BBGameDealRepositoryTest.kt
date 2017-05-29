@@ -1,11 +1,16 @@
 package com.rockspin.bargainbits.data.repository.deals
 
-import com.nhaarman.mockito_kotlin.*
+import com.nhaarman.mockito_kotlin.any
+import com.nhaarman.mockito_kotlin.mock
+import com.nhaarman.mockito_kotlin.verify
+import com.nhaarman.mockito_kotlin.whenever
 import com.rockspin.bargainbits.data.BBDatabase
-import com.rockspin.bargainbits.data.models.*
-import com.rockspin.bargainbits.data.models.daos.GameStoreDao
-import com.rockspin.bargainbits.data.repository.storage.PrimitiveStore
-import com.rockspin.bargainbits.data.repository.stores.BBStoreRepository
+import com.rockspin.bargainbits.data.models.DbDeals
+import com.rockspin.bargainbits.data.models.DealSortType
+import com.rockspin.bargainbits.data.models.GameDeal
+import com.rockspin.bargainbits.data.models.GroupedGameDeal
+import com.rockspin.bargainbits.data.models.daos.DbDealsDao
+import com.rockspin.bargainbits.data.models.daos.GameDealDao
 import com.rockspin.bargainbits.data.rest_client.GameApiService
 import com.rockspin.bargainbits.utils.NetworkUtils
 import io.reactivex.Flowable
@@ -14,10 +19,8 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.AdditionalMatchers.leq
 import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
-import java.util.*
 
 @RunWith(MockitoJUnitRunner::class)
 class BBGameDealRepositoryTest {
@@ -45,14 +48,27 @@ class BBGameDealRepositoryTest {
     @Mock
     lateinit var mockService: GameApiService
 
+    @Mock
+    lateinit var mockNetworkUtils: NetworkUtils
+
+    @Mock
+    lateinit var mockGameDealDao: GameDealDao
+
+    @Mock
+    lateinit var mockDbDealsDao: DbDealsDao
+
     private lateinit var gameDealRepository: BBGameDealRepository
 
     @Before
     fun setUp() {
         val mockDatabase: BBDatabase = mock()
+        whenever(mockDatabase.gameDealDao()).thenReturn(mockGameDealDao)
+        whenever(mockDatabase.dbDealsDao()).thenReturn(mockDbDealsDao)
         whenever(mockService.getDeals(any())).thenReturn(Single.just(TEST_DEALS))
+        whenever(mockDbDealsDao.getDbDeals(any())).thenReturn(Flowable.just(DbDeals("invalid", "invalid")))
+//        whenever(mockNetworkUtils.isConnectedToInternet).thenReturn(true)
 
-        gameDealRepository = BBGameDealRepository(mockService, mockDatabase)
+        gameDealRepository = BBGameDealRepository(mockService, mockDatabase, mockNetworkUtils)
     }
 
     @Test
@@ -70,5 +86,34 @@ class BBGameDealRepositoryTest {
         val groupedDeals = gameDealRepository.getDeals(DealSortType.TITLE, emptySet()).blockingGet()
 
         assertThat(groupedDeals).isEqualTo(EXPECTED_GROUPED_DEALS)
+    }
+
+    @Test
+    fun whenGetDealsFromApiSuccess_storesDealsInDatabase() {
+        val storeSet = setOf("2", "7", "4")
+        gameDealRepository.getDeals(DealSortType.TITLE, storeSet).blockingGet()
+
+        verify(mockGameDealDao).insertAll(TEST_DEALS)
+
+        val key = DbDeals.constructKey(DealSortType.TITLE, storeSet)
+        verify(mockDbDealsDao).insert(DbDeals(key, "dealId0,dealId1,dealId2,dealId3,dealId4"))
+    }
+
+    @Test
+    fun whenGetDealsFromApiError_getDealsFromDatabase() {
+        val dbTestDeals = listOf(
+            createTestGameDeal(dealId = "dealId2", gameId = "testGameId0", title = "TestTitle0", storeId = "0"),
+            createTestGameDeal(dealId = "dealId3", gameId = "testGameId1", title = "TestTitle1", storeId = "0")
+        )
+
+        val testDbDeals = DbDeals("someKey", "dealId0,dealId1")
+        whenever(mockDbDealsDao.getDbDeals(any())).thenReturn(Flowable.just(testDbDeals))
+        whenever(mockGameDealDao.getDealsById(listOf("dealId0", "dealId1"))).thenReturn(Flowable.just(dbTestDeals))
+
+        whenever(mockService.getDeals(any())).thenReturn(Single.error(Throwable()))
+
+        val groupedDeals = gameDealRepository.getDeals(DealSortType.TITLE, emptySet()).blockingGet()
+
+        assertThat(groupedDeals).isEqualTo(listOf(GroupedGameDeal(listOf(dbTestDeals[0])), GroupedGameDeal(listOf(dbTestDeals[1]))))
     }
 }
