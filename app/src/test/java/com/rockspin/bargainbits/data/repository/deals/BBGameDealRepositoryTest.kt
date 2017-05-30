@@ -40,7 +40,7 @@ class BBGameDealRepositoryTest {
         fun createTestGameDeal(dealId: String, title: String, storeId: String, gameId: String): GameDeal {
             return GameDeal(dealId = dealId, title = title, storeId = storeId, gameId = gameId,
                 salePrice = 0.0, normalPrice = 0.0, metacriticScore = 0, steamRatingCount = 0, steamRatingPercent = 0,
-                releaseTimestampSeconds = 0, lastUpdatedSeconds = 0, dealRating = 0.0, thumbUrl = "", savingsPercentage = 0.0)
+                releaseTimestampSeconds = 0, lastUpdatedTimestampSeconds = 0, dealRating = 0.0, thumbUrl = "", savingsPercentage = 0.0)
         }
     }
 

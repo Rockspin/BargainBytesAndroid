@@ -1,5 +1,7 @@
 package com.rockspin.bargainbits.data.models
 
+import java.util.*
+
 /**
  * Object that represents a collection of [GameDeal]s grouped by gameId.
  */
@@ -17,8 +19,12 @@ data class GroupedGameDeal(private val deals: List<GameDeal>) {
     val steamRatingCount = deals[0].steamRatingCount
     val dealRating = deals.maxBy { it.dealRating }!!.dealRating
     val thumbUrl = deals[0].thumbUrl
-    val releaseDate = deals[0].releaseDate
-    val lastUpdatedDate = deals[0].lastUpdatedDate
+    val releaseDate by lazy {
+        Date(deals[0].releaseTimestampSeconds * 1000)
+    }
+    val lastUpdatedDate by lazy {
+        Date(deals[0].lastUpdatedTimestampSeconds * 1000)
+    }
 
     fun dealIdAtIndex(index: Int) = deals[index].dealId
 }

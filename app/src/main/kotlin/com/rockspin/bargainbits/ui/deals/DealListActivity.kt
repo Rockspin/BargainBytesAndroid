@@ -10,6 +10,9 @@ import android.support.design.widget.Snackbar
 import android.support.v4.view.MenuItemCompat
 import android.support.v7.widget.SearchView
 import com.jakewharton.rxbinding2.support.v7.widget.itemClicks
+import com.jakewharton.rxbinding2.view.selected
+import com.jakewharton.rxbinding2.widget.RxAdapterView
+import com.jakewharton.rxbinding2.widget.itemSelections
 import com.rockspin.bargainbits.R
 import com.rockspin.bargainbits.databinding.ActivityDealListBinding
 import com.rockspin.bargainbits.ui.BaseActivity
@@ -70,6 +73,13 @@ class DealListActivity : BaseActivity() {
             .addTo(disposable)
 
         val viewModel = ViewModelProviders.of(this, factory).get(DealListViewModel::class.java)
+
+        binding.dealSortTypeSpinner
+            .itemSelections()
+            .subscribe {
+                viewModel.sortIndex = it
+            }
+
         viewModel.dealEntries
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { newEntries ->

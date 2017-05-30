@@ -5,12 +5,10 @@ package com.rockspin.bargainbits.data.models
  */
 enum class DealSortType(val queryParameter: String) {
     RATING("Deal Rating"),
-    TITLE("Title"),
-    SAVINGS("Savings"),
-    PRICE("Price"),
+    STEAM_REVIEWS("Reviews"),
     METACRITIC("Metacritic"),
-    REVIEWS("Reviews"),
+    RECENT("Recent"),
     RELEASE("Release"),
-    STORE("Store"),
-    RECENT("recent")
+    SAVINGS("Savings"),
+    PRICE("Price")
 }

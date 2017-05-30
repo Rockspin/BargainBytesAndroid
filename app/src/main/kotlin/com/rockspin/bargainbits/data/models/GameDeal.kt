@@ -39,17 +39,9 @@ data class GameDeal(
     @SerializedName("releaseDate")
     val releaseTimestampSeconds: Long,
     @SerializedName("lastChange")
-    val lastUpdatedSeconds: Long,
+    val lastUpdatedTimestampSeconds: Long,
     @SerializedName("dealRating")
     val dealRating: Double,
     @SerializedName("thumb")
     val thumbUrl: String
-) {
-    @Ignore
-    @Transient
-    val releaseDate = Date(releaseTimestampSeconds * 1000)
-
-    @Ignore
-    @Transient
-    val lastUpdatedDate = Date(lastUpdatedSeconds * 1000)
-}
+)
