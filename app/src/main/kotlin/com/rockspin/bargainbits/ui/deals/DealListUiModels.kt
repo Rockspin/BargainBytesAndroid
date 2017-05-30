@@ -1,9 +1,9 @@
 package com.rockspin.bargainbits.ui.deals
 
-/**
- * Created by valentin.hinov on 26/05/2017.
- */
-data class DealEntryUiModel(
+sealed class DealListUiModel
+data class ShowDealEntriesUiModel(val dealViewEntries: List<DealViewEntry>): DealListUiModel()
+
+data class DealViewEntry(
     val title: String,
     val subtitle: String? = null,
     val imageUrl: String,

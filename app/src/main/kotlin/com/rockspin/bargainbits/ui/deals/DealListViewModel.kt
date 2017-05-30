@@ -9,11 +9,13 @@ import com.rockspin.bargainbits.data.repository.stores.StoreRepository
 import com.rockspin.bargainbits.data.repository.stores.filter.StoreFilter
 import com.rockspin.bargainbits.util.ResourceProvider
 import com.rockspin.bargainbits.util.format.PriceFormatter
-import io.reactivex.Observable
 import io.reactivex.ObservableTransformer
+import io.reactivex.Single
 import io.reactivex.functions.BiFunction
+import io.reactivex.rxkotlin.combineLatest
+import io.reactivex.rxkotlin.merge
+import io.reactivex.rxkotlin.ofType
 import io.reactivex.schedulers.Schedulers
-import io.reactivex.subjects.BehaviorSubject
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -34,50 +36,53 @@ class DealListViewModel(
             DealSortType.RELEASE, DealSortType.SAVINGS, DealSortType.PRICE )
     }
 
-    var sortIndex: Int = 0
-    set(value) {
-        field = value
-        onActiveSortTypeChange.onNext(SCREEN_SPINNER_SORT_ORDER[value])
-    }
-
-    // TODO - remember user default choice for deal sorting
-
-    private val activeSortType: DealSortType
-    get() = SCREEN_SPINNER_SORT_ORDER[sortIndex]
-
-    private val onActiveSortTypeChange = BehaviorSubject.createDefault(SCREEN_SPINNER_SORT_ORDER[sortIndex])
-    private val dateFormatter = SimpleDateFormat.getDateInstance()
-
-    val dealEntries: Observable<List<DealEntryUiModel>>
-    get() {
-        return Observable.combineLatest(onActiveSortTypeChange, filter.activeStoresIdsObservable,
-            BiFunction<DealSortType, Set<String>, Pair<DealSortType, Set<String>>> {
-                sortType, storeIdSet ->
-                Pair(sortType, storeIdSet)
-            })
-            .subscribeOn(Schedulers.io())
-            .flatMap { (first, second) ->
-                repository.getDeals(first, second).toObservable()
+    val eventToAction = ObservableTransformer<DealListEvent, DealListAction> {
+        it.map {
+            when (it) {
+                is DealSortingChanged -> LoadDealsWithSortType(SCREEN_SPINNER_SORT_ORDER[it.index])
             }
-            .compose(gameDealListToUiModelList)
+        }
     }
+
+    val actionToUiModel = ObservableTransformer<DealListAction, DealListUiModel> {
+        it.publish { shared ->
+            // TODO - cast will be unnecessary once we have more action
+            listOf(shared.ofType<LoadDealsWithSortType>().compose(loadDealsActionToShowDealEntries).cast(DealListUiModel::class.java))
+                .merge()
+        }
+    }
+
+    private val loadDealsActionToShowDealEntries = ObservableTransformer<LoadDealsWithSortType, ShowDealEntriesUiModel> {
+        it.combineLatest(filter.activeStoresIdsObservable)
+            .subscribeOn(Schedulers.io())
+            .flatMapSingle { (first, second) ->
+                repository.getDeals(first.sortType, second).zipWith(Single.just(first.sortType),
+                    BiFunction<List<GroupedGameDeal>, DealSortType, Pair<List<GroupedGameDeal>, DealSortType>> {
+                        deals, sortType -> Pair(deals, sortType)
+                    })
+            }
+            .compose(gameDealsToDealViewEntries)
+            .map { ShowDealEntriesUiModel(it) }
+    }
+
+    private val dateFormatter = SimpleDateFormat.getDateInstance()
 
     override fun onCleared() {
         super.onCleared()
     }
 
-    private val gameDealListToUiModelList = ObservableTransformer<List<GroupedGameDeal>, List<DealEntryUiModel>> {
-        it.map { gameDeals ->
+    private val gameDealsToDealViewEntries = ObservableTransformer<Pair<List<GroupedGameDeal>, DealSortType>, List<DealViewEntry>> {
+        it.map { (gameDeals, sortType) ->
             gameDeals.map { groupedGameDeal ->
-                DealEntryUiModel(
+                DealViewEntry(
                     title = groupedGameDeal.title,
-                    subtitle = getSubtitleForDealAndSortType(groupedGameDeal, activeSortType),
+                    subtitle = getSubtitleForDealAndSortType(groupedGameDeal, sortType),
                     imageUrl = groupedGameDeal.thumbUrl,
                     savingsPercentage = groupedGameDeal.savingsPercentage.toInt(),
                     retailPrice = priceFormatter.formatPrice(groupedGameDeal.normalPrice),
                     salePrice = priceFormatter.formatPrice(groupedGameDeal.salePrice),
                     storeImageUrls = groupedGameDeal.storeIds.map { storeRepository.getGameStoreForId(it).blockingGet().imageUrl }
-                    )
+                )
             }
         }
     }

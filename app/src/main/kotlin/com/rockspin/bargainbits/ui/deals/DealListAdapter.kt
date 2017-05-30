@@ -17,7 +17,7 @@ import javax.inject.Inject
 class DealListAdapter @Inject internal constructor(@ActivityScope private val layoutInflater: LayoutInflater)
     : RecyclerView.Adapter<DealListAdapter.ViewHolder>() {
 
-    var viewModels = emptyList<DealEntryUiModel>()
+    var viewModels = emptyList<DealViewEntry>()
         set(value) {
             field = value
             notifyDataSetChanged()

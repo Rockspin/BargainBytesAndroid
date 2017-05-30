@@ -10,8 +10,6 @@ import android.support.design.widget.Snackbar
 import android.support.v4.view.MenuItemCompat
 import android.support.v7.widget.SearchView
 import com.jakewharton.rxbinding2.support.v7.widget.itemClicks
-import com.jakewharton.rxbinding2.view.selected
-import com.jakewharton.rxbinding2.widget.RxAdapterView
 import com.jakewharton.rxbinding2.widget.itemSelections
 import com.rockspin.bargainbits.R
 import com.rockspin.bargainbits.databinding.ActivityDealListBinding
@@ -23,6 +21,7 @@ import com.rockspin.bargainbits.utils.NetworkUtils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
+import io.reactivex.rxkotlin.merge
 import org.codechimp.apprater.AppRater
 import javax.inject.Inject
 
@@ -33,12 +32,14 @@ class DealListActivity : BaseActivity() {
     @Inject lateinit var factory: DealListViewModelFactory
 
     private var noInternetSnackbar: Snackbar? = null
-    private val disposable = CompositeDisposable()
+    private val onDestroyDisposable = CompositeDisposable()
 
     private val binding by lazy { DataBindingUtil.setContentView<ActivityDealListBinding>(this, R.layout.activity_deal_list) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // TODO - remember user default choice for deal sorting
 
         binding.toolbar.inflateMenu(R.menu.deal_list)
 
@@ -57,7 +58,7 @@ class DealListActivity : BaseActivity() {
                     R.id.menu_feedback -> sendFeedbackEmail()
                 }
             }
-            .addTo(disposable)
+            .addTo(onDestroyDisposable)
 
         binding.dealsRecyclerView.adapter = adapter
 
@@ -70,26 +71,30 @@ class DealListActivity : BaseActivity() {
                     showNoInternetMessage()
                 }
             }
-            .addTo(disposable)
+            .addTo(onDestroyDisposable)
 
         val viewModel = ViewModelProviders.of(this, factory).get(DealListViewModel::class.java)
 
-        binding.dealSortTypeSpinner
-            .itemSelections()
-            .subscribe {
-                viewModel.sortIndex = it
-            }
-
-        viewModel.dealEntries
+        listOf(
+            binding.dealSortTypeSpinner.itemSelections().map { DealSortingChanged(it) }
+                .cast(DealListEvent::class.java) // TODO - cast will be unnecessary once we have more things in this observable list
+        )
+            .merge()
+            // TODO - just compose Event to UiModel?
+            .compose(viewModel.eventToAction)
+            .compose(viewModel.actionToUiModel)
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { newEntries ->
-                adapter.viewModels = newEntries
-            }
-            .addTo(disposable)
+            .subscribe {
+                when (it) {
+                    is ShowDealEntriesUiModel -> {
+                        adapter.viewModels = it.dealViewEntries
+                    }
+                }
+            }.addTo(onDestroyDisposable)
     }
 
     override fun onDestroy() {
-        disposable.dispose()
+        onDestroyDisposable.dispose()
         super.onDestroy()
     }
 
