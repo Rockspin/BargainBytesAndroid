@@ -68,17 +68,17 @@ class BBGameDealRepositoryTest {
 
     @Test
     fun whenGetDealsFromApi_constructsCorrectParams() {
-        gameDealRepository.getDeals(DealSortType.TITLE, setOf("2", "7", "4")).blockingGet()
+        gameDealRepository.getDeals(DealSortType.RATING, setOf("2", "7", "4")).blockingGet()
 
         verify(mockService).getDeals(mapOf(
             "onSale" to "1",
-            "sortBy" to DealSortType.TITLE.queryParameter,
+            "sortBy" to DealSortType.RATING.queryParameter,
             "storeID" to "2,4,7"))
     }
 
     @Test
     fun whenGetDeals_groupsDealsCorrectly() {
-        val groupedDeals = gameDealRepository.getDeals(DealSortType.TITLE, emptySet()).blockingGet()
+        val groupedDeals = gameDealRepository.getDeals(DealSortType.RATING, emptySet()).blockingGet()
 
         assertThat(groupedDeals).isEqualTo(EXPECTED_GROUPED_DEALS)
     }
@@ -86,11 +86,11 @@ class BBGameDealRepositoryTest {
     @Test
     fun whenGetDealsFromApiSuccess_storesDealsInDatabase() {
         val storeSet = setOf("2", "7", "4")
-        gameDealRepository.getDeals(DealSortType.TITLE, storeSet).blockingGet()
+        gameDealRepository.getDeals(DealSortType.RATING, storeSet).blockingGet()
 
         verify(mockGameDealDao).insertAll(TEST_DEALS)
 
-        val key = DbDeals.constructKey(DealSortType.TITLE, storeSet)
+        val key = DbDeals.constructKey(DealSortType.RATING, storeSet)
         verify(mockDbDealsDao).insert(DbDeals(key, "dealId0,dealId1,dealId2,dealId3,dealId4"))
     }
 
@@ -107,7 +107,7 @@ class BBGameDealRepositoryTest {
 
         whenever(mockService.getDeals(any())).thenReturn(Single.error(Throwable()))
 
-        val groupedDeals = gameDealRepository.getDeals(DealSortType.TITLE, emptySet()).blockingGet()
+        val groupedDeals = gameDealRepository.getDeals(DealSortType.RATING, emptySet()).blockingGet()
 
         assertThat(groupedDeals).isEqualTo(listOf(GroupedGameDeal(listOf(dbTestDeals[0])), GroupedGameDeal(listOf(dbTestDeals[1]))))
     }
