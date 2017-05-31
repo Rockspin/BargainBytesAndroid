@@ -1,32 +1,36 @@
 package com.rockspin.bargainbits.ui.activities.main.deals;
 
-import com.rockspin.bargainbits.ui.BasePresenter;
-import javax.inject.Inject;
-import rx.Observable;
+import com.rockspin.bargainbits.ui.mvp.BaseMvpPresenter;
+import com.rockspin.bargainbits.ui.mvp.BaseMvpView;
 
-public class DealFragmentPresenter extends BasePresenter<DealFragmentPresenter.View, DealFragmentPresenter.Model, Void> {
+import org.jetbrains.annotations.NotNull;
+
+import javax.inject.Inject;
+
+import io.reactivex.Observable;
+
+public class DealFragmentPresenter extends BaseMvpPresenter<DealFragmentPresenter.View> {
 
     @Inject protected DealFragmentPresenter() {
         super();
     }
 
-    @Override public void start(View view) {
-        super.start(view);
+    @Override
+    public void onViewCreated(@NotNull View view) {
+        super.onViewCreated(view);
 
-        addSubscription(view.onListLoading().subscribe(view::showListLoading));
-        addSubscription(view.onReloadList().subscribe(aVoid -> view.refreshList()));
+        addLifetimeDisposable(view.onListLoading().subscribe(view::showListLoading));
+        addLifetimeDisposable(view.onReloadList().subscribe(aVoid -> view.refreshList()));
     }
 
-    public interface View {
+    public interface View extends BaseMvpView {
 
         Observable<Boolean> onListLoading();
 
-        Observable<Void> onReloadList();
+        Observable<Object> onReloadList();
 
         void refreshList();
 
         void showListLoading(boolean loading);
     }
-
-    public interface Model { /* not used */ }
 }

@@ -2,8 +2,8 @@ package com.rockspin.bargainbits.ui.views.deallist;
 
 import com.rockspin.bargainbits.data.repository.DealRepository;
 import com.rockspin.bargainbits.ui.views.deallist.view.DealsListPresenter;
-import com.rockspin.bargainbits.ui.views.deallist.view.DealsListViewImpl;
-import rx.Observable;
+
+import io.reactivex.Observable;
 
 public interface DealsListView {
 

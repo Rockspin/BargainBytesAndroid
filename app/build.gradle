@@ -146,19 +146,6 @@ dependencies {
     compile 'nz.bradcampbell:paperparcel-kotlin:2.0.1'
     kapt 'nz.bradcampbell:paperparcel-compiler:2.0.1'
 
-    // RX
-    compile 'io.reactivex:rxjava:1.1.0'
-
-    //RX Android
-    compile 'io.reactivex:rxandroid:1.0.1'
-
-    // RX Binding
-    compile 'com.jakewharton.rxbinding:rxbinding:0.3.0'
-    compile 'com.jakewharton.rxbinding:rxbinding-support-v4:0.3.0'
-    compile 'com.jakewharton.rxbinding:rxbinding-appcompat-v7:0.3.0'
-    compile 'com.jakewharton.rxbinding:rxbinding-recyclerview-v7:0.3.0'
-    compile 'com.jakewharton.rxbinding:rxbinding-design:0.3.0'
-
     // view injection
     compile 'com.jakewharton:butterknife:7.0.1'
 

@@ -16,16 +16,16 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import com.fernandocejas.arrow.checks.Preconditions;
-import com.jakewharton.rxbinding.view.RxView;
+
+import com.jakewharton.rxbinding2.view.RxView;
 import com.rockspin.bargainbits.R;
 import com.rockspin.bargainbits.data.repository.DealRepository;
 import com.rockspin.bargainbits.ui.views.deallist.DealsListView;
 import com.rockspin.bargainbits.ui.views.deallist.view.DealsListPresenter;
-import com.rockspin.bargainbits.ui.views.deallist.view.DealsListViewImpl;
 import dagger.android.support.AndroidSupportInjection;
 import javax.inject.Inject;
-import rx.Observable;
+
+import io.reactivex.Observable;
 
 public final class DealsFragment extends Fragment implements DealFragmentPresenter.View {
     private static final String DEALS_SORTING_KEY = "DEALS_SORTING_KEY";
@@ -61,13 +61,11 @@ public final class DealsFragment extends Fragment implements DealFragmentPresent
         super.onStart();
         dealsListView.viewWillShow();
         dealsListView.loadDealsWithSorting(dealSorting);
-        dealFragmentPresenter.start(this);
     }
 
     @Override public void onStop() {
         super.onStop();
         dealsListView.viewWillHide();
-        dealFragmentPresenter.stop();
     }
 
     @Override public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
@@ -79,14 +77,21 @@ public final class DealsFragment extends Fragment implements DealFragmentPresent
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        dealFragmentPresenter.onViewCreated(this);
         dealsListView.setPresenter(dealsListPresenter);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        dealFragmentPresenter.onViewDestroyed();
     }
 
     @Override public Observable<Boolean> onListLoading() {
         return dealsListView.onListLoading();
     }
 
-    @Override public Observable<Void> onReloadList() {
+    @Override public Observable<Object> onReloadList() {
         return RxView.clicks(mDealsEmptyView);
     }
 
