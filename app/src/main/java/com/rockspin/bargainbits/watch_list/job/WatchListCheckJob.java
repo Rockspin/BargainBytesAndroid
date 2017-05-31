@@ -8,16 +8,14 @@ import com.evernote.android.job.Job;
 import com.evernote.android.job.JobManager;
 import com.evernote.android.job.JobRequest;
 import com.rockspin.apputils.di.annotations.ApplicationScope;
-import com.rockspin.bargainbits.data.models.GameInfo;
-import com.rockspin.bargainbits.data.models.currency.CurrencyHelper;
-import com.rockspin.bargainbits.data.repository.CurrencyRepository;
 import com.rockspin.bargainbits.data.repository.WatchListRepository;
+import com.rockspin.bargainbits.util.format.PriceFormatter;
+
 import java.util.Date;
-import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Set;
 import javax.inject.Inject;
-import rx.Observable;
+
 import timber.log.Timber;
 
 public class WatchListCheckJob extends Job {
@@ -28,7 +26,7 @@ public class WatchListCheckJob extends Job {
 
     @Inject @ApplicationScope Context context;
     @Inject WatchListRepository watchList;
-    @Inject CurrencyRepository currencyRepository;
+    @Inject PriceFormatter priceFormatter;
 
     @Inject public WatchListCheckJob() { /* not used */ }
 
@@ -42,14 +40,11 @@ public class WatchListCheckJob extends Job {
             return Result.SUCCESS;
         }
 
-        final Observable<CurrencyHelper> currencyObservable = currencyRepository.onCurrentCurrencyChanged()
-                .take(1);
-        final Observable<List<GameInfo>> gamesOnSale = watchList.getGamesOnSale()
-                .toObservable()
-                .take(1);
-
         try {
-            final GameTitlePrice gameTitlePrice = currencyObservable.zipWith(gamesOnSale, (currencyHelper, gameInfoList) -> new GameTitlePrice(context, gameInfoList, currencyHelper)).toBlocking().single();
+            final GameTitlePrice gameTitlePrice = watchList.getGamesOnSale()
+                    .map(gameInfoList -> new GameTitlePrice(context, gameInfoList, priceFormatter))
+                    .toBlocking()
+                    .value();
             Notification notification = null;
             if (gameTitlePrice.gamesOnSaleCount == 1) {
                 notification = WatchListNotification.setUpNotification(context, gameTitlePrice.notificationTextList.get(0));

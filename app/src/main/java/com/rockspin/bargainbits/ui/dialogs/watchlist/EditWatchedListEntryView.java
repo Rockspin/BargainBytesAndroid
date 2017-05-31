@@ -127,8 +127,8 @@ public class EditWatchedListEntryView extends LinearLayout implements EditWatchL
         mPricePickerDescriptionTV.setText(getContext().getString(R.string.track_game_at_any_price));
     }
 
-    @Override public void showCustomSaleText(String activeCurrencySymbol, float price) {
-        final String priceFormatted = "<b>" + activeCurrencySymbol+ " " + Math.round(price) + "</b>";
+    @Override public void showCustomSaleText(String formattedSalePrice) {
+        final String priceFormatted = "<b>" + formattedSalePrice + "</b>";
         mPricePickerDescriptionTV.setText(Html.fromHtml(getContext().getString(R.string.set_price_to_track_game_at, priceFormatted)));
     }
 
