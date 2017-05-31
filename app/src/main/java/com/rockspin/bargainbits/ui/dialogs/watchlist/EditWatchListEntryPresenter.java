@@ -2,12 +2,14 @@ package com.rockspin.bargainbits.ui.dialogs.watchlist;
 
 import com.fernandocejas.arrow.checks.Preconditions;
 import com.rockspin.bargainbits.ui.BasePresenter;
+import com.rockspin.bargainbits.util.format.PriceFormatter;
 import com.rockspin.bargainbits.watch_list.WatchedItem;
 import javax.inject.Inject;
 import rx.Observable;
 import rx.Single;
 
 public class EditWatchListEntryPresenter extends BasePresenter<EditWatchListEntryPresenter.IView, EditWatchListModel, WatchedItem> {
+
     public enum WatchedState {
         ANY, PRICE
     }
@@ -16,11 +18,15 @@ public class EditWatchListEntryPresenter extends BasePresenter<EditWatchListEntr
     public static final float SELECTION_INTERVALS = 200;
 
     private final EditWatchListModel model;
+    private final PriceFormatter priceFormatter;
+
     private WatchedItem originalItem;
 
-    @Inject public EditWatchListEntryPresenter(EditWatchListModel model) {
+    @Inject public EditWatchListEntryPresenter(EditWatchListModel model,
+                                               PriceFormatter priceFormatter) {
         super(model);
         this.model = model;
+        this.priceFormatter = priceFormatter;
     }
 
     //TODO: this should pass a gameID and create a watched item.
@@ -69,8 +75,7 @@ public class EditWatchListEntryPresenter extends BasePresenter<EditWatchListEntr
                         .startWith(originalItem.getWatchedPrice())
                         .filter(price -> price > 0)
                         .distinctUntilChanged()
-                        .withLatestFrom(model.onCurrentCurrencyChanged(), (priceInUsd, currencyHelper) -> currencyHelper.getActiveCurrencyValueOf(priceInUsd))
-                        .doOnNext(price -> getView().showCustomSaleText(model.getActiveCurrencySymbol(), price));
+                        .doOnNext(price -> getView().showCustomSaleText(priceFormatter.formatPrice(price)));
     }
 
     private Single<Float> getAnyStatePrice() {
@@ -130,7 +135,7 @@ public class EditWatchListEntryPresenter extends BasePresenter<EditWatchListEntr
 
         void showAnySaleText();
 
-        void showCustomSaleText(String activeCurrencySymbol, float price);
+        void showCustomSaleText(String formattedSalePrice);
 
         void setSelectionIntervals(int maxPercentage);
 
