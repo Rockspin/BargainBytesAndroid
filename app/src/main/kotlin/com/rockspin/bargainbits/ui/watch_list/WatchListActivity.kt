@@ -13,7 +13,6 @@ import com.rockspin.bargainbits.ui.views.deallist.DealsListView
 import com.rockspin.bargainbits.ui.views.deallist.view.DealsListPresenter
 import com.rockspin.bargainbits.ui.views.deallist.view.DealsListViewImpl
 import com.rockspin.bargainbits.util.visible
-import hu.akarnokd.rxjava.interop.RxJavaInterop
 import io.reactivex.Observable
 import javax.inject.Inject
 
@@ -52,7 +51,7 @@ class WatchListActivity : BaseMvpActivity<WatchListView, WatchListPresenter>(), 
     }
 
     override fun onListIsLoading(): Observable<Boolean> {
-        return RxJavaInterop.toV2Observable(dealsList.onListLoading())
+        return dealsList.onListLoading()
     }
 
     override fun showLoadingView(loading: Boolean) {
