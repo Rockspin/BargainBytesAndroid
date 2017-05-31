@@ -186,9 +186,6 @@ dependencies {
     // Stream API
     compile 'com.annimon:stream:1.0.9'
 
-    // Reactive network
-    compile 'com.github.pwittchen:reactivenetwork:0.1.5'
-
     // icepick
     compile "frankiesardo:icepick:3.1.0"
     kapt "frankiesardo:icepick-processor:3.1.0"
