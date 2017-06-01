@@ -1,6 +1,7 @@
 package com.rockspin.bargainbits.ui.deals
 
 import android.arch.lifecycle.ViewModel
+import android.support.annotation.IdRes
 import com.rockspin.bargainbits.R
 import com.rockspin.bargainbits.data.models.DealSortType
 import com.rockspin.bargainbits.data.models.GroupedGameDeal
@@ -39,6 +40,7 @@ class DealListViewModel(
             object InProgress: DealLoad()
             object Failed: DealLoad()
         }
+        data class Navigation(val navigation: DealListUiModel.Navigation): Result()
     }
 
     companion object {
@@ -55,6 +57,7 @@ class DealListViewModel(
         it.map {
             when (it) {
                 is DealListEvent.SortingChanged -> DealListAction.LoadDealsWithSortType(SCREEN_SPINNER_SORT_ORDER[it.index])
+                is DealListEvent.MenuItemClicked -> DealListAction.PerformNavigation(navigationForMenuOption(it.menuId))
             }
         }
     }
@@ -63,6 +66,7 @@ class DealListViewModel(
         it.publish { shared ->
             listOf(
                 shared.ofType<DealListAction.LoadDealsWithSortType>().compose(loadDealsActionToDealLoadResult),
+                shared.ofType<DealListAction.PerformNavigation>().map { Result.Navigation(it.navigation) },
                 networkUtils.onNetworkChanged().map { Result.InternetState(it) })
                 .merge()
         }
@@ -76,15 +80,17 @@ class DealListViewModel(
                     inProgress = false, hasError = false)
                 is Result.DealLoad.InProgress -> oldState.copy(inProgress = true, hasError = false)
                 is Result.DealLoad.Failed -> oldState.copy(inProgress = false, hasError = true)
+                is Result.Navigation -> oldState.copy(navigation = result.navigation)
             }
-        }).distinctUntilChanged()
+        })
     }
 
     private val loadDealsActionToDealLoadResult = ObservableTransformer<DealListAction.LoadDealsWithSortType, Result.DealLoad> {
         it.combineLatest(filter.activeStoresIdsObservable)
             .subscribeOn(Schedulers.io())
-            .flatMap { (first, second) ->
-                repository.getDeals(first.sortType, second).toObservable().zipWith(Observable.just(first.sortType),
+            .map { Pair(it.first.sortType, it.second) }
+            .flatMap { (sortType, filter) ->
+                repository.getDeals(sortType, filter).toObservable().zipWith(Observable.just(sortType),
                     BiFunction<List<GroupedGameDeal>, DealSortType, Pair<List<GroupedGameDeal>, DealSortType>> {
                         deals, sortType -> Pair(deals, sortType)
                     })
@@ -128,4 +134,16 @@ class DealListViewModel(
             }
         }
     }
+
+    private fun navigationForMenuOption(@IdRes menuId: Int): DealListUiModel.Navigation =
+        when (menuId) {
+            R.id.menu_watch_list -> DealListUiModel.Navigation.WATCH_LIST
+            R.id.menu_store_filter -> DealListUiModel.Navigation.STORE_FILTER
+            R.id.menu_rate -> DealListUiModel.Navigation.RATE_APP
+            R.id.menu_share -> DealListUiModel.Navigation.SHARE_APP
+            R.id.menu_feedback -> DealListUiModel.Navigation.SEND_FEEDBACK
+            else -> {
+                throw IllegalArgumentException("Invalid menuId supplied")
+            }
+        }
 }

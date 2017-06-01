@@ -46,29 +46,17 @@ class DealListActivity : BaseActivity() {
         val searchView = MenuItemCompat.getActionView(binding.toolbar.menu.findItem(R.id.menu_search_games)) as SearchView
         searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName))
 
-        binding.toolbar.itemClicks()
-            .map { it.itemId }
-            .subscribe {
-                when (it) {
-                    R.id.menu_watch_list -> openWatchList()
-                    R.id.menu_store_filter -> openStoresFilter()
-                    R.id.menu_rate -> goToStoreAndRate()
-                    R.id.menu_share -> showShareAppDialog()
-                    R.id.menu_feedback -> sendFeedbackEmail()
-                }
-            }
-            .addTo(onDestroyDisposable)
-
         binding.dealsRecyclerView.adapter = adapter
 
         val viewModel = ViewModelProviders.of(this, factory).get(DealListViewModel::class.java)
 
         listOf(
-            binding.dealSortTypeSpinner.itemSelections().map { DealListEvent.SortingChanged(it) })
+            binding.dealSortTypeSpinner.itemSelections().map { DealListEvent.SortingChanged(it) }.skip(1),
+            binding.toolbar.itemClicks().map { DealListEvent.MenuItemClicked(it.itemId) })
             .merge()
             .compose(viewModel.eventToUiModel)
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { (dealViewEntries, showInternetOffMessage, inProgress, hasError) ->
+            .subscribe { (dealViewEntries, showInternetOffMessage, inProgress, hasError, navigation) ->
                 binding.dealsLoadingProgressBar.visible = inProgress
                 binding.dealsRecyclerView.visible = !inProgress
 
@@ -77,6 +65,14 @@ class DealListActivity : BaseActivity() {
                 }
 
                 if (showInternetOffMessage) showNoInternetMessage() else hideNoInternetMessage()
+
+                when (navigation) {
+                    DealListUiModel.Navigation.WATCH_LIST -> openWatchList()
+                    DealListUiModel.Navigation.STORE_FILTER -> openStoresFilter()
+                    DealListUiModel.Navigation.RATE_APP -> goToStoreAndRate()
+                    DealListUiModel.Navigation.SHARE_APP -> showShareAppDialog()
+                    DealListUiModel.Navigation.SEND_FEEDBACK -> sendFeedbackEmail()
+                }
 
             }.addTo(onDestroyDisposable)
     }
@@ -99,10 +95,6 @@ class DealListActivity : BaseActivity() {
         AppRater.rateNow(this)
     }
 
-    private fun sendFeedbackEmail() {
-        Feedback.sendEmailFeedback(this)
-    }
-
     private fun showShareAppDialog() {
         val shareIntent = Intent()
         shareIntent.action = Intent.ACTION_SEND
@@ -111,6 +103,10 @@ class DealListActivity : BaseActivity() {
         val shareText = getString(R.string.share_app_text, "http://play.google.com/store/apps/details?id=" + packageName)
         shareIntent.putExtra(Intent.EXTRA_TEXT, shareText)
         startActivity(shareIntent)
+    }
+
+    private fun sendFeedbackEmail() {
+        Feedback.sendEmailFeedback(this)
     }
 
     private fun hideNoInternetMessage() {

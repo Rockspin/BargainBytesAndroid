@@ -19,6 +19,10 @@ class DealListAdapter @Inject internal constructor(@ActivityScope private val la
 
     var viewModels = emptyList<DealViewEntry>()
         set(value) {
+            val set = value.subtract(field)
+            if (set.isEmpty()) {
+                return
+            }
             field = value
             notifyDataSetChanged()
         }
