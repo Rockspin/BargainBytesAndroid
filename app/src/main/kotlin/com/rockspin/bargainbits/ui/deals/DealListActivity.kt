@@ -16,8 +16,8 @@ import com.rockspin.bargainbits.databinding.ActivityDealListBinding
 import com.rockspin.bargainbits.ui.BaseActivity
 import com.rockspin.bargainbits.ui.store_filter.StoreFilterDialogFragment
 import com.rockspin.bargainbits.ui.watch_list.WatchListActivity
+import com.rockspin.bargainbits.util.visible
 import com.rockspin.bargainbits.utils.Feedback
-import com.rockspin.bargainbits.utils.NetworkUtils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
@@ -27,7 +27,6 @@ import javax.inject.Inject
 
 class DealListActivity : BaseActivity() {
 
-    @Inject lateinit var networkUtils: NetworkUtils
     @Inject lateinit var adapter: DealListAdapter
     @Inject lateinit var factory: DealListViewModelFactory
 
@@ -62,34 +61,23 @@ class DealListActivity : BaseActivity() {
 
         binding.dealsRecyclerView.adapter = adapter
 
-        // TODO - move to view model
-        networkUtils.onNetworkChanged()
-            .subscribe { internetAvailable ->
-                if (internetAvailable) {
-                    hideNoInternetMessage()
-                } else {
-                    showNoInternetMessage()
-                }
-            }
-            .addTo(onDestroyDisposable)
-
         val viewModel = ViewModelProviders.of(this, factory).get(DealListViewModel::class.java)
 
         listOf(
-            binding.dealSortTypeSpinner.itemSelections().map { DealSortingChanged(it) }
-                .cast(DealListEvent::class.java) // TODO - cast will be unnecessary once we have more things in this observable list
-        )
+            binding.dealSortTypeSpinner.itemSelections().map { DealListEvent.SortingChanged(it) })
             .merge()
-            // TODO - just compose Event to UiModel?
-            .compose(viewModel.eventToAction)
-            .compose(viewModel.actionToUiModel)
+            .compose(viewModel.eventToUiModel)
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe {
-                when (it) {
-                    is ShowDealEntriesUiModel -> {
-                        adapter.viewModels = it.dealViewEntries
-                    }
+            .subscribe { (dealViewEntries, showInternetOffMessage, inProgress, hasError) ->
+                binding.dealsLoadingProgressBar.visible = inProgress
+                binding.dealsRecyclerView.visible = !inProgress
+
+                if (!inProgress && !hasError) {
+                    adapter.viewModels = dealViewEntries
                 }
+
+                if (showInternetOffMessage) showNoInternetMessage() else hideNoInternetMessage()
+
             }.addTo(onDestroyDisposable)
     }
 

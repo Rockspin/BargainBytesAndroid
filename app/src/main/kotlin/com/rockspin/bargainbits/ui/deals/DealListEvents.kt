@@ -1,4 +1,5 @@
 package com.rockspin.bargainbits.ui.deals
 
-sealed class DealListEvent
-data class DealSortingChanged(val index: Int): DealListEvent()
+sealed class DealListEvent {
+    data class SortingChanged(val index: Int): DealListEvent()
+}

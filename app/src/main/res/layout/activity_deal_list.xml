@@ -22,7 +22,7 @@
                 android:minHeight="?attr/actionBarSize"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
                 app:layout_scrollFlags="scroll|enterAlways|snap"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"
                 >
 
                 <Spinner
@@ -70,6 +70,16 @@
                 style="@style/PrimaryButton"/>
 
         </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/dealsLoadingProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            tools:visibility="visible"
+            style="?android:attr/progressBarStyleLarge"
+            />
 
     </android.support.design.widget.CoordinatorLayout>
 

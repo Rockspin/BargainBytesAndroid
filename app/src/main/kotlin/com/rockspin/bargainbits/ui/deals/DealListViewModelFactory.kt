@@ -7,6 +7,7 @@ import com.rockspin.bargainbits.data.repository.stores.StoreRepository
 import com.rockspin.bargainbits.data.repository.stores.filter.StoreFilter
 import com.rockspin.bargainbits.util.ResourceProvider
 import com.rockspin.bargainbits.util.format.PriceFormatter
+import com.rockspin.bargainbits.utils.NetworkUtils
 import javax.inject.Inject
 
 /**
@@ -17,11 +18,12 @@ class DealListViewModelFactory @Inject constructor(
     private val filter: StoreFilter,
     private val storeRepository: StoreRepository,
     private val resourceProvider: ResourceProvider,
-    private val priceFormatter: PriceFormatter)
+    private val priceFormatter: PriceFormatter,
+    private val networkUtils: NetworkUtils)
     : ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(aClass: Class<T>): T {
         @Suppress("UNCHECKED_CAST")
-        return DealListViewModel(repository, filter, storeRepository, resourceProvider, priceFormatter) as T
+        return DealListViewModel(repository, filter, storeRepository, resourceProvider, priceFormatter, networkUtils) as T
     }
 }

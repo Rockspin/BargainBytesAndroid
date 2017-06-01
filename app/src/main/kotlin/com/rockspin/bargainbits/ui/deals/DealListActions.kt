@@ -2,5 +2,6 @@ package com.rockspin.bargainbits.ui.deals
 
 import com.rockspin.bargainbits.data.models.DealSortType
 
-sealed class DealListAction
-data class LoadDealsWithSortType(val sortType: DealSortType): DealListAction()
+sealed class DealListAction {
+    data class LoadDealsWithSortType(val sortType: DealSortType): DealListAction()
+}

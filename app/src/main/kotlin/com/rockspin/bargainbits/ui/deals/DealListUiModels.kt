@@ -1,7 +1,11 @@
 package com.rockspin.bargainbits.ui.deals
 
-sealed class DealListUiModel
-data class ShowDealEntriesUiModel(val dealViewEntries: List<DealViewEntry>): DealListUiModel()
+data class DealListUiModel(
+    val dealViewEntries: List<DealViewEntry> = emptyList(),
+    val showInternetOffMessage: Boolean = false,
+    val inProgress: Boolean = false,
+    val hasError: Boolean = false
+)
 
 data class DealViewEntry(
     val title: String,

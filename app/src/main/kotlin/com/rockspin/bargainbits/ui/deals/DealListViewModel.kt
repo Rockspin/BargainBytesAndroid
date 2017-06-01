@@ -9,8 +9,9 @@ import com.rockspin.bargainbits.data.repository.stores.StoreRepository
 import com.rockspin.bargainbits.data.repository.stores.filter.StoreFilter
 import com.rockspin.bargainbits.util.ResourceProvider
 import com.rockspin.bargainbits.util.format.PriceFormatter
+import com.rockspin.bargainbits.utils.NetworkUtils
+import io.reactivex.Observable
 import io.reactivex.ObservableTransformer
-import io.reactivex.Single
 import io.reactivex.functions.BiFunction
 import io.reactivex.rxkotlin.combineLatest
 import io.reactivex.rxkotlin.merge
@@ -27,8 +28,18 @@ class DealListViewModel(
     private val filter: StoreFilter,
     private val storeRepository: StoreRepository,
     private val resourceProvider: ResourceProvider,
-    private val priceFormatter: PriceFormatter)
+    private val priceFormatter: PriceFormatter,
+    private val networkUtils: NetworkUtils)
     : ViewModel() {
+
+    sealed class Result {
+        data class InternetState(val isOn: Boolean): Result()
+        sealed class DealLoad: Result() {
+            data class Success(val deals: List<GroupedGameDeal>, val sortType: DealSortType): DealLoad()
+            object InProgress: DealLoad()
+            object Failed: DealLoad()
+        }
+    }
 
     companion object {
         val SCREEN_SPINNER_SORT_ORDER = arrayOf(
@@ -36,54 +47,67 @@ class DealListViewModel(
             DealSortType.RELEASE, DealSortType.SAVINGS, DealSortType.PRICE )
     }
 
-    val eventToAction = ObservableTransformer<DealListEvent, DealListAction> {
+    val eventToUiModel = ObservableTransformer<DealListEvent, DealListUiModel> {
+        it.compose(eventToAction).compose(actionToResult).compose(resultToUiModel)
+    }
+
+    private val eventToAction = ObservableTransformer<DealListEvent, DealListAction> {
         it.map {
             when (it) {
-                is DealSortingChanged -> LoadDealsWithSortType(SCREEN_SPINNER_SORT_ORDER[it.index])
+                is DealListEvent.SortingChanged -> DealListAction.LoadDealsWithSortType(SCREEN_SPINNER_SORT_ORDER[it.index])
             }
         }
     }
 
-    val actionToUiModel = ObservableTransformer<DealListAction, DealListUiModel> {
+    private val actionToResult = ObservableTransformer<DealListAction, Result> {
         it.publish { shared ->
-            // TODO - cast will be unnecessary once we have more action
-            listOf(shared.ofType<LoadDealsWithSortType>().compose(loadDealsActionToShowDealEntries).cast(DealListUiModel::class.java))
+            listOf(
+                shared.ofType<DealListAction.LoadDealsWithSortType>().compose(loadDealsActionToDealLoadResult),
+                networkUtils.onNetworkChanged().map { Result.InternetState(it) })
                 .merge()
         }
     }
 
-    private val loadDealsActionToShowDealEntries = ObservableTransformer<LoadDealsWithSortType, ShowDealEntriesUiModel> {
+    private val resultToUiModel = ObservableTransformer<Result, DealListUiModel> {
+        it.scan(DealListUiModel(), {oldState, result ->
+            when (result) {
+                is Result.InternetState -> oldState.copy(showInternetOffMessage = !result.isOn)
+                is Result.DealLoad.Success -> oldState.copy(dealViewEntries = dealLoadResultSuccessToDealViewEntries(result),
+                    inProgress = false, hasError = false)
+                is Result.DealLoad.InProgress -> oldState.copy(inProgress = true, hasError = false)
+                is Result.DealLoad.Failed -> oldState.copy(inProgress = false, hasError = true)
+            }
+        }).distinctUntilChanged()
+    }
+
+    private val loadDealsActionToDealLoadResult = ObservableTransformer<DealListAction.LoadDealsWithSortType, Result.DealLoad> {
         it.combineLatest(filter.activeStoresIdsObservable)
             .subscribeOn(Schedulers.io())
-            .flatMapSingle { (first, second) ->
-                repository.getDeals(first.sortType, second).zipWith(Single.just(first.sortType),
+            .flatMap { (first, second) ->
+                repository.getDeals(first.sortType, second).toObservable().zipWith(Observable.just(first.sortType),
                     BiFunction<List<GroupedGameDeal>, DealSortType, Pair<List<GroupedGameDeal>, DealSortType>> {
                         deals, sortType -> Pair(deals, sortType)
                     })
+                    .map { Result.DealLoad.Success(it.first, it.second) }.cast(Result.DealLoad::class.java)
+                    .onErrorReturnItem(Result.DealLoad.Failed)
+                    .startWith(Result.DealLoad.InProgress)
             }
-            .compose(gameDealsToDealViewEntries)
-            .map { ShowDealEntriesUiModel(it) }
+
     }
 
     private val dateFormatter = SimpleDateFormat.getDateInstance()
 
-    override fun onCleared() {
-        super.onCleared()
-    }
-
-    private val gameDealsToDealViewEntries = ObservableTransformer<Pair<List<GroupedGameDeal>, DealSortType>, List<DealViewEntry>> {
-        it.map { (gameDeals, sortType) ->
-            gameDeals.map { groupedGameDeal ->
-                DealViewEntry(
-                    title = groupedGameDeal.title,
-                    subtitle = getSubtitleForDealAndSortType(groupedGameDeal, sortType),
-                    imageUrl = groupedGameDeal.thumbUrl,
-                    savingsPercentage = groupedGameDeal.savingsPercentage.toInt(),
-                    retailPrice = priceFormatter.formatPrice(groupedGameDeal.normalPrice),
-                    salePrice = priceFormatter.formatPrice(groupedGameDeal.salePrice),
-                    storeImageUrls = groupedGameDeal.storeIds.map { storeRepository.getGameStoreForId(it).blockingGet().imageUrl }
-                )
-            }
+    private fun dealLoadResultSuccessToDealViewEntries(result: Result.DealLoad.Success): List<DealViewEntry> {
+        return result.deals.map { groupedGameDeal ->
+            DealViewEntry(
+                title = groupedGameDeal.title,
+                subtitle = getSubtitleForDealAndSortType(groupedGameDeal, result.sortType),
+                imageUrl = groupedGameDeal.thumbUrl,
+                savingsPercentage = groupedGameDeal.savingsPercentage.toInt(),
+                retailPrice = priceFormatter.formatPrice(groupedGameDeal.normalPrice),
+                salePrice = priceFormatter.formatPrice(groupedGameDeal.salePrice),
+                storeImageUrls = groupedGameDeal.storeIds.map { storeRepository.getGameStoreForId(it).blockingGet().imageUrl }
+            )
         }
     }
 
