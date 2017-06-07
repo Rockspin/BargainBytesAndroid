@@ -11,22 +11,15 @@ import com.rockspin.bargainbits.data.repository.stores.filter.StoreFilter
 import com.rockspin.bargainbits.util.ResourceProvider
 import com.rockspin.bargainbits.util.format.PriceFormatter
 import com.rockspin.bargainbits.utils.NetworkUtils
-import io.reactivex.Observable
 import io.reactivex.ObservableTransformer
-import io.reactivex.functions.BiFunction
-import io.reactivex.rxkotlin.combineLatest
 import io.reactivex.rxkotlin.merge
 import io.reactivex.rxkotlin.ofType
-import io.reactivex.schedulers.Schedulers
 import java.text.SimpleDateFormat
 import java.util.*
 
-/**
- * Created by valentin.hinov on 23/05/2017.
- */
 class DealListViewModel(
     private val repository: GameDealRepository,
-    private val filter: StoreFilter,
+    private val storeFilter: StoreFilter,
     private val storeRepository: StoreRepository,
     private val resourceProvider: ResourceProvider,
     private val priceFormatter: PriceFormatter,
@@ -40,7 +33,8 @@ class DealListViewModel(
             object InProgress: DealLoad()
             object Failed: DealLoad()
         }
-        data class Navigation(val navigation: DealListUiModel.Navigation): Result()
+        data class Navigation(val navigation: DealListUiState.Navigation): Result()
+        object NavigationComplete: Result()
     }
 
     companion object {
@@ -49,15 +43,18 @@ class DealListViewModel(
             DealSortType.RELEASE, DealSortType.SAVINGS, DealSortType.PRICE )
     }
 
-    val eventToUiModel = ObservableTransformer<DealListEvent, DealListUiModel> {
-        it.compose(eventToAction).compose(actionToResult).compose(resultToUiModel)
+    private lateinit var activeSortType: DealSortType
+
+    val eventToUiState = ObservableTransformer<DealListEvent, DealListUiState> {
+        it.compose(eventToAction).compose(actionToResult).compose(resultToUiState)
     }
 
     private val eventToAction = ObservableTransformer<DealListEvent, DealListAction> {
         it.map {
             when (it) {
                 is DealListEvent.SortingChanged -> DealListAction.LoadDealsWithSortType(SCREEN_SPINNER_SORT_ORDER[it.index])
-                is DealListEvent.MenuItemClicked -> DealListAction.PerformNavigation(navigationForMenuOption(it.menuId))
+                is DealListEvent.MenuItemClicked -> actionForMenuOption(it.menuId)
+                is DealListEvent.StoreFilterClosed -> DealListAction.CheckForFilterChanges
             }
         }
     }
@@ -65,40 +62,39 @@ class DealListViewModel(
     private val actionToResult = ObservableTransformer<DealListAction, Result> {
         it.publish { shared ->
             listOf(
-                shared.ofType<DealListAction.LoadDealsWithSortType>().compose(loadDealsActionToDealLoadResult),
+                shared.ofType<DealListAction.LoadDealsWithSortType>().map { it.sortType}.compose(loadDealsActionToDealLoadResult),
+                shared.ofType<DealListAction.CheckForFilterChanges>().map { activeSortType }.compose(loadDealsActionToDealLoadResult),
                 shared.ofType<DealListAction.PerformNavigation>().map { Result.Navigation(it.navigation) },
-                networkUtils.onNetworkChanged().map { Result.InternetState(it) })
+                networkUtils.onNetworkChanged().skip(1).map { Result.InternetState(it) })
                 .merge()
         }
     }
 
-    private val resultToUiModel = ObservableTransformer<Result, DealListUiModel> {
-        it.scan(DealListUiModel(), {oldState, result ->
+    private val resultToUiState = ObservableTransformer<Result, DealListUiState> {
+        it.scan(DealListUiState(), { oldState, result ->
+            val state = oldState.copy(navigation = null) // clear out old navigation from state
             when (result) {
-                is Result.InternetState -> oldState.copy(showInternetOffMessage = !result.isOn)
-                is Result.DealLoad.Success -> oldState.copy(dealViewEntries = dealLoadResultSuccessToDealViewEntries(result),
+                is Result.InternetState -> state.copy(showInternetOffMessage = !result.isOn)
+                is Result.DealLoad.Success -> state.copy(dealViewEntries = dealLoadResultSuccessToDealViewEntries(result),
                     inProgress = false, hasError = false)
-                is Result.DealLoad.InProgress -> oldState.copy(inProgress = true, hasError = false)
-                is Result.DealLoad.Failed -> oldState.copy(inProgress = false, hasError = true)
-                is Result.Navigation -> oldState.copy(navigation = result.navigation)
+                is Result.DealLoad.InProgress -> state.copy(inProgress = true, hasError = false)
+                is Result.DealLoad.Failed -> state.copy(inProgress = false, hasError = true)
+                is Result.Navigation -> state.copy(navigation = result.navigation)
+                is Result.NavigationComplete -> state.copy(navigation = null)
             }
         })
     }
 
-    private val loadDealsActionToDealLoadResult = ObservableTransformer<DealListAction.LoadDealsWithSortType, Result.DealLoad> {
-        it.combineLatest(filter.activeStoresIdsObservable)
-            .subscribeOn(Schedulers.io())
-            .map { Pair(it.first.sortType, it.second) }
-            .flatMap { (sortType, filter) ->
-                repository.getDeals(sortType, filter).toObservable().zipWith(Observable.just(sortType),
-                    BiFunction<List<GroupedGameDeal>, DealSortType, Pair<List<GroupedGameDeal>, DealSortType>> {
-                        deals, sortType -> Pair(deals, sortType)
-                    })
-                    .map { Result.DealLoad.Success(it.first, it.second) }.cast(Result.DealLoad::class.java)
+    private val loadDealsActionToDealLoadResult = ObservableTransformer<DealSortType, Result.DealLoad> {
+        it.doOnNext { activeSortType = it }
+            .flatMap { sortType ->
+                storeFilter.activeStoreIds
+                    .flatMap { activeStoreIds -> repository.getDeals(sortType, activeStoreIds) }
+                    .toObservable()
+                    .map<Result.DealLoad> { Result.DealLoad.Success(it, sortType) }
                     .onErrorReturnItem(Result.DealLoad.Failed)
                     .startWith(Result.DealLoad.InProgress)
             }
-
     }
 
     private val dateFormatter = SimpleDateFormat.getDateInstance()
@@ -135,15 +131,19 @@ class DealListViewModel(
         }
     }
 
-    private fun navigationForMenuOption(@IdRes menuId: Int): DealListUiModel.Navigation =
-        when (menuId) {
-            R.id.menu_watch_list -> DealListUiModel.Navigation.WATCH_LIST
-            R.id.menu_store_filter -> DealListUiModel.Navigation.STORE_FILTER
-            R.id.menu_rate -> DealListUiModel.Navigation.RATE_APP
-            R.id.menu_share -> DealListUiModel.Navigation.SHARE_APP
-            R.id.menu_feedback -> DealListUiModel.Navigation.SEND_FEEDBACK
+    private fun actionForMenuOption(@IdRes menuId: Int): DealListAction {
+        val navigation = when (menuId) {
+            R.id.menu_watch_list -> DealListUiState.Navigation.WATCH_LIST
+            R.id.menu_store_filter -> DealListUiState.Navigation.STORE_FILTER
+            R.id.menu_rate -> DealListUiState.Navigation.RATE_APP
+            R.id.menu_share -> DealListUiState.Navigation.SHARE_APP
+            R.id.menu_feedback -> DealListUiState.Navigation.SEND_FEEDBACK
             else -> {
                 throw IllegalArgumentException("Invalid menuId supplied")
             }
         }
+
+        return DealListAction.PerformNavigation(navigation)
+    }
+
 }

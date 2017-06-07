@@ -1,6 +1,6 @@
 package com.rockspin.bargainbits.ui.deals
 
-data class DealListUiModel(
+data class DealListUiState(
     val dealViewEntries: List<DealViewEntry> = emptyList(),
     val showInternetOffMessage: Boolean = false,
     val inProgress: Boolean = false,
@@ -8,8 +8,8 @@ data class DealListUiModel(
     val navigation: Navigation? = null
 ) {
     enum class Navigation {
-        WATCH_LIST,
         STORE_FILTER,
+        WATCH_LIST,
         RATE_APP,
         SHARE_APP,
         SEND_FEEDBACK

@@ -22,16 +22,18 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.merge
+import io.reactivex.subjects.PublishSubject
 import org.codechimp.apprater.AppRater
 import javax.inject.Inject
 
-class DealListActivity : BaseActivity() {
+class DealListActivity : BaseActivity(), StoreFilterDialogFragment.OnDialogClosedListener {
 
     @Inject lateinit var adapter: DealListAdapter
     @Inject lateinit var factory: DealListViewModelFactory
 
     private var noInternetSnackbar: Snackbar? = null
     private val onDestroyDisposable = CompositeDisposable()
+    private val onStoreFilterClosed = PublishSubject.create<Unit>()
 
     private val binding by lazy { DataBindingUtil.setContentView<ActivityDealListBinding>(this, R.layout.activity_deal_list) }
 
@@ -52,9 +54,11 @@ class DealListActivity : BaseActivity() {
 
         listOf(
             binding.dealSortTypeSpinner.itemSelections().map { DealListEvent.SortingChanged(it) }.skip(1),
-            binding.toolbar.itemClicks().map { DealListEvent.MenuItemClicked(it.itemId) })
+            binding.toolbar.itemClicks().map { DealListEvent.MenuItemClicked(it.itemId) },
+            onStoreFilterClosed.map { DealListEvent.StoreFilterClosed }
+            )
             .merge()
-            .compose(viewModel.eventToUiModel)
+            .compose(viewModel.eventToUiState)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { (dealViewEntries, showInternetOffMessage, inProgress, hasError, navigation) ->
                 binding.dealsLoadingProgressBar.visible = inProgress
@@ -67,11 +71,11 @@ class DealListActivity : BaseActivity() {
                 if (showInternetOffMessage) showNoInternetMessage() else hideNoInternetMessage()
 
                 when (navigation) {
-                    DealListUiModel.Navigation.WATCH_LIST -> openWatchList()
-                    DealListUiModel.Navigation.STORE_FILTER -> openStoresFilter()
-                    DealListUiModel.Navigation.RATE_APP -> goToStoreAndRate()
-                    DealListUiModel.Navigation.SHARE_APP -> showShareAppDialog()
-                    DealListUiModel.Navigation.SEND_FEEDBACK -> sendFeedbackEmail()
+                    DealListUiState.Navigation.WATCH_LIST -> openWatchList()
+                    DealListUiState.Navigation.STORE_FILTER -> openStoresFilter()
+                    DealListUiState.Navigation.RATE_APP -> goToStoreAndRate()
+                    DealListUiState.Navigation.SHARE_APP -> showShareAppDialog()
+                    DealListUiState.Navigation.SEND_FEEDBACK -> sendFeedbackEmail()
                 }
 
             }.addTo(onDestroyDisposable)
@@ -82,13 +86,24 @@ class DealListActivity : BaseActivity() {
         super.onDestroy()
     }
 
+    override fun onStoreFilterDialogClosed() {
+        onStoreFilterClosed.onNext(Unit)
+    }
+
     private fun openWatchList() {
         startActivity(Intent(this, WatchListActivity::class.java))
     }
 
     private fun openStoresFilter() {
+        val dialogTag = StoreFilterDialogFragment::class.java.simpleName
+
+        val showingDialog = supportFragmentManager.findFragmentByTag(dialogTag) != null
+        if (showingDialog) {
+            return
+        }
+
         val storeFilterDialogFragment = StoreFilterDialogFragment.newInstance()
-        storeFilterDialogFragment.show(supportFragmentManager, StoreFilterDialogFragment::class.java.simpleName)
+        storeFilterDialogFragment.show(supportFragmentManager, dialogTag)
     }
 
     private fun goToStoreAndRate() {

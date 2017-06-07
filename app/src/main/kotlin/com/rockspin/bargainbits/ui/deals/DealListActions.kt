@@ -4,5 +4,6 @@ import com.rockspin.bargainbits.data.models.DealSortType
 
 sealed class DealListAction {
     data class LoadDealsWithSortType(val sortType: DealSortType): DealListAction()
-    data class PerformNavigation(val navigation: DealListUiModel.Navigation): DealListAction()
+    data class PerformNavigation(val navigation: DealListUiState.Navigation): DealListAction()
+    object CheckForFilterChanges: DealListAction()
 }

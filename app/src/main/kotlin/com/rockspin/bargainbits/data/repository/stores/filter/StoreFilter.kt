@@ -1,6 +1,5 @@
 package com.rockspin.bargainbits.data.repository.stores.filter
 
-import io.reactivex.Observable
 import io.reactivex.Single
 
 /**
@@ -16,5 +15,5 @@ interface StoreFilter {
      */
     fun updateStore(gameStoreFiltered: GameStoreFiltered)
 
-    val activeStoresIdsObservable: Observable<Set<String>>
+    val activeStoreIds: Single<Set<String>>
 }
