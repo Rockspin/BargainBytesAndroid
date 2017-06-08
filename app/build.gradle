@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 // This does not break the build when Android Studio is missing the JRebel for Android plugin.
 apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'io.fabric'
@@ -173,6 +174,9 @@ dependencies {
 
     // Chrome tabs
     compile "com.android.support:customtabs:$supportLibVersion"
+
+    // Constraint layout
+    compile 'com.android.support.constraint:constraint-layout:1.1.0-beta1'
 
     //Gson
     compile 'com.google.code.gson:gson:2.7'

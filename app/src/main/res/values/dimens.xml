@@ -14,6 +14,7 @@
   <dimen name="grid_space_2x">16dp</dimen>
   <dimen name="grid_space_3x">24dp</dimen>
   <dimen name="grid_space_4x">36dp</dimen>
+  <dimen name="grid_space_6x">48dp</dimen>
   <dimen name="grid_space_7x">56dp</dimen>
   <dimen name="grid_space_8x">64dp</dimen>
   <dimen name="grid_space_9x">72dp</dimen>
@@ -21,5 +22,7 @@
   <dimen name="list_icon_size">24dp</dimen>
   <dimen name="list_row_height">48dp</dimen>
 
-  <dimen name="store_filter_bottom_sheet_min_height">200dp</dimen>
+  <dimen name="store_choice_small_size">20dp</dimen>
+
+  <dimen name="bottom_sheet_min_height">200dp</dimen>
 </resources>

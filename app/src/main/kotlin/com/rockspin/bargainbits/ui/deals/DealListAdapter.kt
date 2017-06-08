@@ -1,5 +1,6 @@
 package com.rockspin.bargainbits.ui.deals
 
+import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.text.Html
 import android.view.LayoutInflater
@@ -31,22 +32,26 @@ class DealListAdapter @Inject internal constructor(@ActivityScope private val la
         val itemBinding = ItemGameDealBinding.inflate(layoutInflater, parent, false)
         val holder = ViewHolder(itemBinding)
 
-        val gridView = holder.binding.storeGridView
-        gridView.isEnabled = false
-
-        gridView.adapter = StoreImageAdapter(parent.context)
-        gridView.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+        val storeOptionRV = holder.binding.storeOptionRecycler
+        storeOptionRV.adapter = StoreOptionsRecyclerAdapter(layoutInflater)
+        storeOptionRV.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
             override fun onGlobalLayout() {
-                val viewHeight = gridView.height
-                if (gridView.childCount > 0) {
-                    val childHeight = gridView.getChildAt(0).height
-                    val maxRows = viewHeight / childHeight
+                if (storeOptionRV.childCount > 0) {
+                    // calculate max span
+                    val childWidth  = storeOptionRV.getChildAt(0).width
+                    val viewWidth = storeOptionRV.width
+                    val spanCount = Math.floor(viewWidth / childWidth.toDouble()).toInt()
+                    val layoutManager = storeOptionRV.layoutManager as GridLayoutManager
+                    layoutManager.spanCount = spanCount
 
-                    val maxItems = maxRows * gridView.numColumns
-                    val adapter = gridView.adapter as StoreImageAdapter
+                    val viewHeight = storeOptionRV.height
+                    val childHeight = storeOptionRV.getChildAt(0).height
+                    val maxRows = viewHeight / childHeight
+                    val maxItems = maxRows * spanCount
+                    val adapter = storeOptionRV.adapter as StoreOptionsRecyclerAdapter
                     adapter.itemLimit = maxItems
 
-                    gridView.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                    storeOptionRV.viewTreeObserver.removeOnGlobalLayoutListener(this)
                 }
             }
         })
@@ -74,14 +79,11 @@ class DealListAdapter @Inject internal constructor(@ActivityScope private val la
         binding.priceHolder.setRetailPriceText(viewModel.retailPrice)
         binding.priceHolder.setSalePriceText(viewModel.salePrice)
 
-        val adapter = binding.storeGridView.adapter as StoreImageAdapter
-        adapter.clear()
-        adapter.addAll(viewModel.storeImageUrls)
+        val adapter = binding.storeOptionRecycler.adapter as StoreOptionsRecyclerAdapter
+        adapter.storeUrls = viewModel.storeImageUrls
     }
 
-    override fun getItemCount(): Int {
-        return viewModels.size
-    }
+    override fun getItemCount(): Int = viewModels.size
 
     class ViewHolder(val binding: ItemGameDealBinding): RecyclerView.ViewHolder(binding.root)
 }

@@ -1,10 +1,9 @@
 package com.rockspin.bargainbits.data.models
 
 import android.arch.persistence.room.Entity
-import android.arch.persistence.room.Ignore
 import android.arch.persistence.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
-import java.util.*
+import java.io.Serializable
 
 /**
  * GameDeal object returned when browsing Cheapshark deals
@@ -44,4 +43,4 @@ data class GameDeal(
     val dealRating: Double,
     @SerializedName("thumb")
     val thumbUrl: String
-)
+) : Serializable

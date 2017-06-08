@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/list_background_color"
-        android:minHeight="@dimen/store_filter_bottom_sheet_min_height"
+        android:minHeight="@dimen/bottom_sheet_min_height"
         android:paddingTop="@dimen/grid_space_1x"
         android:paddingStart="@dimen/grid_space_2x"
         android:paddingEnd="@dimen/grid_space_2x"

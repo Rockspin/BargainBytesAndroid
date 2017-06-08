@@ -1,0 +1,37 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/list_background_color"
+    android:minHeight="@dimen/bottom_sheet_min_height"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/grid_space_1x"
+    >
+
+    <TextView
+        android:id="@+id/addToWatchView"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/grid_space_6x"
+        android:background="?selectableItemBackground"
+        android:drawablePadding="@dimen/grid_space_2x"
+        android:drawableStart="@drawable/ic_watch_list_add_24dp"
+        android:gravity="start|center_vertical"
+        android:paddingEnd="@dimen/grid_space_2x"
+        android:paddingStart="@dimen/grid_space_2x"
+        android:text="@string/add_to_watch_list"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+        tools:drawableTint="@color/accent_color"
+        />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/storeOptionRecycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+        tools:listitem="@layout/item_deal_store_option"
+        />
+
+</LinearLayout>

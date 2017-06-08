@@ -10,7 +10,7 @@ import io.reactivex.Flowable
 @Dao
 interface GameDealDao {
 
-    @Query("SELECT * FROM gamedeal where dealId IN (:p0)")
+    @Query("SELECT * FROM gamedeal where dealId IN (:dealIds)")
     fun getDealsById(dealIds: List<String>): Flowable<List<GameDeal>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

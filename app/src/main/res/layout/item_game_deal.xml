@@ -1,121 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- TODO - Layout could be done better using constraints -->
-    <FrameLayout
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/list_item_padding"
-        android:paddingBottom="@dimen/list_item_padding"
         android:background="?attr/selectableItemBackground"
+        android:paddingBottom="@dimen/grid_space_1x"
+        android:paddingEnd="@dimen/activity_horizontal_margin"
+        android:paddingStart="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/grid_space_1x"
         >
 
-        <LinearLayout
-            android:id="@+id/dealContainer"
-            android:layout_width="match_parent"
+        <com.rockspin.bargainbits.ui.views.WebImageView
+            android:id="@+id/gameThumb"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/imageGuideline"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/imageGuideline"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/deal_selector"
-            android:focusable="true"
-            android:orientation="horizontal"
-            android:weightSum="1"
-            tools:visibility="invisible"
-            >
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.25"/>
 
-            <com.rockspin.bargainbits.ui.views.WebImageView
-                android:id="@+id/gameThumb"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginEnd="8dp"
-                android:layout_weight="0.25"
-                android:minHeight="100dp"
-                android:minWidth="60dp"
-                />
+        <TextView
+            android:id="@+id/dealTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="0dp"
+            android:layout_marginStart="@dimen/grid_space_1x"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/primary_text_color"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/gameThumb"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Game Title: The return of the "/>
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.75"
-                android:orientation="vertical"
-                >
+        <TextView
+            android:id="@+id/dealSubtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/grid_space_1x"
+            android:layout_marginTop="2dp"
+            android:textColor="@color/secondary_text_color"
+            android:textSize="12sp"
+            app:layout_constraintLeft_toRightOf="@+id/gameThumb"
+            app:layout_constraintTop_toBottomOf="@+id/dealTitle"
+            tools:text="Released: 23 June 2014"/>
 
-                <TextView
-                    android:id="@+id/dealTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="2dp"
-                    android:text="Game Title"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/primary_text_color"
-                    android:textStyle="bold"
-                    tools:ignore="HardcodedText"
-                    />
+        <TextView
+            android:id="@+id/savingPercentage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/ic_deal_sticker"
+            android:gravity="center"
+            android:textColor="?android:attr/textColorPrimaryInverse"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/priceHolder"
+            app:layout_constraintTop_toTopOf="@id/dealSubtitle"
+            app:layout_constraintVertical_bias="0.0"
+            tools:text="100% \nSavings"/>
 
-                <TextView
-                    android:id="@+id/dealSubtitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/secondary_text_color"
-                    android:textSize="12sp"
-                    tools:text="Released: 23 June 2014"
-                    />
+        <com.rockspin.bargainbits.ui.views.PriceView
+            android:id="@+id/priceHolder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/savingPercentage"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/savingPercentage"/>
 
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="-8dp"
-                    >
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/storeOptionRecycler"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/grid_space_1x"
+            app:layoutManager="android.support.v7.widget.GridLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/savingPercentage"
+            app:layout_constraintStart_toEndOf="@id/gameThumb"
+            app:layout_constraintTop_toBottomOf="@+id/dealSubtitle"
+            app:layout_constraintTop_toTopOf="@id/priceHolder"
+            app:layout_constraintVertical_bias="1.0"
+            app:spanCount="3"
+            tools:listitem="@layout/item_deal_store_choice"/>
 
-                    <GridView
-                        android:id="@+id/storeGridView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignBottom="@+id/savingPercentage"
-                        android:layout_alignParentTop="true"
-                        android:layout_marginTop="12dp"
-                        android:layout_toStartOf="@id/savingPercentage"
-                        android:choiceMode="none"
-                        android:columnWidth="20dp"
-                        android:horizontalSpacing="2dp"
-                        android:numColumns="auto_fit"
-                        android:stretchMode="none"
-                        android:verticalSpacing="2dp"
-                        android:clickable="false"
-                        android:focusable="false"
-                        android:focusableInTouchMode="false"
-                        />
 
-                    <TextView
-                        android:id="@+id/savingPercentage"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toStartOf="@+id/priceHolder"
-                        android:background="@drawable/ic_deal_sticker"
-                        android:gravity="center"
-                        android:textColor="?android:attr/textColorPrimaryInverse"
-                        android:textStyle="bold"
-                        tools:text="100% \nSavings"
-                        />
+    </android.support.constraint.ConstraintLayout>
 
-                    <com.rockspin.bargainbits.ui.views.PriceView
-                        android:id="@+id/priceHolder"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        />
-
-                </RelativeLayout>
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <!-- TODO: Options container -->
-
-    </FrameLayout>
+    <!-- TODO: Options container -->
 
 </layout>
