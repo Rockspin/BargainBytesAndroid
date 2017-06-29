@@ -1,10 +1,7 @@
 package com.rockspin.bargainbits.data.repository.deals
 
 import com.rockspin.bargainbits.data.BBDatabase
-import com.rockspin.bargainbits.data.models.DbDeals
-import com.rockspin.bargainbits.data.models.DealSortType
-import com.rockspin.bargainbits.data.models.GameDeal
-import com.rockspin.bargainbits.data.models.GroupedGameDeal
+import com.rockspin.bargainbits.data.models.*
 import com.rockspin.bargainbits.data.rest_client.GameApiService
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -45,10 +42,8 @@ class BBGameDealRepository(
     }
 
     private fun apiCallForParams(sortType: DealSortType, storeIds: Set<String>): Observable<List<GameDeal>> {
-        val params = mapOf(
-            "onSale" to "1",
-            "sortBy" to sortType.queryParameter,
-            "storeID" to storeIds.joinToString(separator = ","))
+        val dealQuery = DealQuery(onSale = true, sortBy = sortType, storeIds = storeIds)
+        val params = dealQuery.paramMap
 
         return apiService.getDeals(params)
             .doOnSuccess { gameDeals ->

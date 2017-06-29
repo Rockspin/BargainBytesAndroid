@@ -7,9 +7,6 @@ import android.arch.persistence.room.Query
 import com.rockspin.bargainbits.data.models.GameStore
 import io.reactivex.Flowable
 
-/**
- * Created by valentin.hinov on 19/05/2017.
- */
 @Dao
 interface GameStoreDao {
 

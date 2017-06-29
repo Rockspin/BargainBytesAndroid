@@ -7,9 +7,6 @@ import android.arch.persistence.room.Query
 import com.rockspin.bargainbits.data.models.DbDeals
 import io.reactivex.Flowable
 
-/**
- * Created by valentin.hinov on 29/05/2017.
- */
 @Dao
 interface DbDealsDao {
 
