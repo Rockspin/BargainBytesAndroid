@@ -60,7 +60,7 @@ class BBGameDealRepositoryTest {
         val mockDatabase: BBDatabase = mock()
         whenever(mockDatabase.gameDealDao()).thenReturn(mockGameDealDao)
         whenever(mockDatabase.dbDealsDao()).thenReturn(mockDbDealsDao)
-        whenever(mockService.getDeals(any())).thenReturn(Single.just(TEST_DEALS))
+        whenever(mockService.getDeals(any(), any(), any())).thenReturn(Single.just(TEST_DEALS))
         whenever(mockDbDealsDao.getDbDeals(any())).thenReturn(Flowable.just(DbDeals("invalid", "invalid")))
 
         gameDealRepository = BBGameDealRepository(mockService, mockDatabase)
@@ -70,10 +70,10 @@ class BBGameDealRepositoryTest {
     fun whenGetDealsFromApi_constructsCorrectParams() {
         gameDealRepository.getDeals(DealSortType.RATING, setOf("2", "7", "4")).blockingGet()
 
-        verify(mockService).getDeals(mapOf(
-            "onSale" to "1",
-            "sortBy" to DealSortType.RATING.queryParameter,
-            "storeID" to "2,4,7"))
+        verify(mockService).getDeals(
+            true,
+            DealSortType.RATING.queryParameter,
+            "2,4,7")
     }
 
     @Test
@@ -105,7 +105,7 @@ class BBGameDealRepositoryTest {
         whenever(mockDbDealsDao.getDbDeals(any())).thenReturn(Flowable.just(testDbDeals))
         whenever(mockGameDealDao.getDealsById(listOf("dealId0", "dealId1"))).thenReturn(Flowable.just(dbTestDeals))
 
-        whenever(mockService.getDeals(any())).thenReturn(Single.error(Throwable()))
+        whenever(mockService.getDeals(any(), any(), any())).thenReturn(Single.error(Throwable()))
 
         val groupedDeals = gameDealRepository.getDeals(DealSortType.RATING, emptySet()).blockingGet()
 

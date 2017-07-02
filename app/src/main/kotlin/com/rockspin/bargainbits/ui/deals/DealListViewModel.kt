@@ -15,7 +15,7 @@ import io.reactivex.ObservableTransformer
 import io.reactivex.rxkotlin.merge
 import io.reactivex.rxkotlin.ofType
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
 
 class DealListViewModel(
     private val repository: GameDealRepository,

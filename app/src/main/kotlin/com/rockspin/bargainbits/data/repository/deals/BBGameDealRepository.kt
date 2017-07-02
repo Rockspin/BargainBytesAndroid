@@ -42,10 +42,13 @@ class BBGameDealRepository(
     }
 
     private fun apiCallForParams(sortType: DealSortType, storeIds: Set<String>): Observable<List<GameDeal>> {
-        val dealQuery = DealQuery(onSale = true, sortBy = sortType, storeIds = storeIds)
-        val params = dealQuery.paramMap
+        val dealsApiCall = apiService.getDeals(
+            onSale = true,
+            sortBy = sortType.queryParameter,
+            storeIds = storeIds.joinToString(separator = ",")
+        )
 
-        return apiService.getDeals(params)
+        return dealsApiCall
             .doOnSuccess { gameDeals ->
                 database.gameDealDao().insertAll(gameDeals)
 

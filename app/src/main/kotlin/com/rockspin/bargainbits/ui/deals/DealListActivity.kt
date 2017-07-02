@@ -28,6 +28,10 @@ import javax.inject.Inject
 
 class DealListActivity : BaseActivity(), StoreFilterDialogFragment.OnDialogClosedListener {
 
+    companion object {
+        private val GOOGLE_PLAY_BASE_URL = "https://play.google.com/store/apps/details?id="
+    }
+
     @Inject lateinit var adapter: DealListAdapter
     @Inject lateinit var factory: DealListViewModelFactory
 
@@ -115,7 +119,7 @@ class DealListActivity : BaseActivity(), StoreFilterDialogFragment.OnDialogClose
         shareIntent.action = Intent.ACTION_SEND
         shareIntent.type = "text/plain"
         shareIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.share_app_subject))
-        val shareText = getString(R.string.share_app_text, "http://play.google.com/store/apps/details?id=" + packageName)
+        val shareText = getString(R.string.share_app_text, GOOGLE_PLAY_BASE_URL + packageName)
         shareIntent.putExtra(Intent.EXTRA_TEXT, shareText)
         startActivity(shareIntent)
     }

@@ -24,5 +24,7 @@ interface GameApiService {
     fun getStores(): Single<List<Store>>
 
     @GET("deals")
-    fun getDeals(@QueryMap requestParams: Map<String, String>): Single<List<GameDeal>>
+    fun getDeals(@Query("onSale") onSale: Boolean,
+                 @Query("sortBy") sortBy: String,
+                 @Query("storeID") storeIds: String): Single<List<GameDeal>>
 }
