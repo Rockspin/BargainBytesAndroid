@@ -3,6 +3,7 @@ package com.rockspin.bargainbits.data.repository;
 import android.support.annotation.NonNull;
 import com.rockspin.bargainbits.data.models.cheapshark.CompactDeal;
 import com.rockspin.bargainbits.data.models.cheapshark.Deal;
+import com.rockspin.bargainbits.data.repository.deals.GameDealRepository;
 import com.rockspin.bargainbits.data.rest_client.ICheapsharkAPIService;
 import java.util.Collection;
 import java.util.HashMap;
@@ -12,6 +13,10 @@ import javax.inject.Inject;
 import rx.Observable;
 import rx.schedulers.Schedulers;
 
+/**
+ * Use {@link GameDealRepository} instead
+ */
+@Deprecated
 public class DealRepository {
 
     @Inject ICheapsharkAPIService iCheapsharkAPIService;

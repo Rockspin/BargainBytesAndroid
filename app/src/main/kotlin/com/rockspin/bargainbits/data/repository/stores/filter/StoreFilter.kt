@@ -14,4 +14,6 @@ interface StoreFilter {
      * Finds an instance of [GameStoreFiltered] with the same StoreId and replaces it with the one passed in
      */
     fun updateStore(gameStoreFiltered: GameStoreFiltered)
+
+    val activeStoreIds: Single<Set<String>>
 }

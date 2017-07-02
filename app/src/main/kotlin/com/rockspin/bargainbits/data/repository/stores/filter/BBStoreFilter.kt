@@ -24,9 +24,20 @@ class BBStoreFilter(private val storeRepository: StoreRepository, private val pr
 
     override fun updateStore(gameStoreFiltered: GameStoreFiltered) {
         val filteredStoreIdSet = primitiveStore.getStoredStringSet(STORE_FILTER_KEY)
-        val mutable = filteredStoreIdSet.toMutableSet()
-        if (gameStoreFiltered.isUsed) mutable.remove(gameStoreFiltered.id) else mutable.add(gameStoreFiltered.id)
+        val newFilteredSet: Set<String>
 
-        primitiveStore.storeStringSet(STORE_FILTER_KEY, mutable)
+        if (gameStoreFiltered.isUsed) {
+            newFilteredSet = filteredStoreIdSet.minus(gameStoreFiltered.id)
+        } else {
+            newFilteredSet = filteredStoreIdSet.plus(gameStoreFiltered.id)
+        }
+
+        primitiveStore.storeStringSet(STORE_FILTER_KEY, newFilteredSet)
     }
+
+    override val activeStoreIds: Single<Set<String>> =
+        getStoreList()
+            .map { gameStoresFiltered ->
+                gameStoresFiltered.filter { it.isUsed }.map { it.id }.toSet()
+            }
 }

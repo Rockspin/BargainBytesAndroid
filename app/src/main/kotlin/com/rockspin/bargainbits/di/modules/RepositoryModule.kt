@@ -5,6 +5,8 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.rockspin.apputils.di.annotations.ApplicationScope
 import com.rockspin.bargainbits.data.BBDatabase
+import com.rockspin.bargainbits.data.repository.deals.BBGameDealRepository
+import com.rockspin.bargainbits.data.repository.deals.GameDealRepository
 import com.rockspin.bargainbits.data.repository.storage.BBPrimitiveStore
 import com.rockspin.bargainbits.data.repository.storage.PrimitiveStore
 import com.rockspin.bargainbits.data.repository.stores.BBStoreRepository
@@ -27,6 +29,12 @@ class RepositoryModule {
     @Singleton
     internal fun providesDatabase(@ApplicationScope context: Context): BBDatabase {
         return Room.databaseBuilder(context, BBDatabase::class.java, "bb-database").build()
+    }
+
+    @Provides
+    @Singleton
+    internal fun providesGameDealRepository(gameApiService: GameApiService, database: BBDatabase): GameDealRepository {
+        return BBGameDealRepository(gameApiService, database)
     }
 
     @Provides

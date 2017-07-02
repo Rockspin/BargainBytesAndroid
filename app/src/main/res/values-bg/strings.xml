@@ -9,8 +9,11 @@
 
   <string-array name="deal_list_type">
     <item>Рейтинг</item>
-    <item>Дата</item>
-    <item>Отстъпка</item>
+    <item>Steam Точки</item>
+    <item>Metacritic Точки</item>
+    <item>Най-нови</item>
+    <item>Дата на пускане</item>
+    <item>Отсъпка</item>
     <item>Цена</item>
   </string-array>
 
@@ -79,4 +82,11 @@
     <string name="active_stores_header_title">Интересувам се от</string>
   <string name="inactive_stores_header_title">Не се интересувам от</string>
     <string name="try_again">Зареди Отново</string>
+    <string name="deal_list_savings_percent"><strong>%d%%</strong><br/><small>Отстъпка</small></string>
+  <string name="date_updated_subtitle">Обновена на %s</string>
+  <string name="metacritic_subtitle">Metascore %d</string>
+  <string name="rating_subtitle">Рейтинг %.01f</string>
+  <string name="release_date_future_subtitle">Излиза на %s</string>
+  <string name="release_date_subtitle">Излязла на %s</string>
+  <string name="steam_rating_subtitle">Stream рейтинг %d</string>
 </resources>

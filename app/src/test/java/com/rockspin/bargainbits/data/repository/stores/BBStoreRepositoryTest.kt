@@ -3,7 +3,7 @@ package com.rockspin.bargainbits.data.repository.stores
 import com.nhaarman.mockito_kotlin.*
 import com.rockspin.bargainbits.data.BBDatabase
 import com.rockspin.bargainbits.data.models.GameStore
-import com.rockspin.bargainbits.data.models.GameStoreDao
+import com.rockspin.bargainbits.data.models.daos.GameStoreDao
 import com.rockspin.bargainbits.data.models.Store
 import com.rockspin.bargainbits.data.repository.storage.PrimitiveStore
 import com.rockspin.bargainbits.data.rest_client.GameApiService

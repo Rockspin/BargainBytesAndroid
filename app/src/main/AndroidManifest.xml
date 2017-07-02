@@ -29,7 +29,7 @@
             />
 
         <activity
-            android:name=".ui.top_navigation.TopNavigationActivity"
+            android:name=".ui.deals.DealListActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name">
             <intent-filter>
@@ -43,7 +43,7 @@
             android:name=".ui.watch_list.WatchListActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/watch_list"
-            android:parentActivityName=".ui.top_navigation.TopNavigationActivity"/>
+            android:parentActivityName=".ui.deals.DealListActivity"/>
 
         <activity
             android:name=".ui.search.detail.SearchDetailActivity"
@@ -54,7 +54,7 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_games_search"
             android:launchMode="singleTop"
-            android:parentActivityName=".ui.top_navigation.TopNavigationActivity"
+            android:parentActivityName=".ui.deals.DealListActivity"
             >
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH"/>

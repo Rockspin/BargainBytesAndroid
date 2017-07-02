@@ -8,7 +8,6 @@ package com.rockspin.bargainbits
 
 import android.app.Activity
 import android.app.Application
-import android.content.Context
 import com.evernote.android.job.JobManager
 import com.rockspin.apputils.di.modules.application.ApplicationModule
 import com.rockspin.bargainbits.di.components.DaggerApplicationComponent
@@ -43,20 +42,5 @@ class BargainBytesApp : Application(), HasActivityInjector {
 
     override fun activityInjector(): DispatchingAndroidInjector<Activity> {
         return dispatchingActivityInjector
-    }
-
-    companion object {
-
-        /**
-         * With dagger this shouldn't be necessary
-         */
-        @Deprecated("")
-        fun from(context: Context): BargainBytesApp {
-            if (context is BargainBytesApp) {
-                return context
-            } else {
-                return context.applicationContext as BargainBytesApp
-            }
-        }
     }
 }
