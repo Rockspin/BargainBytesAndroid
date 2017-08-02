@@ -9,8 +9,6 @@ package com.rockspin.bargainbits.data.repository;
 import android.util.Pair;
 import com.annimon.stream.Stream;
 import com.fernandocejas.arrow.optional.Optional;
-import com.rockspin.apputils.cache.helper.SimpleCacheReader;
-import com.rockspin.apputils.cache.helper.SimpleCacheWriter;
 import com.rockspin.apputils.cache.interfaces.ICacheReader;
 import com.rockspin.apputils.cache.interfaces.ICacheWriter;
 import com.rockspin.bargainbits.data.models.cheapshark.CompactDeal;

@@ -1,7 +1,6 @@
 package com.rockspin.bargainbits.data.models.cheapshark;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 
 import android.support.v4.content.ContextCompat;
@@ -25,20 +24,6 @@ public final class StoresData {
         }
     }
 
-    public final int getNumStores() {
-        return mStoreSet.size();
-    }
-
-    /**
-     * Retrieves the proper store name given an ID
-     *
-     * @param id Store id.
-     * @return string.
-     */
-    public final String getStoreNameForId(final String id) {
-        return mStoreNameMap.get(id);
-    }
-
     /**
      * Retrieves the proper store drawable for an ID
      *
@@ -47,7 +32,6 @@ public final class StoresData {
      */
     public static Drawable getStoreIconDrawableForId(final String id, final Context context) {
         final int idInt = Integer.valueOf(id);
-        Resources resources = context.getResources();
         switch (idInt) {
             // Steam
             case 1:
@@ -106,9 +90,5 @@ public final class StoresData {
             default:
                 return ContextCompat.getDrawable(context, R.drawable.ic_store_generic);
         }
-    }
-
-    public Set<Store> getStoreSet() {
-        return mStoreSet;
     }
 }
