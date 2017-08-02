@@ -30,22 +30,6 @@ public class CompactDeal {
 
     //TODO: look at the mHighestNormalPrice and the mLowestSalePrice and see if i need to use the deal with the highest price.
 
-    /**
-     * Construct a DisplayDeal object with a root deal
-     *
-     * @param deal Deal to add as the first one in the list.
-     */
-    public CompactDeal(final Deal deal) {
-        mGameName = deal.getTitle();
-        mLowestSalePrice = deal.getSalePrice();
-        mHighestNormalPrice = deal.getNormalPrice();
-        mTopSavings = deal.getSavings();
-        mThumbnailURL = deal.getThumb();
-        mReleaseDateSeconds = deal.getReleaseDate();
-        mGameId = deal.getGameID();
-        mDealList.add(deal);
-    }
-
     public CompactDeal(List<Deal> deals, Deal cheapestDeal) {
         mGameName = cheapestDeal.getTitle();
         mLowestSalePrice = cheapestDeal.getSalePrice();
@@ -70,7 +54,6 @@ public class CompactDeal {
                                  .map(DealUtils::abbreviatedDealToDeal)
                                  .sortBy(Deal::getSalePrice)
                                  .custom(new CustomOperators.ToList<>());
-                                 //.custom(new ToSortedList<Deal>((lhs, rhs) -> Float.compare(lhs.getSalePrice(), rhs.getSalePrice())));
         mDealList.addAll(deals);
 
         mLowestSalePrice = deals.get(0)
@@ -80,10 +63,6 @@ public class CompactDeal {
         mTopSavings = deals.get(0)
                            .getSavings();
         mReleaseDateSeconds = 0L;
-    }
-
-    public boolean canContain(final Deal deal) {
-        return mDealList.isEmpty() || deal.equals(mDealList.get(0));
     }
 
     public String getGameName() {

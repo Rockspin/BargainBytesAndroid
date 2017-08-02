@@ -11,7 +11,7 @@ import io.reactivex.Flowable
 interface DbDealsDao {
 
     @Query("SELECT * FROM dbdeals WHERE key = (:p0) LIMIT 1")
-    fun getDbDeals(key: String): Flowable<DbDeals>
+    fun getDbDeals(p0: String): Flowable<DbDeals>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(dbDeals: DbDeals)

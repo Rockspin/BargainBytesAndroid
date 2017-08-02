@@ -47,10 +47,6 @@ public class StoresRepository {
                      .toMap(Store::getStoreId);
     }
 
-    public Observable<Store> getStoreForId(String storeID) {
-        return getStoresMap().map(stores -> stores.get(storeID));
-    }
-
     public Observable<String> getStoreNameForID(String storeID) {
         return getStoresMap().map(stores -> stores.get(storeID))
                              .map(Store::getStoreName);

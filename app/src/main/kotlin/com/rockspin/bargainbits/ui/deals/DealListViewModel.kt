@@ -11,9 +11,8 @@ import com.rockspin.bargainbits.data.repository.stores.filter.StoreFilter
 import com.rockspin.bargainbits.util.ResourceProvider
 import com.rockspin.bargainbits.util.format.PriceFormatter
 import com.rockspin.bargainbits.utils.NetworkUtils
+import io.reactivex.Observable
 import io.reactivex.ObservableTransformer
-import io.reactivex.rxkotlin.merge
-import io.reactivex.rxkotlin.ofType
 import java.text.SimpleDateFormat
 import java.util.Date
 
@@ -61,12 +60,18 @@ class DealListViewModel(
 
     private val actionToResult = ObservableTransformer<DealListAction, Result> {
         it.publish { shared ->
-            listOf(
-                shared.ofType<DealListAction.LoadDealsWithSortType>().map { it.sortType}.compose(loadDealsActionToDealLoadResult),
-                shared.ofType<DealListAction.CheckForFilterChanges>().map { activeSortType }.compose(loadDealsActionToDealLoadResult),
-                shared.ofType<DealListAction.PerformNavigation>().map { Result.Navigation(it.navigation) },
-                networkUtils.onNetworkChanged().skip(1).map { Result.InternetState(it) })
-                .merge()
+            Observable.merge(
+                shared.ofType<DealListAction.LoadDealsWithSortType>(DealListAction.LoadDealsWithSortType::class.java)
+                        .map { it.sortType}
+                        .compose(loadDealsActionToDealLoadResult),
+                shared.ofType<DealListAction.CheckForFilterChanges>(DealListAction.CheckForFilterChanges::class.java)
+                        .map { activeSortType }
+                        .compose(loadDealsActionToDealLoadResult),
+                shared.ofType<DealListAction.PerformNavigation>(DealListAction.PerformNavigation::class.java)
+                        .map { Result.Navigation(it.navigation) },
+                networkUtils.onNetworkChanged()
+                        .skip(1)
+                        .map { Result.InternetState(it) })
         }
     }
 
