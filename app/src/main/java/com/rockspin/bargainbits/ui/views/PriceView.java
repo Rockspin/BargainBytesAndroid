@@ -17,7 +17,7 @@ import android.widget.TextView;
 
 import com.rockspin.bargainbits.R;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -25,8 +25,8 @@ import butterknife.ButterKnife;
  */
 public class PriceView extends LinearLayout {
 
-    @Bind(R.id.retailPrice) TextView mRetailPrice;
-    @Bind(R.id.salePrice) TextView mSalePrice;
+    @BindView(R.id.retailPrice) TextView mRetailPrice;
+    @BindView(R.id.salePrice) TextView mSalePrice;
 
     public PriceView(final Context context) {
         super(context);

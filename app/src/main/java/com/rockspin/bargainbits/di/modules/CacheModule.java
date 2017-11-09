@@ -1,14 +1,14 @@
 package com.rockspin.bargainbits.di.modules;
 
 import android.content.Context;
-import com.rockspin.apputils.cache.LruDiscCache;
-import com.rockspin.apputils.cache.LruMemoryCache;
-import com.rockspin.apputils.cache.helper.SimpleCacheReader;
-import com.rockspin.apputils.cache.helper.SimpleCacheWriter;
-import com.rockspin.apputils.cache.interfaces.ICacheReader;
-import com.rockspin.apputils.cache.interfaces.ICacheWriter;
-import com.rockspin.apputils.cache.interfaces.IDiscDatabase;
-import com.rockspin.apputils.di.annotations.ApplicationScope;
+import com.rockspin.bargainbits.cache.LruDiscCache;
+import com.rockspin.bargainbits.cache.LruMemoryCache;
+import com.rockspin.bargainbits.cache.helper.SimpleCacheReader;
+import com.rockspin.bargainbits.cache.helper.SimpleCacheWriter;
+import com.rockspin.bargainbits.cache.interfaces.ICacheReader;
+import com.rockspin.bargainbits.cache.interfaces.ICacheWriter;
+import com.rockspin.bargainbits.cache.interfaces.IDiscDatabase;
+import com.rockspin.bargainbits.di.annotations.ApplicationScope;
 import dagger.Module;
 import dagger.Provides;
 import java.io.File;

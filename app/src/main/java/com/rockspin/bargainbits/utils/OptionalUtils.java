@@ -1,7 +1,7 @@
 package com.rockspin.bargainbits.utils;
 
 import com.fernandocejas.arrow.optional.Optional;
-import com.rockspin.apputils.Preconditions;
+import com.rockspin.bargainbits.Preconditions;
 import rx.functions.Func0;
 
 public class OptionalUtils {

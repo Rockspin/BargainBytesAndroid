@@ -10,12 +10,16 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
+
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.rockspin.bargainbits.R;
-import dagger.android.support.AndroidSupportInjection;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.inject.Inject;
+
+import dagger.android.support.AndroidSupportInjection;
 import rx.Observable;
 import rx.subjects.PublishSubject;
 

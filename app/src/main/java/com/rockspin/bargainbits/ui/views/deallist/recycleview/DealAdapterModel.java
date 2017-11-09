@@ -5,6 +5,7 @@ import com.rockspin.bargainbits.CustomOperators.ToList;
 import com.rockspin.bargainbits.data.models.GameInfo;
 import com.rockspin.bargainbits.ui.views.deallist.recycleview.storesgrid.StoreEntryViewModel;
 import com.rockspin.bargainbits.utils.DealUtils;
+
 import java.util.List;
 
 public class DealAdapterModel {

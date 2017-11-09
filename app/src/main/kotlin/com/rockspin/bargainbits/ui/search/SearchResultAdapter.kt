@@ -4,7 +4,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.jakewharton.rxbinding2.view.clicks
-import com.rockspin.apputils.di.annotations.ActivityScope
+import com.rockspin.bargainbits.di.annotations.ActivityScope
 import com.rockspin.bargainbits.databinding.ItemSearchResultBinding
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject

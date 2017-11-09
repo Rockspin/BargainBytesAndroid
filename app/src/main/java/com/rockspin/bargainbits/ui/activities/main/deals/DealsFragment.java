@@ -14,25 +14,26 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import butterknife.Bind;
-import butterknife.ButterKnife;
-import com.fernandocejas.arrow.checks.Preconditions;
+
 import com.jakewharton.rxbinding.view.RxView;
 import com.rockspin.bargainbits.R;
 import com.rockspin.bargainbits.data.repository.DealRepository;
 import com.rockspin.bargainbits.ui.views.deallist.DealsListView;
 import com.rockspin.bargainbits.ui.views.deallist.view.DealsListPresenter;
-import com.rockspin.bargainbits.ui.views.deallist.view.DealsListViewImpl;
-import dagger.android.support.AndroidSupportInjection;
+
 import javax.inject.Inject;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import dagger.android.support.AndroidSupportInjection;
 import rx.Observable;
 
 public final class DealsFragment extends Fragment implements DealFragmentPresenter.View {
     private static final String DEALS_SORTING_KEY = "DEALS_SORTING_KEY";
 
-    public @Bind(R.id.deals_view) DealsListView dealsListView;
-    @Bind(R.id.standardProgressBar) ProgressBar mProgressBar;
-    @Bind(R.id.emptyView) android.view.View mDealsEmptyView;
+    public @BindView(R.id.deals_view) DealsListView dealsListView;
+    @BindView(R.id.standardProgressBar) ProgressBar mProgressBar;
+    @BindView(R.id.emptyView) android.view.View mDealsEmptyView;
 
     @Inject DealFragmentPresenter dealFragmentPresenter;
     @Inject DealsListPresenter dealsListPresenter;

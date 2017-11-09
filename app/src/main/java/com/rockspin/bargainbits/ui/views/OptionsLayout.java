@@ -10,11 +10,14 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+
 import com.fernandocejas.arrow.checks.Preconditions;
 import com.jakewharton.rxbinding.view.RxView;
 import com.rockspin.bargainbits.R;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import rx.Observable;
 
 /**

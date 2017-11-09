@@ -1,6 +1,7 @@
 package com.rockspin.bargainbits.ui.views.deallist.view;
 
 import android.support.annotation.NonNull;
+
 import com.rockspin.bargainbits.data.models.cheapshark.CompactDeal;
 import com.rockspin.bargainbits.data.repository.DealRepository;
 import com.rockspin.bargainbits.ui.BasePresenter;
@@ -8,8 +9,11 @@ import com.rockspin.bargainbits.ui.dialogs.store_picker.StorePickerAdapter;
 import com.rockspin.bargainbits.ui.views.deallist.DealShareModel;
 import com.rockspin.bargainbits.ui.views.deallist.recycleview.DealAdapterModel;
 import com.rockspin.bargainbits.watch_list.WatchedItem;
+
 import java.util.List;
+
 import javax.inject.Inject;
+
 import rx.Observable;
 
 public class DealsListPresenter extends BasePresenter<DealsListPresenter.View, DealsListModel, Void> {

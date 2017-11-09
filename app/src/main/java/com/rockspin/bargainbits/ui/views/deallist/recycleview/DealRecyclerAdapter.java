@@ -15,19 +15,20 @@ import android.view.animation.AlphaAnimation;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import butterknife.Bind;
-import butterknife.ButterKnife;
+
 import com.jakewharton.rxbinding.view.RxView;
-import com.rockspin.apputils.di.annotations.ActivityScope;
 import com.rockspin.bargainbits.R;
 import com.rockspin.bargainbits.ui.views.OptionsLayout;
 import com.rockspin.bargainbits.ui.views.PriceView;
 import com.rockspin.bargainbits.ui.views.WebImageView;
 import com.rockspin.bargainbits.ui.views.deallist.recycleview.storesgrid.StoreGridImageAdapter;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import javax.inject.Inject;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import rx.Observable;
 import rx.subjects.PublishSubject;
 
@@ -175,14 +176,14 @@ public final class DealRecyclerAdapter extends RecyclerView.Adapter<DealRecycler
             Arrays.asList(new OptionsLayout.Option(R.drawable.ic_storelink_grey600_36dp), new OptionsLayout.Option(R.drawable.ic_eye_grey600_36dp),
                 new OptionsLayout.Option(R.drawable.ic_share_variant_grey600_36dp));
 
-        @Bind(R.id.dealGameTitle) TextView gameTitle;
-        @Bind(R.id.gameThumb) WebImageView gameThumbImage;
-        @Bind(R.id.storeGridView) GridView storeGridView;
-        @Bind(R.id.priceHolder) PriceView priceView;
-        @Bind(R.id.releaseDate) TextView releaseDate;
-        @Bind(R.id.savingPercentage) TextView savingsView;
-        @Bind(R.id.dealContainer) LinearLayout dealContainer;
-        @Bind(R.id.optionsLayout) OptionsLayout optionsLayout;
+        @BindView(R.id.dealGameTitle) TextView gameTitle;
+        @BindView(R.id.gameThumb) WebImageView gameThumbImage;
+        @BindView(R.id.storeGridView) GridView storeGridView;
+        @BindView(R.id.priceHolder) PriceView priceView;
+        @BindView(R.id.releaseDate) TextView releaseDate;
+        @BindView(R.id.savingPercentage) TextView savingsView;
+        @BindView(R.id.dealContainer) LinearLayout dealContainer;
+        @BindView(R.id.optionsLayout) OptionsLayout optionsLayout;
 
         private final int mSelectedColor;
 

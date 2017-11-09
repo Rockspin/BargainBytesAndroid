@@ -7,7 +7,7 @@ import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
-import com.rockspin.apputils.di.annotations.ApplicationScope;
+import com.rockspin.bargainbits.di.annotations.ApplicationScope;
 import javax.inject.Inject;
 
 import io.reactivex.Observable;

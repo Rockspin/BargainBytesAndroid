@@ -17,12 +17,14 @@ import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.TextSwitcher;
 import android.widget.TextView;
-import butterknife.Bind;
-import butterknife.ButterKnife;
+
 import com.jakewharton.rxbinding.widget.RxRadioGroup;
 import com.jakewharton.rxbinding.widget.RxSeekBar;
 import com.rockspin.bargainbits.R;
 import com.rockspin.bargainbits.watch_list.WatchedItem;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import rx.Observable;
 import rx.subjects.BehaviorSubject;
 
@@ -33,10 +35,10 @@ public class EditWatchedListEntryView extends LinearLayout implements EditWatchL
 
     private final Observable<Integer> selectedPrice;
 
-    @Bind(R.id.watch_type_radio_group) RadioGroup mWatchTypeRadioGroup;
-    @Bind(R.id.price_picker_title) TextView mPricePickerTitleTV;
-    @Bind(R.id.price_picker_description) TextSwitcher mPricePickerDescriptionTV;
-    @Bind(R.id.price_number_picker) SeekBar seekBar;
+    @BindView(R.id.watch_type_radio_group) RadioGroup mWatchTypeRadioGroup;
+    @BindView(R.id.price_picker_title) TextView mPricePickerTitleTV;
+    @BindView(R.id.price_picker_description) TextSwitcher mPricePickerDescriptionTV;
+    @BindView(R.id.price_number_picker) SeekBar seekBar;
 
     private EditWatchListEntryPresenter presenter;
 

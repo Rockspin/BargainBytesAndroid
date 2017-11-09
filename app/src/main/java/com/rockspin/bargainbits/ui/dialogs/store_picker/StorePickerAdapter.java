@@ -15,14 +15,18 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import auto.parcel.AutoParcel;
-import butterknife.Bind;
-import butterknife.ButterKnife;
+
 import com.fernandocejas.arrow.optional.Optional;
-import com.rockspin.apputils.di.annotations.ActivityScope;
 import com.rockspin.bargainbits.R;
+import com.rockspin.bargainbits.di.annotations.ActivityScope;
+
 import java.util.ArrayList;
+
 import javax.inject.Inject;
+
+import auto.parcel.AutoParcel;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import me.grantland.widget.AutofitHelper;
 
 import static com.rockspin.bargainbits.utils.OptionalUtils.or;
@@ -59,9 +63,9 @@ public class StorePickerAdapter extends ArrayAdapter<StorePickerAdapter.StorePic
     }
 
     public static class ViewHolder {
-        @Bind(R.id.storeImage) ImageView storeImage;
-        @Bind(R.id.storeName) TextView storeName;
-        @Bind(R.id.salePrice) TextView salePrice;
+        @BindView(R.id.storeImage) ImageView storeImage;
+        @BindView(R.id.storeName) TextView storeName;
+        @BindView(R.id.salePrice) TextView salePrice;
 
         public ViewHolder(View view) {
             super();

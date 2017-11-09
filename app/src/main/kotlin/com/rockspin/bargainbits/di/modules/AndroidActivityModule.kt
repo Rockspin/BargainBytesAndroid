@@ -1,8 +1,8 @@
 package com.rockspin.bargainbits.di.modules
 
 import android.app.Activity
-import com.rockspin.apputils.di.BaseActivityComponentBuilder
-import com.rockspin.apputils.di.modules.activities.ActivityModule
+import com.rockspin.bargainbits.di.BaseActivityComponentBuilder
+import com.rockspin.bargainbits.di.modules.activities.ActivityModule
 import com.rockspin.bargainbits.ui.search.SearchActivity
 import com.rockspin.bargainbits.ui.search.detail.SearchDetailActivity
 import com.rockspin.bargainbits.ui.deals.DealListActivity

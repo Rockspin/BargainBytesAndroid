@@ -46,7 +46,7 @@ class SearchDetailActivity : BaseMvpActivity<SearchDetailPresenter.View, SearchD
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_search_detail)
 
-        setSupportActionBar(binding.searchDetailToolbar.toolbar)
+        setSupportActionBar(binding.searchDetailToolbar!!.toolbar)
         supportActionBar?.setHomeButtonEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 

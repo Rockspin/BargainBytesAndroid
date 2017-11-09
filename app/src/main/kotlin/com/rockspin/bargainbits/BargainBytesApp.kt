@@ -9,7 +9,7 @@ package com.rockspin.bargainbits
 import android.app.Activity
 import android.app.Application
 import com.evernote.android.job.JobManager
-import com.rockspin.apputils.di.modules.application.ApplicationModule
+import com.rockspin.bargainbits.di.modules.application.ApplicationModule
 import com.rockspin.bargainbits.di.components.DaggerApplicationComponent
 import com.rockspin.bargainbits.utils.environment.IServices
 import com.rockspin.bargainbits.watch_list.job.WatchListCheckJob

@@ -3,7 +3,7 @@ package com.rockspin.bargainbits.di.modules
 import android.arch.persistence.room.Room
 import android.content.Context
 import android.content.SharedPreferences
-import com.rockspin.apputils.di.annotations.ApplicationScope
+import com.rockspin.bargainbits.di.annotations.ApplicationScope
 import com.rockspin.bargainbits.data.BBDatabase
 import com.rockspin.bargainbits.data.repository.deals.BBGameDealRepository
 import com.rockspin.bargainbits.data.repository.deals.GameDealRepository

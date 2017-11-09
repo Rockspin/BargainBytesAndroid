@@ -3,8 +3,10 @@ package com.rockspin.bargainbits.ui;
 import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+
 import com.fernandocejas.arrow.checks.Preconditions;
 import com.rockspin.bargainbits.ui.mvp.BaseMvpPresenter;
+
 import rx.Subscription;
 import rx.subscriptions.CompositeSubscription;
 

@@ -3,9 +3,12 @@ package com.rockspin.bargainbits.ui.activities.main.storesdrawer;
 import com.rockspin.bargainbits.data.models.Store;
 import com.rockspin.bargainbits.ui.BasePresenter;
 import com.rockspin.bargainbits.ui.activities.main.storesdrawer.adapter.StoreEnabled;
+
 import java.util.List;
+
 import javax.inject.Inject;
 import javax.inject.Named;
+
 import rx.Observable;
 import rx.Scheduler;
 

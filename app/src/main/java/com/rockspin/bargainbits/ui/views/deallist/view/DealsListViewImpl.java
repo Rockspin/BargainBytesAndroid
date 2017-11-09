@@ -16,6 +16,7 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.rockspin.bargainbits.R;
 import com.rockspin.bargainbits.data.repository.DealRepository;
 import com.rockspin.bargainbits.data.repository.WatchListRepository;
@@ -28,7 +29,9 @@ import com.rockspin.bargainbits.ui.views.deallist.recycleview.DealAdapterModel;
 import com.rockspin.bargainbits.ui.views.deallist.recycleview.DealRecyclerAdapter;
 import com.rockspin.bargainbits.utils.DealUtils;
 import com.rockspin.bargainbits.watch_list.WatchedItem;
+
 import java.util.List;
+
 import rx.Observable;
 import rx.subjects.BehaviorSubject;
 

@@ -13,7 +13,6 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
@@ -21,7 +20,7 @@ import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.rockspin.bargainbits.R;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -30,8 +29,8 @@ import butterknife.ButterKnife;
  */
 public final class WebImageView extends FrameLayout {
 
-    @Bind(R.id.imageView) ImageView mImageView;
-    @Bind(R.id.progressBar) ProgressBar mProgressBar;
+    @BindView(R.id.imageView) ImageView mImageView;
+    @BindView(R.id.progressBar) ProgressBar mProgressBar;
 
     /**
      * Represents a layout holding an image view that loads

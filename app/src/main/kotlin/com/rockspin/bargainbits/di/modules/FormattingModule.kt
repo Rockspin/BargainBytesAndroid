@@ -2,7 +2,7 @@ package com.rockspin.bargainbits.di.modules
 
 import android.content.Context
 import android.support.annotation.StringRes
-import com.rockspin.apputils.di.annotations.ApplicationScope
+import com.rockspin.bargainbits.di.annotations.ApplicationScope
 import com.rockspin.bargainbits.util.ResourceProvider
 import com.rockspin.bargainbits.util.format.BBPriceFormatter
 import com.rockspin.bargainbits.util.format.PriceFormatter

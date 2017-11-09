@@ -14,13 +14,17 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import butterknife.Bind;
-import butterknife.ButterKnife;
-import com.rockspin.apputils.di.annotations.ActivityScope;
+
 import com.rockspin.bargainbits.R;
 import com.rockspin.bargainbits.data.models.cheapshark.StoresData;
+import com.rockspin.bargainbits.di.annotations.ActivityScope;
+
 import java.util.ArrayList;
+
 import javax.inject.Inject;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import rx.subjects.PublishSubject;
 
 /**
@@ -95,9 +99,9 @@ public final class StoreDrawerListAdapter extends ArrayAdapter<StoreEnabled> {
     }
 
     public static class ViewHolder {
-        @Bind(R.id.storeImage) ImageView storeImage;
-        @Bind(R.id.storeTitle) TextView storeName;
-        @Bind(R.id.storeSwitch) SwitchCompat storeSwitch;
+        @BindView(R.id.storeImage) ImageView storeImage;
+        @BindView(R.id.storeTitle) TextView storeName;
+        @BindView(R.id.storeSwitch) SwitchCompat storeSwitch;
 
         public ViewHolder(View view) {
             ButterKnife.bind(this, view);

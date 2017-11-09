@@ -5,7 +5,7 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonDeserializer
 import com.google.gson.reflect.TypeToken
-import com.rockspin.apputils.di.annotations.ApplicationScope
+import com.rockspin.bargainbits.di.annotations.ApplicationScope
 import com.rockspin.bargainbits.data.models.GameInfo
 import com.rockspin.bargainbits.data.rest_client.GameApiService
 import com.rockspin.bargainbits.data.rest_client.ICheapsharkAPIService

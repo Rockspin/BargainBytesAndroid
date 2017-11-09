@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
-import com.rockspin.apputils.di.annotations.ApplicationScope;
+import com.rockspin.bargainbits.di.annotations.ApplicationScope;
 import com.rockspin.bargainbits.R;
 import com.rockspin.bargainbits.data.models.Store;
 import com.rockspin.bargainbits.data.repository.stores.StoreRepository;

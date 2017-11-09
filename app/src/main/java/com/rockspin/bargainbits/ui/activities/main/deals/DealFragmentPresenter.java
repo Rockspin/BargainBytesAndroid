@@ -1,7 +1,9 @@
 package com.rockspin.bargainbits.ui.activities.main.deals;
 
 import com.rockspin.bargainbits.ui.BasePresenter;
+
 import javax.inject.Inject;
+
 import rx.Observable;
 
 public class DealFragmentPresenter extends BasePresenter<DealFragmentPresenter.View, DealFragmentPresenter.Model, Void> {

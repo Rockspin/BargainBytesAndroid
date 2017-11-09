@@ -12,16 +12,21 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import butterknife.Bind;
-import butterknife.ButterKnife;
+
 import com.jakewharton.rxbinding.view.RxView;
 import com.jakewharton.rxbinding.widget.RxCompoundButton;
 import com.rockspin.bargainbits.R;
 import com.rockspin.bargainbits.ui.activities.main.storesdrawer.adapter.StoreDrawerListAdapter;
 import com.rockspin.bargainbits.ui.activities.main.storesdrawer.adapter.StoreEnabled;
-import dagger.android.support.AndroidSupportInjection;
+
 import java.util.List;
+
 import javax.inject.Inject;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+import dagger.android.support.AndroidSupportInjection;
 import rx.Observable;
 
 public class StoresDrawerFragment extends Fragment implements StoresDrawerPresenter.IView{
@@ -31,12 +36,13 @@ public class StoresDrawerFragment extends Fragment implements StoresDrawerPresen
     private View rootView;
 
     protected SwitchCompat allStoresSwitch;
-    @Bind(R.id.drawerListview) ListView storeListView;
-    @Bind(R.id.loadingStoresProgressBar) ProgressBar loadingStoresProgressBar;
-    @Bind(R.id.cantLoadStores) TextView cantLoadStores;
+    @BindView(R.id.drawerListview) ListView storeListView;
+    @BindView(R.id.loadingStoresProgressBar) ProgressBar loadingStoresProgressBar;
+    @BindView(R.id.cantLoadStores) TextView cantLoadStores;
 
     @Inject StoresDrawerPresenter presenter;
     @Inject StoreDrawerListAdapter mStoreDrawerListAdapter;
+    private Unbinder unbinder;
 
     @Override
     public void onAttach(Context context) {
@@ -46,7 +52,7 @@ public class StoresDrawerFragment extends Fragment implements StoresDrawerPresen
 
     @Nullable @Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.all_stores_drawer, container, false);
-        ButterKnife.bind(this, rootView);
+        unbinder = ButterKnife.bind(this, rootView);
 
         final View storeListHeader = inflater.inflate(R.layout.stores_list_header, storeListView, false);
 
@@ -71,7 +77,7 @@ public class StoresDrawerFragment extends Fragment implements StoresDrawerPresen
 
     @Override public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+        unbinder.unbind();
     }
 
     //StoresDrawerPresenter.View

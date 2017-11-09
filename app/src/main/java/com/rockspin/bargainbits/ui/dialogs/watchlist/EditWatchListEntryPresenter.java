@@ -4,7 +4,9 @@ import com.fernandocejas.arrow.checks.Preconditions;
 import com.rockspin.bargainbits.ui.BasePresenter;
 import com.rockspin.bargainbits.util.format.PriceFormatter;
 import com.rockspin.bargainbits.watch_list.WatchedItem;
+
 import javax.inject.Inject;
+
 import rx.Observable;
 import rx.Single;
 

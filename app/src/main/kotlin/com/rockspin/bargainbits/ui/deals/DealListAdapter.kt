@@ -5,7 +5,7 @@ import android.text.Html
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
-import com.rockspin.apputils.di.annotations.ActivityScope
+import com.rockspin.bargainbits.di.annotations.ActivityScope
 import com.rockspin.bargainbits.R
 import com.rockspin.bargainbits.databinding.ItemGameDealBinding
 import com.rockspin.bargainbits.util.visible

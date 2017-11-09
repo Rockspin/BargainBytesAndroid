@@ -1,6 +1,6 @@
 package com.rockspin.bargainbits.di.components;
 
-import com.rockspin.apputils.di.modules.application.ApplicationModule;
+import com.rockspin.bargainbits.di.modules.application.ApplicationModule;
 import com.rockspin.bargainbits.BargainBytesApp;
 import com.rockspin.bargainbits.di.modules.APIServiceModule;
 import com.rockspin.bargainbits.di.modules.AndroidActivityModule;

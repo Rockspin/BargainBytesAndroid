@@ -7,7 +7,7 @@ import android.support.annotation.NonNull;
 import com.evernote.android.job.Job;
 import com.evernote.android.job.JobManager;
 import com.evernote.android.job.JobRequest;
-import com.rockspin.apputils.di.annotations.ApplicationScope;
+import com.rockspin.bargainbits.di.annotations.ApplicationScope;
 import com.rockspin.bargainbits.data.repository.WatchListRepository;
 import com.rockspin.bargainbits.util.format.PriceFormatter;
 

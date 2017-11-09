@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.support.v7.widget.Toolbar
 import android.view.View
 import android.widget.Button
-import butterknife.Bind
+import butterknife.BindView
 import butterknife.ButterKnife
 import com.jakewharton.rxbinding2.view.RxView
 import com.rockspin.bargainbits.R
@@ -22,11 +22,11 @@ class WatchListActivity : BaseMvpActivity<WatchListView, WatchListPresenter>(), 
     @Inject override lateinit var presenter: WatchListPresenter
     @Inject lateinit var dealsListPresenter: DealsListPresenter
 
-    @Bind(R.id.watchlist_toolbar) lateinit var toolbar: Toolbar
-    @Bind(R.id.watchlist_deals_list) lateinit var dealsList: DealsListView
-    @Bind(R.id.watchlist_layout_loading) lateinit var loadingView: View
-    @Bind(R.id.watchlist_button_back) lateinit var backButton: Button
-    @Bind(R.id.watchlist_layout_no_results) lateinit var noResultsView: View
+    @BindView(R.id.watchlist_toolbar) lateinit var toolbar: Toolbar
+    @BindView(R.id.watchlist_deals_list) lateinit var dealsList: DealsListView
+    @BindView(R.id.watchlist_layout_loading) lateinit var loadingView: View
+    @BindView(R.id.watchlist_button_back) lateinit var backButton: Button
+    @BindView(R.id.watchlist_layout_no_results) lateinit var noResultsView: View
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

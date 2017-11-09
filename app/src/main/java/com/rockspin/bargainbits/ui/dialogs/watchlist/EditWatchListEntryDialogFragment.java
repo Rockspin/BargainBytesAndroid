@@ -12,15 +12,17 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.view.View;
-import butterknife.Bind;
+
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.fernandocejas.arrow.checks.Preconditions;
-import com.rockspin.bargainbits.BargainBytesApp;
 import com.rockspin.bargainbits.R;
 import com.rockspin.bargainbits.data.repository.WatchListRepository;
 import com.rockspin.bargainbits.watch_list.WatchedItem;
-import dagger.android.support.AndroidSupportInjection;
+
 import javax.inject.Inject;
+
+import butterknife.BindView;
+import dagger.android.support.AndroidSupportInjection;
 
 /**
  * Dialog that allows users to customise a watch_list entry.
@@ -28,7 +30,7 @@ import javax.inject.Inject;
 public class EditWatchListEntryDialogFragment extends DialogFragment {
     private static final String WATCHED_ITEM_KEY = "WATCHED_ITEM_KEY";
 
-    @Bind(R.id.edit_watchlist_view) IView view;
+    @BindView(R.id.edit_watchlist_view) IView view;
     private WatchedItem itemToEditOrRemove;
     private View customView;
     @Inject WatchListRepository watchListRepository;
