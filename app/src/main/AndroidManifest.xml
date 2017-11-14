@@ -2,40 +2,35 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.rockspin.bargainbits">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
         android:name=".BargainBytesApp"
         android:allowBackup="true"
+        android:fullBackupContent="@xml/backup_config"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/Theme.BargainBytes"
-        android:fullBackupContent="@xml/backup_config"
-        >
+        android:theme="@style/Theme.BargainBytes">
         <meta-data
             android:name="com.rockspin.bargainbits.GlobalGlideModule"
-            android:value="GlideModule"
-            />
+            android:value="GlideModule" />
         <meta-data
             android:name="android.app.default_searchable"
-            android:value=".ui.search.SearchActivity"
-            />
+            android:value=".ui.search.SearchActivity" />
         <meta-data
             android:name="com.crashlytics.ApiKey"
-            android:value="aedad908e444ea91c914dfdcd02c28807827030b"
-            />
+            android:value="aedad908e444ea91c914dfdcd02c28807827030b" />
 
         <activity
-            android:name=".ui.deals.DealListActivity"
+            android:name=".deals.DealsActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
@@ -43,27 +38,25 @@
             android:name=".ui.watch_list.WatchListActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/watch_list"
-            android:parentActivityName=".ui.deals.DealListActivity"/>
+            android:parentActivityName=".ui.deals.DealListActivity" />
 
         <activity
             android:name=".ui.search.detail.SearchDetailActivity"
-            android:parentActivityName=".ui.search.SearchActivity"/>
+            android:parentActivityName=".ui.search.SearchActivity" />
 
         <activity
             android:name=".ui.search.SearchActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_games_search"
             android:launchMode="singleTop"
-            android:parentActivityName=".ui.deals.DealListActivity"
-            >
+            android:parentActivityName=".ui.deals.DealListActivity">
             <intent-filter>
-                <action android:name="android.intent.action.SEARCH"/>
+                <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
 
             <meta-data
                 android:name="android.app.searchable"
-                android:resource="@xml/searchable"
-                />
+                android:resource="@xml/searchable" />
         </activity>
 
         <!-- This provider is necessary so we can shareDeal data stored internally -->
@@ -71,13 +64,11 @@
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.rockspin.bargainbits.fileprovider"
             android:exported="false"
-            android:grantUriPermissions="true"
-            >
+            android:grantUriPermissions="true">
 
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"
-                />
+                android:resource="@xml/file_paths" />
         </provider>
 
     </application>

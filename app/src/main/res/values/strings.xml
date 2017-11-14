@@ -92,5 +92,6 @@
     <string name="error_no_currency_exchange">Currency exchange data not available. Please try again later.</string>
     <string name="error_cannot_load_deal_url">Cannot load this deal right now.</string>
     <string name="load_stores_error">Can\'t load stores right now.</string>
+    <string name="cd_game_image">Game image</string>
 
 </resources>

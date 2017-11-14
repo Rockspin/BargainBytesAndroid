@@ -7,7 +7,6 @@ import com.rockspin.bargainbits.data.models.Store
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Query
-import retrofit2.http.QueryMap
 
 /**
  * Retrofit instance for the Cheapshark API.
@@ -27,4 +26,7 @@ interface GameApiService {
     fun getDeals(@Query("onSale") onSale: Boolean,
                  @Query("sortBy") sortBy: String,
                  @Query("storeID") storeIds: String): Single<List<GameDeal>>
+
+    @GET("deals?onSale=true")
+    fun getDeals(): Single<List<GameDeal>>
 }
