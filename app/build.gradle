@@ -168,7 +168,7 @@ dependencies {
     // Chrome tabs
     implementation "com.android.support:customtabs:$supportLibVersion"
 
-    // card view // card view
+    // card view
     implementation "com.android.support:cardview-v7:$supportLibVersion"
 
     //Gson

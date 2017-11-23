@@ -27,7 +27,7 @@ import dagger.android.support.AndroidSupportInjection;
 /**
  * Dialog that allows users to customise a watch_list entry.
  */
-public class EditWatchListEntryDialogFragment extends DialogFragment {
+public class EditWatchEntryDialog extends DialogFragment {
     private static final String WATCHED_ITEM_KEY = "WATCHED_ITEM_KEY";
 
     @BindView(R.id.edit_watchlist_view) IView view;
@@ -36,10 +36,10 @@ public class EditWatchListEntryDialogFragment extends DialogFragment {
     @Inject WatchListRepository watchListRepository;
     @Inject EditWatchListEntryPresenter presenter;
 
-    public static EditWatchListEntryDialogFragment newInstance(WatchedItem watchedItem) {
+    public static EditWatchEntryDialog newInstance(WatchedItem watchedItem) {
         Bundle args = new Bundle(1);
         args.putParcelable(WATCHED_ITEM_KEY, watchedItem);
-        EditWatchListEntryDialogFragment fragment = new EditWatchListEntryDialogFragment();
+        EditWatchEntryDialog fragment = new EditWatchEntryDialog();
         fragment.setArguments(args);
         return fragment;
     }

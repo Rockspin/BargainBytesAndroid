@@ -22,7 +22,7 @@ import com.rockspin.bargainbits.data.repository.DealRepository;
 import com.rockspin.bargainbits.data.repository.WatchListRepository;
 import com.rockspin.bargainbits.ui.dialogs.store_picker.StorePickerAdapter;
 import com.rockspin.bargainbits.ui.dialogs.store_picker.StorePickerDialogFragment;
-import com.rockspin.bargainbits.ui.dialogs.watchlist.EditWatchListEntryDialogFragment;
+import com.rockspin.bargainbits.ui.dialogs.watchlist.EditWatchEntryDialog;
 import com.rockspin.bargainbits.ui.views.deallist.DealShareModel;
 import com.rockspin.bargainbits.ui.views.deallist.DealsListView;
 import com.rockspin.bargainbits.ui.views.deallist.recycleview.DealAdapterModel;
@@ -147,8 +147,8 @@ public class DealsListViewImpl extends RecyclerView implements DealsListPresente
     }
 
     @Override public void editOrAddToWatchList(WatchedItem watchedItem) {
-        final EditWatchListEntryDialogFragment editWatchListEntryDialogFragment = EditWatchListEntryDialogFragment.newInstance(watchedItem);
-        editWatchListEntryDialogFragment.show(((AppCompatActivity)getContext()).getSupportFragmentManager(), WATCH_LIST_DIALOG_TAG);
+        final EditWatchEntryDialog editWatchEntryDialog = EditWatchEntryDialog.newInstance(watchedItem);
+        editWatchEntryDialog.show(((AppCompatActivity)getContext()).getSupportFragmentManager(), WATCH_LIST_DIALOG_TAG);
     }
 
     @Override public void removeDealAtIndex(Integer integer) {

@@ -18,7 +18,7 @@ import io.reactivex.subjects.PublishSubject
 import javax.inject.Inject
 import android.support.customtabs.CustomTabsIntent
 import android.support.v4.content.ContextCompat
-import com.rockspin.bargainbits.ui.dialogs.watchlist.EditWatchListEntryDialogFragment
+import com.rockspin.bargainbits.ui.dialogs.watchlist.EditWatchEntryDialog
 import com.rockspin.bargainbits.watch_list.WatchedItem
 
 
@@ -109,8 +109,8 @@ class SearchDetailActivity : BaseMvpActivity<SearchDetailPresenter.View, SearchD
     }
 
     override fun openWatchItemView(watchedItem: WatchedItem) {
-        val dialog = EditWatchListEntryDialogFragment.newInstance(watchedItem)
-        dialog.show(supportFragmentManager, EditWatchListEntryDialogFragment::class.java.simpleName)
+        val dialog = EditWatchEntryDialog.newInstance(watchedItem)
+        dialog.show(supportFragmentManager, EditWatchEntryDialog::class.java.simpleName)
     }
 
     override val onItemClicked: Observable<Int>

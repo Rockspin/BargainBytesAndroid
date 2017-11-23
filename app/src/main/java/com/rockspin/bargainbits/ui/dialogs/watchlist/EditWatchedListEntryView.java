@@ -31,7 +31,7 @@ import rx.subjects.BehaviorSubject;
 /**
  * Represents a view containing the various options available when modifying a watch list item.
  */
-public class EditWatchedListEntryView extends LinearLayout implements EditWatchListEntryPresenter.IView, EditWatchListEntryDialogFragment.IView {
+public class EditWatchedListEntryView extends LinearLayout implements EditWatchListEntryPresenter.IView, EditWatchEntryDialog.IView {
 
     private final Observable<Integer> selectedPrice;
 

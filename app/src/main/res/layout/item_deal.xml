@@ -1,28 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/CardView.Light"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:layout_height="wrap_content">
 
-    <ImageView
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:contentDescription="@string/cd_game_image"
-        android:scaleType="centerInside"/>
-
-    <TextView
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:text="Company of Heroes"/>
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="Now £19.99"/>
+        <TextView
+            android:id="@+id/deal_item_rating"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:gravity="center"
+            style="@style/TextAppearance.AppCompat.Headline.Percentage"
+            android:background="@color/accent_color"
+            tools:text="90%"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="Was £29.99"/>
+        <TextView
+            android:id="@+id/deal_item_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/deal_item_rating"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Company of Heroes" />
 
-</android.support.constraint.ConstraintLayout>
+        <TextView
+            android:id="@+id/deal_item_now"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/deal_item_rating"
+            app:layout_constraintTop_toBottomOf="@+id/deal_item_name"
+            tools:text="Now £19.99" />
+
+        <TextView
+            android:id="@+id/deal_item_was"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/deal_item_now"
+            app:layout_constraintTop_toBottomOf="@+id/deal_item_name"
+            tools:text="Was £29.99" />
+
+    </android.support.constraint.ConstraintLayout>
+</android.support.v7.widget.CardView>

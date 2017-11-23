@@ -3,7 +3,7 @@ package com.rockspin.bargainbits.di.modules
 import com.rockspin.bargainbits.ui.activities.main.deals.DealsFragment
 import com.rockspin.bargainbits.ui.activities.main.storesdrawer.StoresDrawerFragment
 import com.rockspin.bargainbits.ui.dialogs.store_picker.StorePickerDialogFragment
-import com.rockspin.bargainbits.ui.dialogs.watchlist.EditWatchListEntryDialogFragment
+import com.rockspin.bargainbits.ui.dialogs.watchlist.EditWatchEntryDialog
 import com.rockspin.bargainbits.ui.store_filter.StoreFilterDialogFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -12,7 +12,7 @@ import dagger.android.ContributesAndroidInjector
 abstract class AndroidFragmentModule {
 
     @ContributesAndroidInjector
-    internal abstract fun contributeEditWatchListEntryDialogFragmentInjector(): EditWatchListEntryDialogFragment
+    internal abstract fun contributeEditWatchListEntryDialogFragmentInjector(): EditWatchEntryDialog
 
     @ContributesAndroidInjector
     internal abstract fun contributeStorePickerDialogFragmentInjector(): StorePickerDialogFragment

@@ -5,8 +5,11 @@ import android.os.Bundle
 import android.os.PersistableBundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.RecyclerView
+import android.view.LayoutInflater
 import butterknife.BindView
+import butterknife.ButterKnife
 import com.rockspin.bargainbits.R
+import java.util.*
 
 class DealsActivity : AppCompatActivity() {
 
@@ -15,10 +18,12 @@ class DealsActivity : AppCompatActivity() {
 
     private lateinit var viewModel: DealsViewModel
 
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
         setContentView(R.layout.actvity_deals)
+
+        ButterKnife.bind(this)
 
         viewModel = ViewModelProviders.of(this).get(DealsViewModel::class.java)
     }
@@ -26,6 +31,9 @@ class DealsActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
 
-        recyclerView
+        val dealsAdapter = DealsAdapter(LayoutInflater.from(this))
+        recyclerView.adapter = dealsAdapter
+
+        dealsAdapter.setItems(Arrays.asList(Game("1", "Company of heroes", "", Arrays.asList(Deal("1", 23.00, 19.99, 10.00)))))
     }
 }
