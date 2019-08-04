@@ -1,7 +1,5 @@
 package com.rockspin.bargainbits;
 
-import com.crashlytics.android.Crashlytics;
-
 import timber.log.Timber;
 
 /**
@@ -27,8 +25,8 @@ public class TimberUtils {
         @Override public void e(final String message, final Object... args) {/* not used */ }
 
         @Override public void e(final Throwable t, final String message, final Object... args) {
-            Crashlytics.log(message);
-            Crashlytics.logException(t);
+//            Crashlytics.log(message);
+//            Crashlytics.logException(t);
         }
 
         @Override protected void log(int priority, String tag, String message, Throwable t) { /* not used */}
