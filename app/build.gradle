@@ -34,7 +34,7 @@ android {
         applicationId "com.rockspin.bargainbits"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 30
+        versionCode 34
         versionName "1.4.5"
 
         vectorDrawables.useSupportLibrary = true
@@ -88,6 +88,13 @@ android {
 
     dataBinding {
         enabled = true
+    }
+
+    lintOptions {
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
     }
 }
 
