@@ -65,7 +65,7 @@ public final class DealUtils {
         deal.setStoreID(abbreviatedDeal.getStoreID());
         deal.setSalePrice((float) abbreviatedDeal.getPrice());
         deal.setNormalPrice((float) abbreviatedDeal.getRetailPrice());
-        deal.setSavings((float) (abbreviatedDeal.getSavingsFraction() * 100.0f));
+        deal.setSavings((float) (abbreviatedDeal.getSavingsFraction()));
 
         return deal;
     }

@@ -17,6 +17,7 @@ import com.rockspin.bargainbits.data.rest_client.ICheapsharkAPIService;
 import com.rockspin.bargainbits.utils.analytics.IAnalytics;
 import com.rockspin.bargainbits.watch_list.WatchedItem;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -185,6 +186,7 @@ public class WatchListRepository {
 
     private Observable<List<GameInfo>> loadGameInfosFromWatchlist() {
         return iCheapsharkAPIService.getGamesInfo(getGameIdsCommaSeparated())
+                                    .map(mapOfGameInfo -> (List<GameInfo>)new ArrayList<>(mapOfGameInfo.values()))
                                     .filter(gameInfos -> gameInfos != null) // skip nulls
                                     .filter(gameInfos -> !gameInfos.isEmpty());
     }

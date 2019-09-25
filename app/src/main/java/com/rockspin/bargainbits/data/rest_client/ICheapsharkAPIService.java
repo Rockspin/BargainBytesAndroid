@@ -41,5 +41,5 @@ public interface ICheapsharkAPIService {
      * @param commaSeparatedIds  Maximum comma seperated list of 25 game ids.
      * @return Observable that emits a list, null or error.
      */
-    @GET("/games") Observable<List<GameInfo>> getGamesInfo(@Query("ids") String commaSeparatedIds);
+    @GET("/games") Observable<Map<String, GameInfo>> getGamesInfo(@Query("ids") String commaSeparatedIds);
 }
