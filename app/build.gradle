@@ -34,8 +34,8 @@ android {
         applicationId "com.rockspin.bargainbits"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 34
-        versionName "1.4.5"
+        versionCode 37
+        versionName "1.4.7"
 
         vectorDrawables.useSupportLibrary = true
         // TODO - remove multidex once app refactoring to Kotlin is done and all old libraries are removed
