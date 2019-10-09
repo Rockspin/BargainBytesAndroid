@@ -10,6 +10,8 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
+import android.support.v7.widget.LinearLayoutManager;
+
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.rockspin.bargainbits.R;
 import dagger.android.support.AndroidSupportInjection;
@@ -25,7 +27,7 @@ import rx.subjects.PublishSubject;
 public final class StorePickerDialogFragment extends DialogFragment {
     private static final String LIST_KEY = "LIST_KEY";
     private final PublishSubject<Integer> dealPublishSubject = PublishSubject.create();
-    @Inject StorePickerAdapter storePickerAdapter;
+    private StorePickerAdapter storePickerAdapter;
 
     public static StorePickerDialogFragment instantiate(List<StorePickerAdapter.StorePickerData> deals){
         StorePickerDialogFragment storePickerDialogFragment = new StorePickerDialogFragment();
@@ -39,8 +41,7 @@ public final class StorePickerDialogFragment extends DialogFragment {
         AndroidSupportInjection.inject(this);
         super.onAttach(context);
         ArrayList<StorePickerAdapter.StorePickerData> parcelableList = getArguments().getParcelableArrayList(LIST_KEY);
-        storePickerAdapter.clear();
-        storePickerAdapter.addAll(parcelableList);
+        storePickerAdapter = new StorePickerAdapter(context, parcelableList, dealPublishSubject);
     }
 
     @Override @NonNull public MaterialDialog onCreateDialog(final Bundle savedInstanceState) {
@@ -49,8 +50,7 @@ public final class StorePickerDialogFragment extends DialogFragment {
         builder.title(R.string.choose_store_dialog_title)
                .titleColorRes(R.color.primary_color)
                .dividerColorRes(R.color.primary_color)
-               //.adapter(storePickerAdapter, new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false))
-
+               .adapter(storePickerAdapter, new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false))
                .negativeText(R.string.cancel)
                .negativeColorRes(R.color.primary_color);
 

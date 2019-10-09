@@ -6,66 +6,75 @@
 
 package com.rockspin.bargainbits.ui.dialogs.store_picker;
 
-import android.app.Activity;
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Parcelable;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.rockspin.bargainbits.R;
+
+import java.util.List;
+
 import auto.parcel.AutoParcel;
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import com.fernandocejas.arrow.optional.Optional;
-import com.rockspin.apputils.di.annotations.ActivityScope;
-import com.rockspin.bargainbits.R;
-import java.util.ArrayList;
-import javax.inject.Inject;
+import rx.subjects.PublishSubject;
 import me.grantland.widget.AutofitHelper;
-
-import static com.rockspin.bargainbits.utils.OptionalUtils.or;
 
 /**
  * List Adapter for displaying an array of store choices
  */
-public class StorePickerAdapter extends ArrayAdapter<StorePickerAdapter.StorePickerData> {
-    @Inject @ActivityScope LayoutInflater layoutInflater;
+public class StorePickerAdapter extends RecyclerView.Adapter<StorePickerAdapter.StoreViewHolder> {
 
-    @Inject public StorePickerAdapter(final Activity context) {
-        super(context, 0, new ArrayList<>());
+    private final List<StorePickerData> storeList;
+    private final LayoutInflater layoutInflater;
+    private PublishSubject<Integer> selectedDealIndex;
+
+    StorePickerAdapter(final Context context, final List<StorePickerData> storeList, final PublishSubject<Integer> selectedDealIndex) {
+        layoutInflater = LayoutInflater.from(context);
+        this.storeList = storeList;
+        this.selectedDealIndex = selectedDealIndex;
     }
 
-    @Override public View getView(final int position, final View convertView, final ViewGroup parent) {
-        final View rootView = or(Optional.fromNullable(convertView), () -> layoutInflater.inflate(R.layout.store_picker_item_view, parent, false));
+    @Override
+    public StoreViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        final StoreViewHolder holder = new StoreViewHolder(layoutInflater.inflate(R.layout.store_picker_item_view, parent, false));
+        final AutofitHelper autofitHelper = AutofitHelper.create(holder.salePrice);
+        autofitHelper.setMaxLines(1);
+        autofitHelper.setMinTextSize(12);
 
-        final ViewHolder holder = or(Optional.fromNullable((ViewHolder) rootView.getTag()), () -> {
-                                              final ViewHolder viewHolder = new ViewHolder(rootView);
+        holder.itemView.setOnClickListener(v -> selectedDealIndex.onNext(holder.getAdapterPosition()));
 
-                                              final AutofitHelper autofitHelper = AutofitHelper.create(viewHolder.salePrice);
-                                              autofitHelper.setMaxLines(1);
-                                              autofitHelper.setMinTextSize(12);
+        return holder;
 
-                                              rootView.setTag(viewHolder);
-                                              return viewHolder;
-                                          });
+    }
 
-        StorePickerData storePickerDataId = getItem(position);
+    @Override
+    public void onBindViewHolder(StoreViewHolder holder, int position) {
+        StorePickerData storePickerDataId = storeList.get(position);
         holder.storeName.setText(storePickerDataId.storeName());
         holder.storeImage.setImageDrawable(storePickerDataId.storeDrawable());
         holder.salePrice.setText(storePickerDataId.salePrice());
-        return rootView;
     }
 
-    public static class ViewHolder {
+    @Override
+    public int getItemCount() {
+        return storeList.size();
+    }
+
+    static class StoreViewHolder extends RecyclerView.ViewHolder {
         @Bind(R.id.storeImage) ImageView storeImage;
         @Bind(R.id.storeName) TextView storeName;
         @Bind(R.id.salePrice) TextView salePrice;
 
-        public ViewHolder(View view) {
-            super();
-            ButterKnife.bind(this, view);
+        public StoreViewHolder(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
         }
     }
 

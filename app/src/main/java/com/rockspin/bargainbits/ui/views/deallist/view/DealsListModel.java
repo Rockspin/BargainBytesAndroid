@@ -124,11 +124,13 @@ public class DealsListModel {
 
     Observable<List<StorePickerAdapter.StorePickerData>> createStorePickerModels(int index) {
         //TODO: add currency.
-        return Observable.from(getCompactDeal(index).getDealList()).flatMap(deal -> {
-            Drawable drawable = storesRepository.getStoreIconDrawableForId(deal.getStoreID());
-            String savings = String.valueOf(deal.getSalePrice());
-            return storesRepository.getStoreNameForID(deal.getStoreID()).map(name -> StorePickerAdapter.StorePickerData.create(name, drawable, savings));
-        }).toList();
+        return onCurrencyChanged().flatMap(currencyHelper -> Observable.from(getCompactDeal(index).getDealList())
+                .flatMap(deal -> {
+                    Drawable drawable = storesRepository.getStoreIconDrawableForId(deal.getStoreID());
+                    String salePrice = currencyHelper.getFormattedPrice(deal.getSalePrice());
+                    return storesRepository.getStoreNameForID(deal.getStoreID()).map(name -> StorePickerAdapter.StorePickerData.create(name, drawable, salePrice));
+                }).toList()
+        );
     }
 
     String getDealIdAt(int index) {
