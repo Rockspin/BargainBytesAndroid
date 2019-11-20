@@ -21,6 +21,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import rx.Observable;
@@ -186,7 +188,16 @@ public class WatchListRepository {
 
     private Observable<List<GameInfo>> loadGameInfosFromWatchlist() {
         return iCheapsharkAPIService.getGamesInfo(getGameIdsCommaSeparated())
-                                    .map(mapOfGameInfo -> (List<GameInfo>)new ArrayList<>(mapOfGameInfo.values()))
+                                    .map(mapOfGameInfo -> {
+                                        final Set<Map.Entry<String, GameInfo>> entries = mapOfGameInfo.entrySet();
+                                        final List<GameInfo> toReturn = new ArrayList<>(entries.size());
+                                        for (Map.Entry<String, GameInfo> entry : entries) {
+                                            final GameInfo gameInfo = entry.getValue();
+                                            gameInfo.getInfo().setGameId(entry.getKey());
+                                            toReturn.add(gameInfo);
+                                        }
+                                        return toReturn;
+                                    })
                                     .filter(gameInfos -> gameInfos != null) // skip nulls
                                     .filter(gameInfos -> !gameInfos.isEmpty());
     }
